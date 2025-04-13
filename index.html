@@ -27,6 +27,13 @@
         /* Base Styles */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
         html {
             scroll-behavior: smooth;
         }
@@ -36,7 +43,9 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: #0f0f13;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             perspective: 1000px;
         }
 
@@ -324,6 +333,7 @@
 
         /* Main Content */
         main {
+            flex: 1;
             max-width: 1400px;
             margin: 0 auto;
             padding: 8rem 2rem 4rem;
@@ -514,10 +524,17 @@
         }
 
         .project-info h3 {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             font-size: 1.25rem;
             font-weight: 600;
             color: white;
+        }
+        
+        .project-info h4 {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
         }
         
         .project-info p {
@@ -588,7 +605,7 @@
 
         .contact-info {
             background-color: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
+            padding: 2.0rem;
             border-radius: 16px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
@@ -634,8 +651,10 @@
             width: 20px;
             height: 20px;
             margin-right: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            background-image: var(--icon-image);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .social-links {
@@ -688,7 +707,8 @@
             padding: 3rem 2rem;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            width: 100%;
+            margin-top: auto;
         }
         
         footer::before {
@@ -876,34 +896,77 @@
             <div class="projects">
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 1">
+                        <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking System">
                     </div>
                     <div class="project-info">
-                        <h3>Project Alpha</h3>
-                        <p>A responsive e-commerce platform with modern UI and seamless checkout experience.</p>
+                        <h3>Autonomous Braking Control System</h3>
+                        <h4>Highlander Racing - Formula SAE</h4>
+                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts.</p>
                         <a href="#">View Project</a>
                     </div>
                 </div>
+
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 2">
+                        <img src="public/project_roboticarm.jpeg" alt="Robot Arm">
                     </div>
                     <div class="project-info">
-                        <h3>Project Beta</h3>
+                        <h3>Robotic Arm</h3>
+                        <h4>Personal Project</h4>
                         <p>An interactive dashboard for data visualization with real-time analytics.</p>
                         <a href="#">View Project</a>
                     </div>
                 </div>
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="public/project_kidwind.jpeg" alt="Project 3">
+                    </div>
+                    <div class="project-info">
+                        <h3>KidWind Energy Competition</h3>
+                        <h4>World Competition</h4>
+                        <p>A web application for collaborative project management and team communication.</p>
+                        <a href="#">View Project</a>
+                    </div>
+                </div>
+
                 <div class="project-card">
                     <div class="project-img">
                         <img src="/api/placeholder/400/320" alt="Project 3">
                     </div>
                     <div class="project-info">
-                        <h3>Project Gamma</h3>
-                        <p>A web application for collaborative project management and team communication.</p>
+                        <h3>Title</h3>
+                        <h4>Origin</h4>
+                        <p>Description:</p>
                         <a href="#">View Project</a>
                     </div>
                 </div>
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="/api/placeholder/400/320" alt="Project 3">
+                    </div>
+                    <div class="project-info">
+                        <h3>Title</h3>
+                        <h4>Origin</h4>
+                        <p>Description:</p>
+                        <a href="#">View Project</a>
+                    </div>
+                </div>
+
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="/api/placeholder/400/320" alt="Project 3">
+                    </div>
+                    <div class="project-info">
+                        <h3>Title</h3>
+                        <h4>Origin</h4>
+                        <p>Description:</p>
+                        <a href="#">View Project</a>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -921,7 +984,7 @@
                         src="https://www.canva.com/design/DAGkeJ5vOow/IlSh0q5jcuso8BOt-LzLvw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                     </iframe>
                     </div>
-                    <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Beige Minimal Creative Portfolio Presentation</a> by Alex Hernandez
+                    <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
              </div>
         </section>
 
@@ -933,10 +996,10 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Get In Touch</h3>
-                    <p>Email: kennethsross20@gmail.com</p>
-                    <p>Phone: (707) 334-8672</p>
-                    <p>Locations: Bay Area, Ca</p>
-                    <p>Locations: Los Angeles Metropolitan Area, Ca</p>
+                    <p><img src="public/icon_email.png" alt="Email Logo" style="width: 20px; height: 20px; margin-right: 10px;">Email: kennethsross20@gmail.com</p>
+                    <p><img src="public/icon_phone.png" alt="Phone Logo" style="width: 20px; height: 20px; margin-right: 10px;">Phone: (707) 334-8672</p>
+                    <p><img src="public/icon_location.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">Home: Bay Area, Ca</p>
+                    <p><img src="public/icon_education.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">School: University Of California, Riverside</p>
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/kennethsross/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                             <img src="public/logo_linkedin.png" alt="LinkedIn Logo" style="width: 32px; height: 32px;">
@@ -952,7 +1015,7 @@
 
     <footer>
         <div class="footer-content">
-            <p>&copy; 2025 John Doe. All Rights Reserved.</p>
+            <p>Last Updated: April 2025.</p>
         </div>
     </footer>
     
