@@ -811,7 +811,7 @@
 
         .typewriter-text::after {
             content: '|';
-            position: absolute;
+            position: relative;
             right: 0;
             animation: blink 1s step-end infinite;
             display: inline-block; /* Keep cursor on same line */
@@ -830,6 +830,132 @@
         @keyframes deleting {
             from { width: 100% }
             to { width: 0 }
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 8rem;
+            position: relative;
+            padding: 4rem 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .skill-circle {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0;
+            background: rgba(15, 15, 19, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid rgba(37, 99, 235, 0.3);
+        }
+
+        /* Border accent */
+        .skill-circle::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--gradient-dark);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.8;
+            transition: var(--transition);
+            border: 2px solid rgba(37, 99, 235, 0.5);
+        }
+
+        .skill-circle:hover {
+            transform: translateY(-5px);
+            z-index: 2;
+            background: rgba(15, 15, 19, 0.9);
+            border-color: rgba(37, 99, 235, 0.6);
+        }
+
+        .skill-circle:hover::before {
+            opacity: 1;
+            filter: brightness(1.2);
+            border-color: rgba(37, 99, 235, 0.8);
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .skill-circle:hover .skill-icon {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+
+        .skill-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: var(--transition);
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .skill-circle:hover .skill-name {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        @media (max-width: 992px) {
+            .skill-circle {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .skill-row {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skill-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .skill-row {
+                gap: 1rem;
+            }
+            
+            .skill-icon {
+                width: 35px;
+                height: 35px;
+            }
         }
     </style>
 </head>
@@ -1024,6 +1150,70 @@
             </div>
         </section>
 
+        <section id="skills">
+            <div class="section-heading">
+                <h2>Skills & Tools</h2>
+                <p>Technologies and equipment I work with</p>
+            </div>
+            <div class="skills-grid">
+                <!-- Top row - 3 circles -->
+                <div class="skill-row">
+                    <div class="skill-circle">
+                        <img src="public/skills/python.png" alt="Python" class="skill-icon">
+                        <span class="skill-name">Python</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/cpp.png" alt="C++" class="skill-icon">
+                        <span class="skill-name">C++</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/ros.png" alt="ROS" class="skill-icon">
+                        <span class="skill-name">ROS</span>
+                    </div>
+                </div>
+                
+                <!-- Middle row - 5 circles -->
+                <div class="skill-row">
+                    <div class="skill-circle">
+                        <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon">
+                        <span class="skill-name">SolidWorks</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon">
+                        <span class="skill-name">Arduino</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/raspberrypi.png" alt="Raspberry Pi" class="skill-icon">
+                        <span class="skill-name">Raspberry Pi</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/linux.png" alt="Linux" class="skill-icon">
+                        <span class="skill-name">Linux</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/git.png" alt="Git" class="skill-icon">
+                        <span class="skill-name">Git</span>
+                    </div>
+                </div>
+                
+                <!-- Bottom row - 3 circles -->
+                <div class="skill-row">
+                    <div class="skill-circle">
+                        <img src="public/skills/python.png" alt="3D Printing" class="skill-icon">
+                        <span class="skill-name">3D Printing</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/cpp.png" alt="C++" class="skill-icon">
+                        <span class="skill-name">C++</span>
+                    </div>
+                    <div class="skill-circle">
+                        <img src="public/skills/ros.png" alt="ROS" class="skill-icon">
+                        <span class="skill-name">ROS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="featured">
             <div class="section-heading">
                 <h2>Featured Work</h2>
@@ -1050,8 +1240,8 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Get In Touch</h3>
-                    <p><img src="public/icon_email.png" alt="Email Logo" style="width: 20px; height: 20px; margin-right: 10px;">Email: kennethsross20@gmail.com</p>
-                    <p><img src="public/icon_phone.png" alt="Phone Logo" style="width: 20px; height: 20px; margin-right: 10px;">Phone: (707) 334-8672</p>
+                    <!-- <p><img src="public/icon_email.png" alt="Email Logo" style="width: 20px; height: 20px; margin-right: 10px;">Email: EMAIL/p> -->
+                    <!-- <p><img src="public/icon_phone.png" alt="Phone Logo" style="width: 20px; height: 20px; margin-right: 10px;">Phone: NUMBER</p> -->
                     <p><img src="public/icon_location.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">Home: Bay Area, Ca</p>
                     <p><img src="public/icon_education.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">School: University Of California, Riverside</p>
                     <div class="social-links">
@@ -1163,14 +1353,21 @@
 
         /* Typewriter Animation Script */
         const roles = [
-            "passionate engineer",    // Add or modify roles here
-            "robotics enthusiast",    // Each string will be typed out
-            "problem solver",         // in sequence
-            "innovator",             // and loop continuously
-            "tech enthusiast",        // Add more roles as needed
-            "one",
-            "two",
-            "three"
+            "Mechanical Design Enthusiast",
+            "Embedded Systems Enthusiast",
+            "Hardware and Software Integrator",
+            "Hands-On Builder",
+            "Game Systems Designer",
+            "Budget-Conscious Engineer",
+            "Systems Thinker",
+            "Controls and Automation Learner",
+            "Curious Innovator",
+            "Technical Communicator",
+            "Rapid Prototyping Enthusiast",
+            "Self-Motivated Developer",
+            "Design-Focused Thinker",
+            "Detail-Oriented Engineer",
+            "Collaborative Problem Solver"
         ];
 
         let currentRole = 0;
@@ -1178,7 +1375,7 @@
         let isDeleting = false;
         let typingSpeed = 35;      // Adjust typing speed (lower = faster)
         let deletingSpeed = 50;     // Adjust deleting speed (lower = faster)
-        let pauseTime = 2500;       // Adjust pause time between roles (in milliseconds)
+        let pauseTime = 5000    ;       // Adjust pause time between roles (in milliseconds)
 
         function typeWriter() {
             const typewriterText = document.querySelector('.typewriter-text');
