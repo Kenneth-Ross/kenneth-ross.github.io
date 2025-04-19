@@ -29,18 +29,18 @@
 
         /* Base Styles */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow-x: hidden;
         }
-        
+
         html {
             scroll-behavior: smooth;
         }
-        
+
         body {
             font-family: var(--font-main);
             line-height: 1.6;
@@ -68,7 +68,7 @@
             pointer-events: none;
             z-index: -1;
         }
-        
+
         .shape-1 {
             top: 15%;
             right: 10%;
@@ -76,7 +76,7 @@
             height: 300px;
             opacity: 0.3;
         }
-        
+
         .shape-2 {
             bottom: -5%;
             left: -5%;
@@ -84,7 +84,7 @@
             height: 250px;
             opacity: 0.2;
         }
-        
+
         .shape-3 {
             top: 50%;
             left: 15%;
@@ -92,7 +92,7 @@
             height: 200px;
             opacity: 0.15;
         }
-        
+
         /* Header */
         header {
             padding: 1.5rem 2rem;
@@ -105,7 +105,7 @@
             z-index: 100;
             transition: var(--transition);
         }
-        
+
         header.scrolled {
             padding: 1rem 2rem;
             background-color: rgba(10, 10, 26, 0.95);
@@ -118,6 +118,8 @@
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
+            gap: 1rem; /* Add gap between logo and nav links if needed */
+            overflow: hidden; /* Prevent nav content from spilling out */
         }
 
         .logo {
@@ -127,8 +129,9 @@
             position: relative;
             display: flex;
             align-items: center;
+            flex-shrink: 0; /* Prevent logo from shrinking */
         }
-        
+
         .logo::before {
             content: '';
             position: absolute;
@@ -141,16 +144,26 @@
             transform: rotate(45deg);
             animation: rotateLogo 10s linear infinite;
         }
-        
+
         @keyframes rotateLogo {
             from { transform: rotate(45deg); }
             to { transform: rotate(405deg); }
         }
 
         .nav-links {
-            display: flex;
-            gap: 3rem;
+            display: flex; /* Keep as flex */
+            gap: 3rem; /* Base gap */
             list-style: none;
+            /* Changes for horizontal scroll on mobile will be in media queries */
+            margin: 0; /* Ensure no default margin */
+            padding: 0; /* Ensure no default padding */
+            align-items: center; /* Vertically align items */
+            flex-grow: 1; /* Allow links container to grow */
+            justify-content: flex-end; /* Align links to the right */
+        }
+
+        .nav-links li {
+             flex-shrink: 0; /* Prevent list items from shrinking */
         }
 
         .nav-links a {
@@ -159,6 +172,9 @@
             color: white;
             font-size: 1rem;
             letter-spacing: 0.5px;
+            white-space: nowrap; /* Ensure link text itself doesn't wrap */
+            display: block; /* Needed for padding/hover */
+            padding: 0.5rem 0; /* Add some vertical padding for touch? Optional */
         }
 
         .nav-links a::after {
@@ -166,7 +182,7 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
+            bottom: 0px; /* Adjust position relative to padding */
             left: 0;
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             transition: var(--transition);
@@ -176,7 +192,7 @@
         .nav-links a:hover::after {
             width: 100%;
         }
-        
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -187,9 +203,9 @@
             overflow: hidden;
             padding: 6rem 2rem 2rem;
             background: var(--gradient-dark);
-            margin-top: 0;
+            margin-top: 0; /* Adjusted in JS based on header height */
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 1;
@@ -199,21 +215,21 @@
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease forwards 0.5s;
         }
-        
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.3), transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.3), transparent 50%);
             opacity: 0.6;
@@ -230,7 +246,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .hero h1 span {
             display: block;
             color: white;
@@ -260,7 +276,7 @@
             z-index: 1;
             box-shadow: 0 10px 20px -10px rgba(37, 99, 235, 0.5);
         }
-        
+
         .btn::before {
             content: '';
             position: absolute;
@@ -278,11 +294,11 @@
             transform: translateY(-3px);
             box-shadow: 0 20px 30px -15px rgba(#2563eb);
         }
-        
+
         .btn:hover::before {
             opacity: 1;
         }
-        
+
         /* Scroll Down Indicator */
         .scroll-down {
             position: absolute;
@@ -296,13 +312,13 @@
             font-size: 0.8rem;
             opacity: 0.8;
         }
-        
+
         .scroll-down span {
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
-        
+
         .scroll-down .mouse {
             width: 26px;
             height: 40px;
@@ -310,7 +326,7 @@
             border-radius: 20px;
             position: relative;
         }
-        
+
         .scroll-down .mouse::before {
             content: '';
             position: absolute;
@@ -323,7 +339,7 @@
             border-radius: 2px;
             animation: scrollMouse 2s infinite;
         }
-        
+
         @keyframes scrollMouse {
             0% {
                 opacity: 1;
@@ -340,7 +356,7 @@
             flex: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 8rem 2rem 4rem;
+            padding: 8rem 2rem 4rem; /* Initial padding top adjusted in JS */
             position: relative;
         }
 
@@ -350,19 +366,19 @@
             transform: translateY(30px);
             transition: var(--transition);
         }
-        
+
         section.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         section.hero {
-            margin-top: 0;
-            padding-top: 6rem;
+            margin-top: 0; /* Hero specifically starts at top */
+            padding-top: 6rem; /* Initial padding top */
             opacity: 1;
             transform: none;
         }
-        
+
         .section-heading {
             position: relative;
             margin-bottom: 4rem;
@@ -389,7 +405,7 @@
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             border-radius: 2px;
         }
-        
+
         .section-heading p {
             max-width: 600px;
             margin: 0 auto;
@@ -403,29 +419,29 @@
             gap: 4rem;
             align-items: center;
         }
-        
+
         .about-text {
             color: rgba(255, 255, 255, 0.8);
         }
-        
+
         .about-text p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
         }
-        
+
         .about-image {
             position: relative;
-            width: 500px;
-            height: 500px;
+            width: 500px; /* Base size */
+            height: 500px; /* Base size */
             margin: 0 auto;
         }
-        
+
         .profile-container {
             position: relative;
             width: 100%;
             height: 100%;
         }
-        
+
         .profile-border {
             position: absolute;
             top: 0;
@@ -435,12 +451,12 @@
             filter: drop-shadow(0 10px 25px rgba(37, 99, 235, 0.5));
             animation: rotate 20s linear infinite;
         }
-        
+
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
+
         .profile-image {
             position: absolute;
             top: 50%;
@@ -455,7 +471,7 @@
             background-color: rgba(15, 15, 19, 0.6);
             backdrop-filter: blur(5px);
         }
-        
+
         .profile-image img {
             width: 100%;
             height: 100%;
@@ -487,7 +503,7 @@
             border-color: rgba(37, 99, 235, 0.2);
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
         }
-        
+
         .project-card::before {
             content: '';
             position: absolute;
@@ -500,7 +516,7 @@
             opacity: 0;
             transition: var(--transition);
         }
-        
+
         .project-card:hover::before {
             opacity: 1;
         }
@@ -517,7 +533,7 @@
             object-fit: cover;
             transition: var(--transition);
         }
-        
+
         .project-card:hover .project-img img {
             transform: scale(1.05);
         }
@@ -534,19 +550,19 @@
             font-weight: 600;
             color: white;
         }
-        
+
         .project-info h4 {
             margin-bottom: 0.8rem;
             font-size: 0.9rem;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.6);
         }
-        
+
         .project-info p {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.2rem;
         }
-        
+
         .project-info a {
             display: inline-flex;
             align-items: center;
@@ -555,17 +571,17 @@
             transition: var(--transition);
             position: relative;
         }
-        
+
         .project-info a::after {
             content: '→';
             margin-left: 5px;
             transition: var(--transition);
         }
-        
+
         .project-info a:hover {
             color: white;
         }
-        
+
         .project-info a:hover::after {
             transform: translateX(5px);
         }
@@ -585,12 +601,12 @@
             transform: perspective(1000px) rotateX(5deg);
             transition: var(--transition);
         }
-        
+
         .iframe-container:hover {
             transform: perspective(1000px) rotateX(0deg);
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
         }
-        
+
         .iframe-container::before {
             content: '';
             position: absolute;
@@ -619,7 +635,7 @@
             border: 1px solid rgba(37, 99, 235, 0.1);
             transition: var(--transition);
         }
-        
+
         .contact-info:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 50px rgba(37, 99, 235, 0.25);
@@ -633,7 +649,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .contact-info h3::after {
             content: '';
             position: absolute;
@@ -650,18 +666,6 @@
             color: rgba(255, 255, 255, 0.7);
             display: flex;
             align-items: center;
-        }
-        
-        .contact-info p::before {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            background-image: var(--icon-image);
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
         }
 
         .social-links {
@@ -684,7 +688,7 @@
             overflow: hidden;
             z-index: 1;
         }
-        
+
         .social-links a::before {
             content: '';
             position: absolute;
@@ -702,7 +706,7 @@
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .social-links a:hover::before {
             opacity: 1;
         }
@@ -717,7 +721,7 @@
             width: 100%;
             margin-top: auto;
         }
-        
+
         footer::before {
             content: '';
             position: absolute;
@@ -738,58 +742,6 @@
         .footer-content p {
             opacity: 0.7;
             font-size: 0.9rem;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-            }
-            
-            .project-card {
-                transform: none !important;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .btn {
-                padding: 0.8rem 1.5rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* Typewriter Animation Styles */
@@ -833,13 +785,13 @@
         }
 
         /* Skills Section */
-        .skills-section {
-            margin-top: 8rem;
-            position: relative;
-            padding: 4rem 0;
-            background: rgba(10, 10, 26, 0.95);
-            backdrop-filter: blur(10px);
-        }
+        #skills { /* Changed from .skills-section to #skills to match ID */
+             margin-top: 8rem;
+             position: relative;
+             padding: 4rem 0;
+             background: rgba(10, 10, 26, 0.95);
+             backdrop-filter: blur(10px);
+         }
 
         .skills-grid {
             display: flex;
@@ -856,6 +808,7 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
+            flex-wrap: wrap; /* Allow wrapping by default */
         }
 
         .skill-circle {
@@ -931,49 +884,348 @@
             transform: translateX(-50%) translateY(-5px);
         }
 
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+             /* Adjustments for slightly smaller desktops / large tablets */
+             main {
+                 max-width: 1100px; /* Slightly reduce max-width */
+             }
+             .about-image {
+                 width: 450px;
+                 height: 450px;
+             }
+        }
+
+
         @media (max-width: 992px) {
-            .skill-circle {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .skill-row {
-                gap: 1.5rem;
-            }
+             /* Tablet Portrait / Large Phones Landscape */
+             main {
+                 padding: 6rem 1.5rem 3rem; /* Adjust padding */
+                 max-width: 90%; /* Use percentage */
+             }
+
+             header {
+                 padding: 1.2rem 1.5rem;
+             }
+             header.scrolled {
+                 padding: 0.8rem 1.5rem;
+             }
+
+             /* Adjust nav link gap */
+             .nav-links {
+                 gap: 2rem; /* Reduced gap */
+             }
+
+             .hero h1 {
+                 font-size: 3.5rem;
+             }
+             .hero p {
+                 font-size: 1.15rem;
+             }
+
+             .section-heading h2 {
+                 font-size: 2.2rem;
+             }
+
+             .about-content {
+                 grid-template-columns: 1fr; /* Stack columns */
+                 gap: 3rem; /* Adjust gap */
+                 text-align: center; /* Center text when stacked */
+             }
+
+             .about-text {
+                 order: 2; /* Put text below image */
+             }
+
+             .about-image {
+                 order: 1; /* Put image above text */
+                 width: 70%; /* Responsive width */
+                 max-width: 400px; /* Max size */
+                 height: auto; /* Auto height */
+                 aspect-ratio: 1 / 1; /* Maintain square shape */
+                 margin-bottom: 2rem; /* Add space below image */
+             }
+
+             .projects {
+                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust min size */
+                 gap: 1.5rem;
+             }
+
+             .skills-grid {
+                 max-width: 100%;
+                 padding: 1.5rem;
+             }
+             .skill-circle {
+                 width: 90px;
+                 height: 90px;
+             }
+             .skill-icon {
+                 width: 35px; /* Adjusted icon size */
+                 height: 35px;
+             }
+             .skill-row {
+                 gap: 1.5rem;
+                 /* flex-wrap: wrap; Already default */
+             }
+
+             .iframe-container {
+                padding: 1.5rem;
+             }
+
+             .contact-container {
+                 grid-template-columns: 1fr; /* Stack contact cards */
+                 gap: 2rem;
+             }
         }
 
         @media (max-width: 768px) {
-            .skill-circle {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .skill-row {
-                gap: 1rem;
-            }
-            
-            .skill-icon {
-                width: 35px;
-                height: 35px;
-            }
+             /* Mobile Landscape / Tablet Portrait (Smaller) */
+             body {
+                 font-size: 15px; /* Slightly adjust base font size */
+             }
+
+             header {
+                 padding: 1rem 1.5rem; /* Adjust header padding */
+             }
+             header.scrolled {
+                 padding: 0.8rem 1.5rem;
+             }
+
+             /* --- Horizontal Scroll Navigation --- */
+             .nav-links {
+                 gap: 1.5rem; /* Further reduced gap */
+                 overflow-x: auto; /* Enable horizontal scroll if needed */
+                 white-space: nowrap; /* Prevent items from wrapping */
+                 /* Add some padding to the end to indicate scrollability */
+                 padding-right: 1rem;
+                 /* Hide scrollbar visually if desired (optional) */
+                 -ms-overflow-style: none;  /* IE and Edge */
+                 scrollbar-width: none;  /* Firefox */
+             }
+             .nav-links::-webkit-scrollbar { /* Chrome, Safari, Opera */
+                 display: none;
+             }
+             /* --- End Horizontal Scroll Navigation --- */
+
+
+             .hero {
+                 padding: 5rem 1rem 4rem; /* Adjust padding for smaller screens */
+                 min-height: 80vh; /* Reduce hero height slightly */
+             }
+             .hero h1 {
+                 font-size: 3rem;
+             }
+             .hero p {
+                 font-size: 1.1rem;
+                 max-width: 90%; /* Allow slightly wider text */
+             }
+
+             main {
+                 padding: 5rem 1rem 3rem;
+             }
+
+             section {
+                 margin-bottom: 5rem; /* Reduce space between sections */
+             }
+             .section-heading {
+                 margin-bottom: 3rem;
+             }
+             .section-heading h2 {
+                 font-size: 2rem;
+             }
+              .section-heading p {
+                 font-size: 0.95rem;
+                 max-width: 90%;
+             }
+
+             .about-image {
+                 width: 80%;
+                 max-width: 350px;
+             }
+             .about-text p {
+                font-size: 1rem;
+             }
+
+             .projects {
+                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Allow slightly smaller cards */
+             }
+             .project-card {
+                 /* Disable complex hover transform on touch devices */
+                 transform: none !important;
+             }
+             .project-card:hover {
+                 transform: translateY(-5px) !important; /* Simpler hover effect */
+                 box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+             }
+             .project-info h3 {
+                font-size: 1.15rem;
+             }
+             .project-info p {
+                font-size: 0.9rem;
+             }
+
+             .skills-grid {
+                 padding: 1rem;
+             }
+             .skill-circle {
+                 width: 80px;
+                 height: 80px;
+             }
+             .skill-icon {
+                 width: 30px; /* Adjusted icon size */
+                 height: 30px;
+             }
+             .skill-circle:hover .skill-icon {
+                 transform: scale(1.3); /* Slightly reduce hover scale */
+             }
+             .skill-name {
+                 font-size: 0.75rem;
+                 bottom: -20px;
+             }
+             .skill-row {
+                 gap: 1.2rem; /* Further adjust gap */
+             }
+
+             .iframe-container {
+                 padding: 1rem;
+                 transform: none; /* Remove initial perspective */
+             }
+             .iframe-container > div {
+                 /* padding-top: 75%; */ /* Example: Adjust if content looks squashed */
+             }
+
+             .contact-info {
+                 padding: 1.5rem;
+             }
+             .contact-info h3 {
+                font-size: 1.3rem;
+             }
+             .social-links {
+                gap: 0.8rem;
+             }
+             .social-links a {
+                 width: 40px;
+                 height: 40px;
+             }
+             .social-links a img {
+                 width: 28px; /* Adjust icon size within link */
+                 height: 28px;
+             }
+
+             footer {
+                 padding: 2rem 1rem;
+             }
+        }
+
+        @media (max-width: 576px) {
+             /* Mobile Portrait */
+             body {
+                 /* line-height: 1.5; */ /* Optional: Adjust line height */
+             }
+
+             header {
+                 padding: 1rem;
+             }
+             header.scrolled {
+                 padding: 0.8rem 1rem;
+             }
+
+             /* Keep horizontal scroll nav */
+             .nav-links {
+                 gap: 1rem; /* Smallest gap */
+                 /* Inherits overflow-x, white-space from 768px breakpoint */
+             }
+
+             .hero {
+                 padding: 4rem 1rem 3rem;
+                 min-height: 70vh;
+             }
+             .hero h1 {
+                 font-size: 2.5rem; /* Further reduce font size */
+                 margin-bottom: 1rem;
+             }
+             .hero p {
+                 font-size: 1rem;
+                 margin-bottom: 2rem;
+             }
+             .btn {
+                 padding: 0.8rem 1.5rem;
+                 font-size: 0.9rem;
+             }
+             .scroll-down {
+                bottom: 20px; /* Move scroll indicator up slightly */
+             }
+
+             main {
+                 padding: 4rem 1rem 2rem;
+             }
+             section {
+                 margin-bottom: 4rem;
+             }
+             .section-heading {
+                 margin-bottom: 2.5rem;
+             }
+             .section-heading h2 {
+                 font-size: 1.8rem;
+             }
+             .section-heading p {
+                 font-size: 0.9rem;
+             }
+
+             .about-image {
+                 width: 85%;
+                 max-width: 300px;
+             }
+             .about-text {
+                 text-align: left; /* Revert text align if needed */
+             }
+
+             .projects {
+                 grid-template-columns: 1fr; /* Force single column */
+                 gap: 1.5rem;
+             }
+
+             .skills-grid {
+                padding: 0.5rem;
+             }
+             .skill-circle {
+                 width: 70px; /* Even smaller */
+                 height: 70px;
+             }
+             .skill-icon {
+                 width: 28px;
+                 height: 28px;
+             }
+             .skill-row {
+                 gap: 1rem; /* Adjust gap for smaller circles */
+             }
+
+             .contact-container {
+                 grid-template-columns: 1fr; /* Ensure single column */
+                 gap: 1.5rem;
+             }
+             .contact-info p {
+                font-size: 0.9rem;
+             }
+             .social-links {
+                justify-content: center; /* Center links */
+             }
         }
     </style>
 </head>
 <body>
-    <!-- SVG Shapes -->
     <svg class="shape shape-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path fill="url(#gradient1)" d="M42.8,-62.2C54.9,-54.5,63.7,-41.1,69.2,-26.6C74.7,-12.1,76.9,3.5,73.2,17.8C69.5,32.1,60,45.1,47.4,53.1C34.8,61.1,19.1,64.2,3.3,60.6C-12.4,57,-28.1,46.6,-39.3,34.8C-50.5,22.9,-57.1,9.5,-58.5,-4.9C-59.9,-19.3,-56.1,-34.6,-47,-46.7C-37.9,-58.9,-23.6,-67.9,-7.8,-69C8,-70.1,30.6,-69.9,42.8,-62.2Z" transform="translate(100 100)" />
     </svg>
-    
-    <svg class="shape shape-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- <svg class="shape shape-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path fill="url(#gradient2)" d="M53.2,-46.1C66.4,-33.5,72.7,-11,69.2,8.6C65.6,28.3,52.3,45.1,35.1,54.8C18,64.5,-3,67.1,-19.9,59.8C-36.9,52.5,-49.7,35.4,-57.2,15.1C-64.7,-5.2,-66.8,-28.7,-56.4,-42.2C-45.9,-55.8,-23,-59.3,-0.7,-58.7C21.6,-58.2,40,-58.7,53.2,-46.1Z" transform="translate(100 100)" />
-    </svg>
-    
+    </svg> -->
+
     <svg class="shape shape-3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path fill="url(#gradient3)" d="M44.4,-50.8C57.3,-36.9,67.5,-21.4,69.9,-4.6C72.2,12.3,66.6,30.6,54.8,43.9C43,57.2,24.9,65.5,7,65.3C-10.9,65,-28.6,56.2,-40.5,43.3C-52.3,30.3,-58.2,13.2,-60.4,-6.3C-62.7,-25.8,-61.2,-47.7,-49.8,-61.6C-38.5,-75.5,-17.3,-81.3,-0.2,-81.1C17,-80.9,31.5,-64.7,44.4,-50.8Z" transform="translate(100 100)" />
     </svg>
-    
-    <!-- Gradients for SVG shapes -->
+
     <svg width="0" height="0">
         <defs>
             <linearGradient id="gradient1" gradientTransform="rotate(45)">
@@ -990,13 +1242,14 @@
             </linearGradient>
         </defs>
     </svg>
-    
+
     <header>
         <nav>
             <div class="logo">Portfolio</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#featured">Featured</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1026,30 +1279,21 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Hello! I'm a passionate Engineer who's motivated by being a part of the next-generation of technology!
-                        
-                        
-
-                    </p>
-                    <!-- <p>I currently attend U.C Riverside for my Bachelors in Robotics Engineering. </p> -->
                     <p>
                         I often find my interests stuck between the desire to learn Software, Hardware, and Mechanical design; I find my self at the intersection of the three!
                     </p>
-
                     <p>
-                        Starting with a background in Roblox Game Development, which taught you everything from creative design, optimization, client-server communication, memory management, and the ability to foresee large projects 
-                        in a systems level thinking. My scope of projects span from [INSERT WORD] all the way to Freelance Work. I can proudly say the skills I aquired from Roblox
-                        translate to all other problem solving [INSERT WORD].
+                        Starting with a background in Roblox Game Development, which taught me everything from creative design, optimization, client-server communication, memory management, and the ability to foresee large projects
+                        in a systems level thinking. My scope of projects span from personal exploration all the way to Freelance Work. I can proudly say the skills I aquired from Roblox
+                        translate to all other problem solving domains.
                     </p>
-
                     <p>
-                        Taking up the challenge of a World-Level Energy Competition; I learned about my love for Mechanical Design; 3D Printing, Gearboxes, 
+                        Taking up the challenge of a World-Level Energy Competition; I learned about my love for Mechanical Design; 3D Printing, Gearboxes,
                         and Wind Turbine Blades were the mediums through which I learned to hone my CAD skills. Being able to envision a design then holding it's final product is one of my greatest joys!
                     </p>
-
                     <p>
                         Now as a current Robotics Engineering Undergraduate Student at U.C Riverside; I find myself as an Associate Engineer in Highlander Racing Formula SAE with 100% ownership projects
-                        in an interdisciplinary start-up environment where I get to fully apply my interesction of interests in Software, Hardware, and Mechanical Design; Furthur cementing my passion to solve problems with creative solutions through engineering.  
+                        in an interdisciplinary start-up environment where I get to fully apply my interesction of interests in Software, Hardware, and Mechanical Design; Furthur cementing my passion to solve problems with creative solutions through engineering.
                     </p>
                 </div>
                 <div class="about-image">
@@ -1063,24 +1307,19 @@
                                 </linearGradient>
                             </defs>
                             <path fill="none" stroke="url(#profileGradient)" stroke-width="4" stroke-dasharray="8 4"
-                                d="M100,20 
-                                C140,20 180,60 180,100 
-                                C180,140 140,180 100,180 
-                                C60,180 20,140 20,100 
+                                d="M100,20
+                                C140,20 180,60 180,100
+                                C180,140 140,180 100,180
+                                C60,180 20,140 20,100
                                 C20,60 60,20 100,20 Z" />
-                            
-                            <!-- Decorative nodes on the path -->
                             <circle cx="100" cy="20" r="4" fill="var(--primary-color)" />
                             <circle cx="180" cy="100" r="4" fill="var(--secondary-color)" />
                             <circle cx="100" cy="180" r="4" fill="var(--primary-color)" />
                             <circle cx="20" cy="100" r="4" fill="var(--secondary-color)" />
-                            
-                            <!-- Inner circle mask -->
                             <circle cx="100" cy="100" r="75" fill="rgba(0,0,0,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
                         </svg>
                         <div class="profile-image">
-                            <img src="/api/placeholder/400/400" alt="Profile picture">
-                        </div>
+                            <img src="/api/placeholder/400/400" alt="Profile picture"> </div>
                     </div>
                 </div>
             </div>
@@ -1094,77 +1333,63 @@
             <div class="projects">
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking System">
-                    </div>
+                        <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking System"> </div>
                     <div class="project-info">
                         <h3>Autonomous Braking Control System</h3>
                         <h4>Highlander Racing - Formula SAE</h4>
                         <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts.</p>
-                        <a href="#">View Project</a>
-                    </div>
+                        <a href="#">View Details</a> </div>
                 </div>
-
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="public/project_roboticarm.jpeg" alt="Robot Arm">
-                    </div>
+                        <img src="public/project_roboticarm.jpeg" alt="Robot Arm"> </div>
                     <div class="project-info">
-                        <h3>Robotic Arm</h3>
-                        <h4>Personal Project</h4>
-                        <p>An interactive dashboard for data visualization with real-time analytics.</p>
-                        <a href="#">View Project</a>
+                        <h3>Robotic Arm Simulation</h3>
+                        <h4>Personal Project (ROS)</h4>
+                        <p>Developed a simulated robotic arm using ROS for path planning and control studies.</p>
+                        <a href="#">View Details</a>
                     </div>
                 </div>
-
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="public/project_kidwind.jpeg" alt="Project 3">
-                    </div>
+                        <img src="public/project_kidwind.jpeg" alt="KidWind Project"> </div>
                     <div class="project-info">
                         <h3>KidWind Energy Competition</h3>
-                        <h4>World Competition</h4>
-                        <p>A web application for collaborative project management and team communication.</p>
-                        <a href="https://gale.standafer.dev/">View Project</a>
+                        <h4>World Competition (Design Lead)</h4>
+                        <p>Led mechanical design for wind turbine blades and gearbox, achieving high efficiency.</p>
+                        <a href="https://gale.standafer.dev/">View Competition Site</a>
                     </div>
                 </div>
-
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 3">
-                    </div>
+                        <img src="public/project_roblox_game.png" alt="Roblox Game System"> </div>
                     <div class="project-info">
-                        <h3>Title</h3>
-                        <h4>Origin</h4>
-                        <p>Description:</p>
-                        <a href="#">View Project</a>
+                        <h3>Complex Game Systems</h3>
+                        <h4>Roblox Development</h4>
+                        <p>Designed and implemented scalable game mechanics, focusing on server optimization and client interaction.</p>
+                        <a href="#">View Details</a>
                     </div>
                 </div>
-
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 3">
-                    </div>
+                        <img src="/api/placeholder/400/320" alt="Project Placeholder"> </div>
                     <div class="project-info">
-                        <h3>Title</h3>
-                        <h4>Origin</h4>
-                        <p>Description:</p>
-                        <a href="#">View Project</a>
+                        <h3>Embedded Systems Project</h3>
+                        <h4>Coursework/Personal</h4>
+                        <p>Developed [Specific Embedded Project] using Arduino/Raspberry Pi and C++/Python.</p>
+                        <a href="#">View Details</a>
                     </div>
                 </div>
-
-
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 3">
-                    </div>
+                        <img src="/api/placeholder/400/320" alt="Project Placeholder"> </div>
                     <div class="project-info">
-                        <h3>Title</h3>
-                        <h4>Origin</h4>
-                        <p>Description:</p>
-                        <a href="#">View Project</a>
+                        <h3>CAD Design Portfolio</h3>
+                        <h4>Various Projects</h4>
+                        <p>Collection of mechanical designs and assemblies created using SolidWorks.</p>
+                        <a href="#">View Details</a>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -1174,61 +1399,23 @@
                 <p>Technologies and equipment I work with</p>
             </div>
             <div class="skills-grid">
-                <!-- Top row - 3 circles -->
                 <div class="skill-row">
-                    <div class="skill-circle">
-                        <img src="public/skills/python.png" alt="Python" class="skill-icon">
-                        <span class="skill-name">Python</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/cpp.png" alt="C++" class="skill-icon">
-                        <span class="skill-name">C++</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/ros.png" alt="ROS" class="skill-icon">
-                        <span class="skill-name">ROS</span>
-                    </div>
+                    <div class="skill-circle"> <img src="public/skills/python.png" alt="Python" class="skill-icon"> <span class="skill-name">Python</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/cpp.png" alt="C++" class="skill-icon"> <span class="skill-name">C++</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/ros.png" alt="ROS" class="skill-icon"> <span class="skill-name">ROS</span> </div>
                 </div>
-                
-                <!-- Middle row - 5 circles -->
                 <div class="skill-row">
-                    <div class="skill-circle">
-                        <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon">
-                        <span class="skill-name">SolidWorks</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon">
-                        <span class="skill-name">Arduino</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/raspberrypi.png" alt="Raspberry Pi" class="skill-icon">
-                        <span class="skill-name">Raspberry Pi</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/linux.png" alt="Linux" class="skill-icon">
-                        <span class="skill-name">Linux</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/git.png" alt="Git" class="skill-icon">
-                        <span class="skill-name">Git</span>
-                    </div>
+                    <div class="skill-circle"> <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon"> <span class="skill-name">SolidWorks</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon"> <span class="skill-name">Arduino</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/raspberrypi.png" alt="Raspberry Pi" class="skill-icon"> <span class="skill-name">Raspberry Pi</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/linux.png" alt="Linux" class="skill-icon"> <span class="skill-name">Linux</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/git.png" alt="Git" class="skill-icon"> <span class="skill-name">Git</span> </div>
                 </div>
-                
-                <!-- Bottom row - 3 circles -->
-                <div class="skill-row">
-                    <div class="skill-circle">
-                        <img src="public/skills/python.png" alt="3D Printing" class="skill-icon">
-                        <span class="skill-name">3D Printing</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/cpp.png" alt="C++" class="skill-icon">
-                        <span class="skill-name">C++</span>
-                    </div>
-                    <div class="skill-circle">
-                        <img src="public/skills/ros.png" alt="ROS" class="skill-icon">
-                        <span class="skill-name">ROS</span>
-                    </div>
-                </div>
+                 <div class="skill-row">
+                    <div class="skill-circle"> <img src="public/skills/3dprinting.png" alt="3D Printing" class="skill-icon"> <span class="skill-name">3D Printing</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/lua.png" alt="Lua" class="skill-icon"> <span class="skill-name">Lua</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/canbus.png" alt="CAN Bus" class="skill-icon"> <span class="skill-name">CAN Bus</span> </div>
+                 </div>
             </div>
         </section>
 
@@ -1238,15 +1425,12 @@
                 <p>An in-depth look at my highlighted project</p>
             </div>
             <div class="iframe-container">
-                <!-- This is where the iframe will be embedded -->
-                <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
-                    padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
-                    border-radius: 8px; will-change: transform;">
+                <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
                     <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
                         src="https://www.canva.com/design/DAGkeJ5vOow/IlSh0q5jcuso8BOt-LzLvw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                     </iframe>
-                    </div>
-                    <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
+                </div>
+                <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
              </div>
         </section>
 
@@ -1258,17 +1442,14 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Get In Touch</h3>
-                    <!-- <p><img src="public/icon_email.png" alt="Email Logo" style="width: 20px; height: 20px; margin-right: 10px;">Email: EMAIL/p> -->
-                    <!-- <p><img src="public/icon_phone.png" alt="Phone Logo" style="width: 20px; height: 20px; margin-right: 10px;">Phone: NUMBER</p> -->
-                    <p><img src="public/icon_location.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">Home: Bay Area, Ca</p>
-                    <p><img src="public/icon_education.png" alt="Location Logo" style="width: 20px; height: 20px; margin-right: 10px;">School: University Of California, Riverside</p>
+                     <p><img src="public/icon_location.png" alt="Location" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> Home: Bay Area, CA</p>
+                     <p><img src="public/icon_education.png" alt="Education" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> School: University Of California, Riverside</p>
+
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/kennethsross/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <img src="public/logo_linkedin.png" alt="LinkedIn Logo" style="width: 32px; height: 32px;">
-                        </a>
+                            <img src="public/logo_linkedin.png" alt="LinkedIn Logo" style="width: 32px; height: 32px;"> </a>
                         <a href="https://github.com/Kenneth-Ross" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <img src="public/logo_github.png" alt="GitHub Logo" style="width: 32px; height: 32px;">
-                        </a>
+                            <img src="public/logo_github.png" alt="GitHub Logo" style="width: 32px; height: 32px;"> </a>
                     </div>
                 </div>
             </div>
@@ -1277,35 +1458,58 @@
 
     <footer>
         <div class="footer-content">
-            <p>Last Updated: April 2025.</p>
+            <p>Last Updated: April 18, 2025</p>
         </div>
     </footer>
-    
-    <!-- JavaScript for animations and interactions -->
+
     <script>
-        // Set all sections to visible initially for proper layout
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize sections with visible class
-            const allSections = document.querySelectorAll('section');
-            allSections.forEach(section => {
-                section.classList.add('visible');
-            });
-            
-            // Scroll animations
             const header = document.querySelector('header');
+            const mainContent = document.querySelector('main');
+            const heroSection = document.querySelector('.hero');
             const sections = document.querySelectorAll('section:not(.hero)');
-            
-            // Make sections visible when scrolled into view
+            const shapes = document.querySelectorAll('.shape');
+            const projectCards = document.querySelectorAll('.project-card');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const typewriterText = document.querySelector('.typewriter-text');
+
+            // Adjust main content padding based on header height
+            function adjustLayoutForHeader() {
+                const headerHeight = header.offsetHeight;
+                 // Apply padding top to hero and main to prevent overlap ONLY IF header is fixed
+                 if (getComputedStyle(header).position === 'fixed') {
+                     heroSection.style.paddingTop = `${headerHeight + 30}px`; // Add some extra space
+                     // Set main padding dynamically if needed, or ensure sections have enough top margin
+                     // mainContent.style.paddingTop = `${headerHeight}px`; // Might not be needed if hero handles it
+                 } else {
+                     heroSection.style.paddingTop = ''; // Reset if header isn't fixed
+                     mainContent.style.paddingTop = '';
+                 }
+            }
+
+             // Set all sections to visible initially (prevents layout shifts)
+             const allSections = document.querySelectorAll('section');
+             allSections.forEach(section => {
+                 section.classList.add('visible');
+             });
+
+             // Call adjust layout on load and resize
+             adjustLayoutForHeader();
+             window.addEventListener('resize', adjustLayoutForHeader);
+
+
+            // Scroll animations (Header style + Section reveal)
             const revealSection = () => {
+                const windowHeight = window.innerHeight;
                 sections.forEach(section => {
                     const sectionTop = section.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
                     if (sectionTop < windowHeight * 0.85) {
-                        section.classList.add('visible');
+                        section.classList.add('visible'); // Use 'visible' class defined in CSS
                     }
+                    // Optional: remove class if scrolled back up
+                    // else { section.classList.remove('visible'); }
                 });
-                
+
                 // Change header style on scroll
                 if (window.scrollY > 50) {
                     header.classList.add('scrolled');
@@ -1313,116 +1517,107 @@
                     header.classList.remove('scrolled');
                 }
             };
-            
-            // Initial check
-            revealSection();
-            
-            // Add event listener for scroll
             window.addEventListener('scroll', revealSection);
-            
-            // Add parallax effect to shapes
-            const shapes = document.querySelectorAll('.shape');
+            revealSection(); // Initial check
+
+
+            // Parallax effect for shapes
             window.addEventListener('scroll', () => {
                 const scrollValue = window.scrollY;
                 shapes.forEach((shape, index) => {
-                    const speed = 0.1 * (index + 1);
+                    const speed = 0.05 * (index + 1);
                     shape.style.transform = `translateY(${scrollValue * speed}px)`;
                 });
             });
-            
-            // Animation for project cards on hover with mouse position
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const cardRect = card.getBoundingClientRect();
-                    const x = e.clientX - cardRect.left;
-                    const y = e.clientY - cardRect.top;
-                    
-                    const xPercent = x / cardRect.width;
-                    const yPercent = y / cardRect.height;
-                    
-                    const rotateX = (0.5 - yPercent) * 10;
-                    const rotateY = (xPercent - 0.5) * 10;
-                    
-                    card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = '';
-                });
-            });
-            
-            // Smooth scroll for navigation links
-            const navLinks = document.querySelectorAll('.nav-links a');
+
+
+            // Project card hover effect (Desktop only)
+             if (window.matchMedia("(min-width: 769px)").matches) {
+                 projectCards.forEach(card => {
+                     card.addEventListener('mousemove', (e) => {
+                         const cardRect = card.getBoundingClientRect();
+                         const x = e.clientX - cardRect.left;
+                         const y = e.clientY - cardRect.top;
+                         const xPercent = x / cardRect.width;
+                         const yPercent = y / cardRect.height;
+                         const rotateX = (0.5 - yPercent) * 10;
+                         const rotateY = (xPercent - 0.5) * 10;
+                         card.style.transform = `perspective(1000px) translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                     });
+                     card.addEventListener('mouseleave', () => {
+                         card.style.transform = 'perspective(1000px) translateY(0) rotateX(0) rotateY(0)';
+                     });
+                 });
+             }
+
+
+            // Smooth scroll for navigation links (with header offset)
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
-                    
+
                     if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth'
+                        const headerOffset = header.offsetHeight + 20; // Extra space
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
                         });
                     }
                 });
             });
-        });
 
-        /* Typewriter Animation Script */
-        const roles = [
-            "Robotics Enthusiast",
-            "Mechanical Design Enthusiast",
-            "Systems-Level Thinker",
-            "3D Printing Enthusiast",
-            "CAD Designer",
-            "Game Systems Developer",
-            "Hardware and Software Integrator",
-            "Technical Collaborator",
-            "Rapid Prototyping Enthusiast",
-            "Curious Innovator",
-        ];
 
-        let currentRole = 0;
-        let currentText = '';
-        let isDeleting = false;
-        let typingSpeed = 35;      // Adjust typing speed (lower = faster)
-        let deletingSpeed = 50;     // Adjust deleting speed (lower = faster)
-        let pauseTime = 5000    ;       // Adjust pause time between roles (in milliseconds)
+             // Typewriter Animation Script
+             const roles = [
+                 "Robotics Enthusiast", "Mechanical Design Enthusiast", "Systems-Level Thinker",
+                 "3D Printing Enthusiast", "CAD Designer", "Game Systems Developer",
+                 "Hardware and Software Integrator", "Technical Collaborator",
+                 "Rapid Prototyping Enthusiast", "Curious Innovator",
+             ];
+             let currentRole = 0;
+             let currentText = '';
+             let isDeleting = false;
+             let typingSpeed = 50;
+             let deletingSpeed = 30;
+             let pauseTime = 1500;
 
-        function typeWriter() {
-            const typewriterText = document.querySelector('.typewriter-text');
-            const role = roles[currentRole];
-            
-            if (isDeleting) {
-                currentText = role.substring(0, currentText.length - 1);
-                typingSpeed = deletingSpeed;
-            } else {
-                currentText = role.substring(0, currentText.length + 1);
-                // typingSpeed = 100;
-            }
-            
-            typewriterText.textContent = currentText;
-            
-            if (!isDeleting && currentText === role) {
-                typingSpeed = pauseTime;     // Pause time when text is complete
-                isDeleting = true;
-            } else if (isDeleting && currentText === '') {
-                isDeleting = false;
-                currentRole = (currentRole + 1) % roles.length;
-                typingSpeed = 50;          // Delay before starting next role
-            }
-            
-            setTimeout(typeWriter, typingSpeed);
-        }
+             function typeWriter() {
+                 if (!typewriterText) return;
 
-        // Start the typewriter effect when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... existing DOMContentLoaded code ...
-            
-            // Start the typewriter effect after 1 second
-            setTimeout(typeWriter, 1000);  // Adjust initial delay if needed
-        });
+                 const role = roles[currentRole];
+                 let currentSpeed;
+
+                 if (isDeleting) {
+                     currentText = role.substring(0, currentText.length - 1);
+                     currentSpeed = deletingSpeed;
+                 } else {
+                     currentText = role.substring(0, currentText.length + 1);
+                     currentSpeed = typingSpeed;
+                 }
+
+                 typewriterText.textContent = currentText;
+
+                 if (!isDeleting && currentText === role) {
+                     currentSpeed = pauseTime;
+                     isDeleting = true;
+                 } else if (isDeleting && currentText === '') {
+                     isDeleting = false;
+                     currentRole = (currentRole + 1) % roles.length;
+                     currentSpeed = typingSpeed * 2;
+                 }
+
+                 setTimeout(typeWriter, currentSpeed);
+             }
+
+             // Start the typewriter effect after a delay
+             setTimeout(typeWriter, 1000);
+
+        }); // End DOMContentLoaded
     </script>
 </body>
 </html>
