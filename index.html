@@ -440,6 +440,7 @@
             position: relative;
             width: 100%;
             height: 100%;
+            z-index: 2;
         }
 
         .profile-border {
@@ -451,6 +452,7 @@
             filter: drop-shadow(0 10px 25px rgba(37, 99, 235, 0.5));
             animation: rotate 20s linear infinite;
         }
+
 
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -816,7 +818,7 @@
             width: 100px;
             height: 100px;
             margin: 0;
-            background: rgba(15, 15, 19, 0.8);
+            background: radial-gradient(circle, #3b82f6 0%, #1e3b8a00 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1283,7 +1285,7 @@
                         I often find my interests stuck between the desire to learn Software, Hardware, and Mechanical design; I find my self at the intersection of the three!
                     </p>
                     <p>
-                        Starting with a background in Roblox Game Development, which taught me everything from creative design, optimization, client-server communication, memory management, and the ability to foresee large projects
+                        Starting with a background in Roblox Game Development, which taught you everything from creative design, optimization, client-server communication, memory management, and the ability to foresee large projects
                         in a systems level thinking. My scope of projects span from personal exploration all the way to Freelance Work. I can proudly say the skills I aquired from Roblox
                         translate to all other problem solving domains.
                     </p>
@@ -1319,7 +1321,8 @@
                             <circle cx="100" cy="100" r="75" fill="rgba(0,0,0,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
                         </svg>
                         <div class="profile-image">
-                            <img src="/api/placeholder/400/400" alt="Profile picture"> </div>
+                            <!-- <img src="public/headshot.jpeg" alt="Profile picture" style="z-index: 1;"> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1337,16 +1340,16 @@
                     <div class="project-info">
                         <h3>Autonomous Braking Control System</h3>
                         <h4>Highlander Racing - Formula SAE</h4>
-                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts.</p>
+                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control Signals and User Interface control.</p>
                         <a href="#">View Details</a> </div>
                 </div>
                 <div class="project-card">
                     <div class="project-img">
                         <img src="public/project_roboticarm.jpeg" alt="Robot Arm"> </div>
                     <div class="project-info">
-                        <h3>Robotic Arm Simulation</h3>
-                        <h4>Personal Project (ROS)</h4>
-                        <p>Developed a simulated robotic arm using ROS for path planning and control studies.</p>
+                        <h3>Robotic Arm</h3>
+                        <h4>Personal Project</h4>
+                        <p>Futhur developed CAD ability on Fusion 360 on a systems level project, 3D printing optimizations, and motor control Arduino Integration.</p>
                         <a href="#">View Details</a>
                     </div>
                 </div>
@@ -1355,8 +1358,8 @@
                         <img src="public/project_kidwind.jpeg" alt="KidWind Project"> </div>
                     <div class="project-info">
                         <h3>KidWind Energy Competition</h3>
-                        <h4>World Competition (Design Lead)</h4>
-                        <p>Led mechanical design for wind turbine blades and gearbox, achieving high efficiency.</p>
+                        <h4>World Competition - Design Lead</h4>
+                        <p>Led mechanical design for wind turbine blades, gearbox, and chassis. Raised $2500+ dollars through crowdsourcing under extreme budget constriants.</p>
                         <a href="https://gale.standafer.dev/">View Competition Site</a>
                     </div>
                 </div>
@@ -1396,23 +1399,23 @@
         <section id="skills">
             <div class="section-heading">
                 <h2>Skills & Tools</h2>
-                <p>Technologies and equipment I work with</p>
+                <p>Software and Technology I work with</p>
             </div>
             <div class="skills-grid">
                 <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skills/python.png" alt="Python" class="skill-icon"> <span class="skill-name">Python</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/cpp.png" alt="C++" class="skill-icon"> <span class="skill-name">C++</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/ros.png" alt="ROS" class="skill-icon"> <span class="skill-name">ROS</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">SolidWorks</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_fusion360.png" alt="Fusion 360" class="skill-icon" style="width: 55px; height: 55px;"> <span class="skill-name">Fusion 360</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_blender.png" alt="Blender" class="skill-icon" style="width: 60px; height: 70px;"> <span class="skill-name">Blender</span> </div>
                 </div>
                 <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon"> <span class="skill-name">SolidWorks</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon"> <span class="skill-name">Arduino</span> </div>
+                    <div class="skill-circle"> <img src="public/skills/python.png" alt="Python" class="skill-icon"> <span class="skill-name">Python</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon" style="width: 50px; height: 50px;"> <span class="skill-name">Arduino</span> </div>
                     <div class="skill-circle"> <img src="public/skills/raspberrypi.png" alt="Raspberry Pi" class="skill-icon"> <span class="skill-name">Raspberry Pi</span> </div>
                     <div class="skill-circle"> <img src="public/skills/linux.png" alt="Linux" class="skill-icon"> <span class="skill-name">Linux</span> </div>
                     <div class="skill-circle"> <img src="public/skills/git.png" alt="Git" class="skill-icon"> <span class="skill-name">Git</span> </div>
                 </div>
                  <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skills/3dprinting.png" alt="3D Printing" class="skill-icon"> <span class="skill-name">3D Printing</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_matlab.png" alt="matlab" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">MATLAB</span> </div>
                     <div class="skill-circle"> <img src="public/skills/lua.png" alt="Lua" class="skill-icon"> <span class="skill-name">Lua</span> </div>
                     <div class="skill-circle"> <img src="public/skills/canbus.png" alt="CAN Bus" class="skill-icon"> <span class="skill-name">CAN Bus</span> </div>
                  </div>
@@ -1574,49 +1577,49 @@
 
              // Typewriter Animation Script
              const roles = [
-                 "Robotics Enthusiast", "Mechanical Design Enthusiast", "Systems-Level Thinker",
-                 "3D Printing Enthusiast", "CAD Designer", "Game Systems Developer",
-                 "Hardware and Software Integrator", "Technical Collaborator",
-                 "Rapid Prototyping Enthusiast", "Curious Innovator",
+                 "Robotics Enthusiast", "Mechanical Design Enthusiast", "Systems-Level Coordinater",
+                 "3D Printing Enthusiast", "CAD Designer", 
+                 "Embedded Systems Developer", "Game Developer",
+                 "Rapid Prototyping Advocate", "Curious Innovator",
              ];
              let currentRole = 0;
              let currentText = '';
              let isDeleting = false;
              let typingSpeed = 50;
              let deletingSpeed = 30;
-             let pauseTime = 1500;
+             let pauseTime = 3000;
 
              function typeWriter() {
-                 if (!typewriterText) return;
+                if (!typewriterText) return;
 
-                 const role = roles[currentRole];
-                 let currentSpeed;
+                const role = roles[currentRole];
+                let currentSpeed;
 
-                 if (isDeleting) {
-                     currentText = role.substring(0, currentText.length - 1);
-                     currentSpeed = deletingSpeed;
-                 } else {
-                     currentText = role.substring(0, currentText.length + 1);
-                     currentSpeed = typingSpeed;
-                 }
+                if (isDeleting) {
+                    currentText = role.substring(0, currentText.length - 1);
+                    currentSpeed = deletingSpeed;
+                } else {
+                    currentText = role.substring(0, currentText.length + 1);
+                    currentSpeed = typingSpeed;
+                }
 
-                 typewriterText.textContent = currentText;
+                typewriterText.textContent = currentText;
 
-                 if (!isDeleting && currentText === role) {
-                     currentSpeed = pauseTime;
-                     isDeleting = true;
-                 } else if (isDeleting && currentText === '') {
-                     isDeleting = false;
-                     currentRole = (currentRole + 1) % roles.length;
-                     currentSpeed = typingSpeed * 2;
-                 }
+                if (!isDeleting && currentText === role) {
+                    currentSpeed = pauseTime;
+                    isDeleting = true;
+                } else if (isDeleting && currentText === '') {
+                    isDeleting = false;
+                    currentRole = (currentRole + 1) % roles.length;
 
-                 setTimeout(typeWriter, currentSpeed);
-             }
+                    // Pause *after* deleting before typing next role
+                    return setTimeout(typeWriter, 800); // adjust delay as needed
+                }
 
-             // Start the typewriter effect after a delay
-             setTimeout(typeWriter, 1000);
+                setTimeout(typeWriter, currentSpeed);
+            }
 
+            setTimeout(typeWriter, 1500);
         }); // End DOMContentLoaded
     </script>
 </body>
