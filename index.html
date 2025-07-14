@@ -497,6 +497,10 @@
             position: relative;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(37, 99, 235, 0.1);
+            padding-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .project-card:hover {
@@ -541,9 +545,12 @@
         }
 
         .project-info {
-            padding: 1.5rem;
+            padding: 1.8rem;
             position: relative;
             z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-info h3 {
@@ -563,6 +570,7 @@
         .project-info p {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.2rem;
+            flex: 1;
         }
 
         .project-info a {
@@ -571,7 +579,9 @@
             font-weight: 500;
             color: var(--accent-color);
             transition: var(--transition);
-            position: relative;
+            position: absolute;
+            bottom: 0.5rem;
+            left: 1.8rem;
         }
 
         .project-info a::after {
@@ -1252,7 +1262,6 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#featured">Featured</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -1266,7 +1275,6 @@
                 <span class="typewriter-text"></span>
             </span></p>
             <a href="#contact" class="btn">Get in Touch</a>
-            <h1 style="font-size: 15px">website under construction</h1>
         </div>
         <div class="scroll-down">
             <span>scroll down</span>
@@ -1278,25 +1286,20 @@
         <section id="about">
             <div class="section-heading">
                 <h2>About Me</h2>
-                <p>Discover my journey in problem solving and design</p>
+                <p></p>
             </div>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        I often find my interests stuck between the desire to learn Software, Hardware, and Mechanical design; I find my self at the intersection of the three!
+                        Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
+
                     </p>
                     <p>
-                        Starting with a background in Roblox Game Development, which taught you everything from creative design, optimization, client-server communication, memory management, and the ability to foresee large projects
-                        in a systems level thinking. My scope of projects span from personal exploration all the way to Freelance Work. I can proudly say the skills I aquired from Roblox
-                        translate to all other problem solving domains.
+                        I specialize in controls and embedded systems, with foundations in Game Development, and Mechanical Design. As an Associate Engineer at Highlander Racing Formula SAE, I own full responsibility of our Autonomous Braking System's design and integration into our overall Guidance, Navigation, and Controls architecture.
                     </p>
+
                     <p>
-                        Taking up the challenge of a World-Level Energy Competition; I learned about my love for Mechanical Design; 3D Printing, Gearboxes,
-                        and Wind Turbine Blades were the mediums through which I learned to hone my CAD skills. Being able to envision a design then holding it's final product is one of my greatest joys!
-                    </p>
-                    <p>
-                        Now as a current Robotics Engineering Undergraduate Student at U.C Riverside; I find myself as an Associate Engineer in Highlander Racing Formula SAE with 100% ownership projects
-                        in an interdisciplinary start-up environment where I get to fully apply my interesction of interests in Software, Hardware, and Mechanical Design; Furthur cementing my passion to solve problems with creative solutions through engineering.
+                        Apart from my responsibilities with controls systems, I also create internal tooling software for our 3D Printing Fleet integrated into Discord, and a Tool Tracking system aimed at increasing tool retention and organization, while minimizing bureaucracy.  
                     </p>
                 </div>
                 <div class="about-image">
@@ -1322,7 +1325,7 @@
                             <circle cx="100" cy="100" r="75" fill="rgba(0,0,0,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
                         </svg>
                         <div class="profile-image">
-                            <!-- <img src="public/headshot.jpeg" alt="Profile picture" style="z-index: 1;"> -->
+                            <img src="public/headshot.jpeg" alt="Profile picture" style="z-index: 1;">
                         </div>
                     </div>
                 </div>
@@ -1332,19 +1335,48 @@
         <section id="projects">
             <div class="section-heading">
                 <h2>My Projects</h2>
-                <p>A showcase of my recent work and creative endeavors</p>
+                <p></p>
             </div>
             <div class="projects">
+                <!-- PROJECT MODAL START -->
+                <div id="project-modal-overlay" style="display:none;"></div>
+                <div id="project-modal" style="display:none;">
+                    <button id="project-modal-close" aria-label="Close">&times;</button>
+                    <div id="project-modal-content">
+                        <!-- Placeholder content will be injected here -->
+                    </div>
+                </div>
+                <!-- PROJECT MODAL END -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="public/project_nfc.gif" alt="Project Placeholder"> </div>
+                    <div class="project-info">
+                        <h3>NFC Tag Tool Tracker</h3>
+                        <h4>Highlander Racing - Project Management</h4>
+                        <p>Developed a tool tracking system using NFC tags, pre-filled forms, and a Google Sheet to keep track of the last user and time of a tool. This instantly improved tool retention and organization.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="public/project_discordapp.gif" alt="Discord Application"> </div>
+                    <div class="project-info">
+                        <h3>BambuLab Printer Discord Application</h3>
+                        <h4>Highlander Racing - Internal Tooling Software</h4>
+                        <p>Implemented a Discord Application that improves manufacturing oversight by allowing team members to view current print jobs through live updates, slash command invocation, and automated print failure detection.</p>
+                        <a href="#">View Details</a>
+                    </div>
+                </div>
                 <div class="project-card">
                     <div class="project-img">
                         <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking System"> </div>
                     <div class="project-info">
                         <h3>Autonomous Braking Control System</h3>
                         <h4>Highlander Racing - Formula SAE</h4>
-                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control Signals and User Interface control.</p>
+                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control, P.I.D, and Command Line Interface.</p>
                         <a href="#">View Details</a> </div>
-                </div>
-                <div class="project-card">
+                    </div>
+                    <div class="project-card">
                     <div class="project-img">
                         <img src="public/project_roboticarm.jpeg" alt="Robot Arm"> </div>
                     <div class="project-info">
@@ -1361,16 +1393,6 @@
                         <h3>KidWind Energy Competition</h3>
                         <h4>World Competition - Design Lead</h4>
                         <p>Led mechanical design for wind turbine blades, gearbox, and chassis. Raised $2500+ dollars through crowdsourcing under extreme budget constriants.</p>
-                        <a href="https://gale.standafer.dev/">View Competition Site</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_roblox_game.png" alt="Roblox Game System"> </div>
-                    <div class="project-info">
-                        <h3>Complex Game Systems</h3>
-                        <h4>Roblox Development</h4>
-                        <p>Designed and implemented scalable game mechanics, focusing on server optimization and client interaction.</p>
                         <a href="#">View Details</a>
                     </div>
                 </div>
@@ -1378,19 +1400,9 @@
                     <div class="project-img">
                         <img src="/api/placeholder/400/320" alt="Project Placeholder"> </div>
                     <div class="project-info">
-                        <h3>Embedded Systems Project</h3>
-                        <h4>Coursework/Personal</h4>
-                        <p>Developed [Specific Embedded Project] using Arduino/Raspberry Pi and C++/Python.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project Placeholder"> </div>
-                    <div class="project-info">
-                        <h3>CAD Design Portfolio</h3>
-                        <h4>Various Projects</h4>
-                        <p>Collection of mechanical designs and assemblies created using SolidWorks.</p>
+                        <h3>Roblox Game Development</h3>
+                        <h4>Freelance - Passion</h4>
+                        <p>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</p>
                         <a href="#">View Details</a>
                     </div>
                 </div>
@@ -1409,21 +1421,19 @@
                     <div class="skill-circle"> <img src="public/skill_blender.png" alt="Blender" class="skill-icon" style="width: 60px; height: 70px;"> <span class="skill-name">Blender</span> </div>
                 </div>
                 <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skills/python.png" alt="Python" class="skill-icon"> <span class="skill-name">Python</span> </div>
                     <div class="skill-circle"> <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon" style="width: 50px; height: 50px;"> <span class="skill-name">Arduino</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/raspberrypi.png" alt="Raspberry Pi" class="skill-icon"> <span class="skill-name">Raspberry Pi</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/linux.png" alt="Linux" class="skill-icon"> <span class="skill-name">Linux</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/git.png" alt="Git" class="skill-icon"> <span class="skill-name">Git</span> </div>
-                </div>
-                 <div class="skill-row">
+                    <div class="skill-circle"> <img src="public/skill_cpp.png" alt="C++" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">C++</span> </div>
+                    <div class="skill-circle"> <img src="public/skill_nodejs.png" alt="NodeJS" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">NodeJS</span> </div>
                     <div class="skill-circle"> <img src="public/skill_matlab.png" alt="matlab" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">MATLAB</span> </div>
+                </div>
+                 <!-- <div class="skill-row">
                     <div class="skill-circle"> <img src="public/skills/lua.png" alt="Lua" class="skill-icon"> <span class="skill-name">Lua</span> </div>
                     <div class="skill-circle"> <img src="public/skills/canbus.png" alt="CAN Bus" class="skill-icon"> <span class="skill-name">CAN Bus</span> </div>
-                 </div>
+                 </div> -->
             </div>
         </section>
 
-        <section id="featured">
+        <!-- <section id="featured">
             <div class="section-heading">
                 <h2>Featured Work</h2>
                 <p>An in-depth look at my highlighted project</p>
@@ -1436,7 +1446,7 @@
                 </div>
                 <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
              </div>
-        </section>
+        </section> -->
 
         <section id="contact">
             <div class="section-heading">
@@ -1448,6 +1458,7 @@
                     <h3>Get In Touch</h3>
                      <p><img src="public/icon_location.png" alt="Location" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> Home: Bay Area, CA</p>
                      <p><img src="public/icon_education.png" alt="Education" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> School: University Of California, Riverside</p>
+
 
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/kennethsross/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
@@ -1462,7 +1473,7 @@
 
     <footer>
         <div class="footer-content">
-            <p>Last Updated: May 8, 2025</p>
+            <p>Last Updated: July 2025</p>
         </div>
     </footer>
 
@@ -1578,10 +1589,9 @@
 
              // Typewriter Animation Script
              const roles = [
-                 "Robotics Enthusiast", "Mechanical Design Enthusiast", "Systems-Level Coordinater",
+                 "Mechanical Design Enthusiast",
                  "3D Printing Enthusiast", "CAD Designer", 
                  "Embedded Systems Developer", "Game Developer",
-                 "Rapid Prototyping Advocate", "Curious Innovator",
              ];
              let currentRole = 0;
              let currentText = '';
@@ -1622,6 +1632,378 @@
 
             setTimeout(typeWriter, 1500);
         }); // End DOMContentLoaded
+
+    // Modal logic for project details
+    const projectsSection = document.querySelector('.projects');
+    const modalOverlay = projectsSection.querySelector('#project-modal-overlay');
+    const modal = projectsSection.querySelector('#project-modal');
+    const modalContent = projectsSection.querySelector('#project-modal-content');
+    const modalClose = projectsSection.querySelector('#project-modal-close');
+
+    if (!modalClose) {
+      console.error('Modal close button not found! Is the modal HTML inside .projects?');
+    }
+    // Placeholder project details (replace with real content later)
+    const projectDetails = [
+            {
+            title: 'NFC Tag Tool Tracker',
+            subtitle: 'Highlander Racing - Project Management',
+            paragraphs: [
+                `Highlander Racing fased significant challenges with losing tools; lost tools cost critical time and money; I can't even count on my hand how many times I've needed something and couldn't find it.`,
+
+                `Like our 3D Prints it was highly suggested that we have a tool tracking system; many suggested a sign out sheet, however on a team of 50+ students this was impractical, this would create frustration and bureaucracy.`,
+
+                `I first suggested QR codes on each part, or even better; NFC Tags on each tool. Each NFC Tag would be pre-programmed with a prefilled Google Form to its corresponding tool.`,
+
+                `Whenever the Google Form was submitted, it would append a google sheet with the last user and time of the tool. This was a much more practical approach to tracking our tools; a 5 second solution that eliminates unnecessary bureaucracy and has the least friction.`,
+
+                `In the future I plan on implementing a Discord Bot Integration that allows uers to invoke the last time a tool was used and who used it.`,
+            ],
+            images: [
+                'public/project_nfc.gif',
+                'public/project_nfc_spreadsheet.png'
+            ],
+            link: null
+        },
+        {
+            title: 'BambuLab Printer Discord Application',
+            subtitle: 'Highlander Racing - Internal Tooling Software',
+            paragraphs: [
+                `Highlander Racing faced significant challenges with our 3D printing fleet, primarily the lack of accountability and oversight across our printing operations. With a team of 50+ members, manually logging prints on Discord proved impractical and unreliable.`,
+
+                `I discovered that BambuLab provides comprehensive APIs allowing software to interface with their printers via MQTT and FTP over the local network. This revelation transformed our approach from simple logging to a full-featured monitoring system. The Discord bot could now access live camera feeds, monitor print status, and even send GCode commands directly to printers.`,
+
+                `As I deepened my understanding of the BambuLab API, I enhanced the Discord bot with invokable slash commands and user-subscribed alerts for real-time status updates. The system now provides live camera feeds and comprehensive print monitoring capabilities.`,
+
+                `While the bot met our original requirements, I identified additional opportunities to address critical team needs.`,
+
+                `After observing our Aerodynamics subteam struggle with print failures on 15+ hour prints that consumed significant filament, I implemented an AI-powered print failure detection system. While some solutions required expensive cloud subscriptions or self-hosted agents, I developed a free alternative using Google's Gemini API.`,
+
+                `The system captures print snapshots every 5 minutes and analyzes them through Gemini with detailed prompts to assess failure probability. Based on the AI's confidence level and descriptive analysis, users receive automated alerts with attached images and failure justifications, enabling proactive intervention before catastrophic failures occur.`,
+            ],
+            images: ['public/project_discordapp.gif'],
+            link: null
+        },
+        {
+            title: 'Autonomous Braking Control System',
+            subtitle: 'Highlander Racing - Autonomous Subteam',
+            paragraphs: [
+                "My introduction to the Autonomous subteam began with a barebones GoKart.",
+                "My first task was to research and implement a braking system using a motor to control the brake pedal. After considering several control methods, I chose a linear actuator. I sourced a suitable actuator, but was also asked to prototype with a more affordable motor first.",
+                "To mount the actuator, I created a SolidWorks model and 3D printed the part. Since no CAD or documentation existed for the GoKart, I reverse-engineered the surrounding area to ensure a precise fit.",
+                "Much of my CAD work involved modeling the GoKart chassis and actuator, focusing on tolerances for 3D printing.",
+                "In parallel, I developed the control software on an Arduino Due with a motor driver, implementing a command-line interface for speed and direction control.",
+                "Later, I integrated the system with our radio control (RC) setup, learning to process RC signals on the Arduino by studying datasheets and debugging with an oscilloscope.",
+                "I mapped RC signal frequencies to actuator speed and direction, then implemented a PID controller to allow position-based control using a linear potentiometer for feedback.",
+                "This project required a blend of mechanical design, embedded programming, and signal processing, resulting in a robust autonomous braking system for our team."
+            ],
+            images: [
+                'public/project_autonomous_brakes.png',
+                'public/project_autonomouscontrols.gif',
+                'public/project_brakingassembly.jpg'
+            ],
+            link: null
+        },
+        {
+            title: 'Robotic Arm',
+            subtitle: 'Personal Project',
+            paragraphs: [
+                'This Robotic Arm is a personal project that aimed at improving my CAD skills and understanding of mechanical systems in an Assembly-level project. I also was learning how to implement a controls system using three Servo Motors, Motor Driver, and Arduino. Robotic Arm V2 Coming soon.',
+            ],
+            images: [
+                'public/project_roboticarm.jpeg',
+                'public/project_robotarm2.jpg,',
+            ],
+            link: null
+        },
+        {
+            title: 'KidWind Energy Competition',
+            subtitle: 'World Competition - Design Lead',
+            paragraphs: [
+                'This is our KidWind Energy Competition Presentation.',
+
+                `https://gale.standafer.dev/`,
+            ],
+            images: [],
+            link: 'https://gale.standafer.dev/'
+        },
+        {
+            title: 'Roblox Game Development',
+            subtitle: 'Freelance - Passion',
+            paragraphs: [
+                `CONTENT COMING SOON.`,
+            ],
+            images: ['https://placehold.co/600x400?text=Project+6+Image'],
+            link: null
+        },
+    ];
+
+    // Add modal CSS
+    const modalStyle = document.createElement('style');
+    modalStyle.textContent = `
+    .projects {
+        position: relative;
+    }
+    #project-modal-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+        z-index: 99;
+        display: none;
+        transition: opacity 0.3s;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+    }
+    #project-modal-overlay.active {
+        display: block;
+        opacity: 1;
+    }
+    #project-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        color: #fff;
+        z-index: 100;
+        min-width: 320px;
+        overflow-y: auto;
+        padding: 2.5rem 2rem 2rem 2rem;
+        display: none;
+        animation: modalFadeIn 0.3s cubic-bezier(0.25,0.8,0.25,1);
+    }
+    #project-modal.active {
+        display: block;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: translate(-50%, -40%) scale(0.95); }
+        to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    #project-modal-close {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        font-size: 2.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        z-index: 2;
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px 0 rgba(37,99,235,0.10);
+        background: rgba(37,99,235,0.08);
+        transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    #project-modal-close:hover {
+        color: #fff;
+        background: var(--primary-color);
+        box-shadow: 0 4px 16px 0 rgba(37,99,235,0.18);
+    }
+    #project-modal-content {
+        margin-top: 1.5rem;
+        background: transparent;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        backdrop-filter: none;
+    }
+    #project-modal-content h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 8px rgba(37,99,235,0.10);
+        position: relative;
+    }
+    #project-modal-content h2::after {
+        content: '';
+        position: absolute;
+        width: 165px;
+        height: 4px;
+        bottom: -6px;
+        left: 5rem;
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        border-radius: 2px;
+    }
+    #project-modal-content h3 {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 1.2rem;
+        font-weight: 500;
+    }
+    #project-modal-content p {
+        color: rgba(255,255,255,0.9);
+        margin-bottom: 1.2rem;
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+    #project-modal-content img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 8px 24px rgba(37,99,235,0.15);
+        border: 1.5px solid rgba(37,99,235,0.10);
+    }
+    #project-modal-content iframe {
+        width: 100%;
+        min-height: 600px; /* Increased from 350px */
+        height: 600px;     /* Optional: set a fixed height */
+        border: none;
+        border-radius: 12px;
+        margin-bottom: 1.2rem;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(37,99,235,0.10);
+        border: 1.5px solid rgba(37,99,235,0.10);
+    }
+    @media (max-width: 700px) {
+        #project-modal {
+            width: 98vw;
+            min-width: 0;
+            padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+        }
+        #project-modal-content h2 {
+            font-size: 1.3rem;
+        }
+    }
+    `;
+    document.head.appendChild(modalStyle);
+
+    // Helper to disable/enable background scroll
+    // No-op: scrolling is always enabled now
+    function setBodyScrollDisabled(disabled) {
+        // Do nothing, scrolling always enabled
+    }
+
+    // Open modal with project index
+    function openProjectModal(index) {
+        const project = projectDetails[index];
+        if (!project) return;
+        let html = `<h2>${project.title}</h2>`;
+        if (project.subtitle) html += `<h3>${project.subtitle}</h3>`;
+        if (project.images && project.images.length) {
+            project.images.forEach(img => {
+                html += `<img src='${img}' alt='${project.title} image'>`;
+            });
+        }
+        if (project.paragraphs && project.paragraphs.length) {
+            project.paragraphs.forEach(p => {
+                html += `<p>${p}</p>`;
+            });
+        }
+        if (project.link) {
+            html += `<iframe src='${project.link}' allowfullscreen></iframe>`;
+        }
+        modalContent.innerHTML = html;
+        modalOverlay.classList.add('active');
+        modal.classList.add('active');
+        modalOverlay.style.display = 'block';
+        modal.style.display = 'block';
+        setBodyScrollDisabled(true);
+    }
+
+    // Close modal
+    function closeProjectModal() {
+        modalOverlay.classList.remove('active');
+        modal.classList.remove('active');
+        modalOverlay.style.display = 'none';
+        modal.style.display = 'none';
+        setBodyScrollDisabled(false);
+    }
+
+    // Attach close events
+    if (modalClose) {
+      modalClose.addEventListener('click', closeProjectModal);
+    }
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', closeProjectModal);
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeProjectModal();
+    });
+
+    // Attach open events to project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, i) => {
+        const detailsLink = card.querySelector('a');
+        if (detailsLink) {
+            detailsLink.addEventListener('click', function(e) {
+                // Only open modal for 'View Details' (not for external links)
+                if (detailsLink.textContent.toLowerCase().includes('view details')) {
+                    e.preventDefault();
+                    openProjectModal(i);
+                }
+            });
+        }
+    });
+
+    const header = document.querySelector('header');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (!targetId.startsWith('#')) return; // Only handle anchor links
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                e.preventDefault();
+                const headerOffset = header ? header.offsetHeight + 20 : 0;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('header');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (!targetId.startsWith('#')) return;
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    e.preventDefault();
+                    // First scroll to the section
+                    targetSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+                    // Then adjust for header offset after a short delay
+                    setTimeout(() => {
+                        const headerOffset = header ? header.offsetHeight + 20 : 0;
+                        const scrolledY = window.scrollY;
+                        window.scrollTo({
+                            top: scrolledY - headerOffset,
+                            behavior: 'instant'
+                        });
+                    }, 400); // 400ms matches the smooth scroll duration
+                }
+            });
+        });
+    });
     </script>
 </body>
 </html>
