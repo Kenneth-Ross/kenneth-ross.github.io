@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenneth Ross</title>
+    <title>Kenneth Ross - Robotics Dashboard v7 (Refined Sidebar & Layout)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Modern CSS Reset */
         *, *::before, *::after {
@@ -12,1998 +13,1094 @@
             padding: 0;
         }
 
-        /* Variables */
+        /* Variables for Theme 7: Refined Robotics Visualization Dashboard */
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #3b82f6;
-            --text-color: #111827;
-            --light-color: #f8f9fa;
-            --dark-color: #131415;
-            --accent-color: #60a5fa;
-            --gradient-primary: linear-gradient(135deg, #2563eb, #3b82f6);
-            --gradient-secondary: linear-gradient(135deg, #3b82f6, #60a5fa);
-            --gradient-dark: linear-gradient(135deg, #0a0a1a, #1a1a2e);
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --bg-primary: #0A0F17; /* Very dark blue-gray */
+            --bg-secondary: #1C2433; /* Darker panel background */
+            --bg-tertiary: #2A3647; /* Lighter panel background, for nested elements */
+            --text-light: #E8EDF3; /* Off-white for general text */
+            --accent-blue: #00B0FF; /* Bright blue for primary highlights (data, active) */
+            --accent-green: #00E676; /* Bright green for secondary highlights (headers, links) */
+            --accent-orange: #FF9800; /* Orange for warnings/attention */
+            --border-color: rgba(61, 68, 80, 0.4); /* Subtle border */
+            --shadow-glow-blue: rgba(0, 176, 255, 0.25); /* Blue glow for interactivity */
+            --shadow-glow-green: rgba(0, 230, 118, 0.25); /* Green glow */
+            --font-display: 'Roboto Mono', monospace;
+            --font-body: 'Inter', sans-serif;
+            --transition-speed: 0.3s ease-out;
         }
-
-        /* Base Styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow-x: hidden;
-        }
-
-        html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-main);
+            font-family: var(--font-body);
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: #0a0a1a;
+            color: var(--text-light);
+            background-color: var(--bg-primary);
             display: flex;
-            flex-direction: column;
             min-height: 100vh;
-            perspective: 1000px;
+            position: relative;
+            font-size: 16px;
         }
-
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* SVG Shapes */
-        .shape {
-            position: absolute;
+        body::before { /* Background grid/noise */
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.05;
             pointer-events: none;
             z-index: -1;
         }
 
-        .shape-1 {
-            top: 15%;
-            right: 10%;
-            width: 300px;
-            height: 300px;
-            opacity: 0.3;
+        a {
+            text-decoration: none;
+            color: var(--accent-green); /* Links start green now */
+            transition: var(--transition-speed);
         }
 
-        .shape-2 {
-            bottom: -5%;
-            left: -5%;
-            width: 250px;
-            height: 250px;
-            opacity: 0.2;
+        a:hover {
+            color: var(--accent-blue); /* Hover to blue */
+            text-shadow: 0 0 5px var(--shadow-glow-blue);
         }
 
-        .shape-3 {
-            top: 50%;
-            left: 15%;
-            width: 200px;
-            height: 200px;
-            opacity: 0.15;
-        }
-
-        /* Header */
-        header {
-            padding: 1.5rem 2rem;
-            background-color: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(10px);
-            position: fixed;
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr; /* Sidebar fixed, main content flexible */
+            grid-template-rows: 1fr;
             width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            transition: var(--transition);
-        }
-
-        header.scrolled {
-            padding: 1rem 2rem;
-            background-color: rgba(10, 10, 26, 0.95);
-            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.3);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 1rem; /* Add gap between logo and nav links if needed */
-            overflow: hidden; /* Prevent nav content from spilling out */
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            position: relative;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0; /* Prevent logo from shrinking */
-        }
-
-        .logo::before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 8px;
-            left: -15px;
-            z-index: -1;
-            transform: rotate(45deg);
-            animation: rotateLogo 10s linear infinite;
-        }
-
-        @keyframes rotateLogo {
-            from { transform: rotate(45deg); }
-            to { transform: rotate(405deg); }
-        }
-
-        .nav-links {
-            display: flex; /* Keep as flex */
-            gap: 3rem; /* Base gap */
-            list-style: none;
-            /* Changes for horizontal scroll on mobile will be in media queries */
-            margin: 0; /* Ensure no default margin */
-            padding: 0; /* Ensure no default padding */
-            align-items: center; /* Vertically align items */
-            flex-grow: 1; /* Allow links container to grow */
-            justify-content: flex-end; /* Align links to the right */
-        }
-
-        .nav-links li {
-             flex-shrink: 0; /* Prevent list items from shrinking */
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            position: relative;
-            color: white;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            white-space: nowrap; /* Ensure link text itself doesn't wrap */
-            display: block; /* Needed for padding/hover */
-            padding: 0.5rem 0; /* Add some vertical padding for touch? Optional */
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0px; /* Adjust position relative to padding */
-            left: 0;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            transition: var(--transition);
-            border-radius: 5px;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 6rem 2rem 2rem;
-            background: var(--gradient-dark);
-            margin-top: 0; /* Adjusted in JS based on header height */
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 900px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards 0.5s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.3), transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.3), transparent 50%);
-            opacity: 0.6;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.1;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero h1 span {
-            display: block;
-            color: white;
-            -webkit-text-fill-color: white;
-            background: none;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 300;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, rgba(37, 99, 235, 0.8), rgba(59, 130, 246, 0.8));
-            color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: 0 10px 20px -10px rgba(37, 99, 235, 0.5);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            z-index: -1;
-            transition: var(--transition);
-            opacity: 0;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 30px -15px rgba(#2563eb);
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-        }
-
-        /* Scroll Down Indicator */
-        .scroll-down {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+        /* Sidebar - File Explorer / Navigation */
+        .dashboard-sidebar {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 0;
             display: flex;
             flex-direction: column;
+            position: fixed; /* Changed to fixed for persistence */
+            top: 0;
+            bottom: 0; /* Extends to full height */
+            left: 0;
+            width: 280px; /* Fixed width */
+            z-index: 10;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.4);
+        }
+
+        .sidebar-section {
+            padding: 1.5rem 0; /* Apply padding to sections */
+            display: flex; /* Ensure inner content is also flex for vertical distribution */
+            flex-direction: column;
+        }
+
+        .explorer-menu {
+            flex: 1; /* Takes 50% height */
+            overflow-y: auto; /* Allows scrolling for explorer content */
+        }
+
+        .properties-menu {
+            flex: 1; /* Takes 50% height */
+            overflow-y: auto; /* Allows scrolling for properties content */
+            border-top: 1px solid var(--border-color); /* Separator between sections */
+            justify-content: flex-end; /* Push content to bottom of its half */
+        }
+
+
+        .sidebar-header {
+            text-align: left;
+            margin-bottom: 2.5rem;
+            padding: 0 1.5rem;
+        }
+        .sidebar-header .logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-blue); /* Logo is blue */
+            text-shadow: 0 0 10px var(--shadow-glow-blue);
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-nav a {
+            display: flex;
             align-items: center;
-            color: white;
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        .scroll-down span {
-            margin-bottom: 8px;
+            padding: 0.9rem 1.5rem;
+            color: var(--text-light);
+            font-family: var(--font-display); /* Use mono for file paths */
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            transition: var(--transition-speed);
+            gap: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+        }
+        .sidebar-nav a .icon {
+            width: 20px;
+            height: 20px;
+            filter: grayscale(100%) brightness(1.5);
+            transition: var(--transition-speed);
+        }
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background-color: rgba(0, 176, 255, 0.08); /* Blue background on active/hover */
+            border-left-color: var(--accent-blue); /* Blue border */
+            color: var(--accent-blue); /* Blue text */
+            text-shadow: 0 0 3px var(--shadow-glow-blue);
+        }
+        .sidebar-nav a:hover .icon, .sidebar-nav a.active .icon {
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 3px var(--shadow-glow-blue));
         }
 
-        .scroll-down .mouse {
-            width: 26px;
-            height: 40px;
-            border: 2px solid white;
-            border-radius: 20px;
+        .properties-menu .menu-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            padding: 0 1.5rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .properties-menu .status {
+            font-size: 0.8rem;
+            color: var(--accent-blue); /* Status blue */
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            padding: 0 1.5rem;
+        }
+        .properties-menu .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+        .properties-menu .social-links img {
+            width: 32px;
+            height: 32px;
+            filter: grayscale(100%) brightness(1.5);
+            transition: var(--transition-speed);
+        }
+        .properties-menu .social-links a:hover img {
+            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 5px var(--shadow-glow-blue));
+            transform: scale(1.1);
+        }
+
+        /* Main Content Area - Visualization Panels */
+        .dashboard-main {
+            grid-column: 2 / -1;
+            padding: 1.5rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr; /* Flexible panel layout */
+            align-content: start; /* Align content to the top */
+        }
+
+        .dashboard-main > .panel { /* Ensure all direct child panels span full width */
+            grid-column: 1 / -1;
+        }
+
+        .panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* For scroll-in animation */
+            transform: translateY(20px); /* For scroll-in animation */
+            transition: opacity 0.6s var(--transition-speed), transform 0.6s var(--transition-speed);
         }
-
-        .scroll-down .mouse::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background-color: white;
-            border-radius: 2px;
-            animation: scrollMouse 2s infinite;
-        }
-
-        @keyframes scrollMouse {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(15px);
-            }
-        }
-
-        /* Main Content */
-        main {
-            flex: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem; /* Initial padding top adjusted in JS */
-            position: relative;
-        }
-
-        section {
-            margin-bottom: 8rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition);
-        }
-
-        section.visible {
+        .panel.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        section.hero {
-            margin-top: 0; /* Hero specifically starts at top */
-            padding-top: 6rem; /* Initial padding top */
-            opacity: 1;
-            transform: none;
-        }
-
-        .section-heading {
-            position: relative;
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        .section-heading p {
-            max-width: 600px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
+        .panel-header {
+            font-family: var(--font-display);
             font-size: 1.1rem;
-        }
-
-        .about-image {
-            position: relative;
-            width: 500px; /* Base size */
-            height: 500px; /* Base size */
-            margin: 0 auto;
-        }
-
-        .profile-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-        }
-
-        .profile-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 10px 25px rgba(37, 99, 235, 0.5));
-            animation: rotate 20s linear infinite;
-        }
-
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .profile-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            height: 85%;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background-color: rgba(15, 15, 19, 0.6);
-            backdrop-filter: blur(5px);
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        /* Projects Section */
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
-            transition: var(--transition);
-            position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(37, 99, 235, 0.1);
-            padding-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
-            border-color: rgba(37, 99, 235, 0.2);
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            z-index: 0;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-img {
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .project-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-img img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 1.8rem;
-            position: relative;
-            z-index: 1;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-info h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        .project-info h4 {
-            margin-bottom: 0.8rem;
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .project-info p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1.2rem;
-            flex: 1;
-        }
-
-        .project-info a {
-            display: inline-flex;
-            align-items: center;
-            font-weight: 500;
-            color: var(--accent-color);
-            transition: var(--transition);
-            position: absolute;
-            bottom: 0.5rem;
-            left: 1.8rem;
-        }
-
-        .project-info a::after {
-            content: '→';
-            margin-left: 5px;
-            transition: var(--transition);
-        }
-
-        .project-info a:hover {
-            color: white;
-        }
-
-        .project-info a:hover::after {
-            transform: translateX(5px);
-        }
-
-        /* Iframe Container */
-        .iframe-container {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(37, 99, 235, 0.1);
-            position: relative;
-            z-index: 1;
-            transform: perspective(1000px) rotateX(5deg);
-            transition: var(--transition);
-        }
-
-        .iframe-container:hover {
-            transform: perspective(1000px) rotateX(0deg);
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
-        }
-
-        .iframe-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-info {
-            background-color: rgba(37, 99, 235, 0.05);
-            padding: 2.0rem;
-            border-radius: 16px;
-            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(37, 99, 235, 0.1);
-            transition: var(--transition);
-        }
-
-        .contact-info:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.25);
-        }
-
-        .contact-info h3 {
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            position: relative;
-            display: inline-block;
-        }
-
-        .contact-info h3::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 3px;
-            bottom: -8px;
-            left: 0;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        .contact-info p {
+            color: var(--accent-blue); /* Panel headers are blue */
             margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.8rem;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+        }
+        .panel-header::before {
+            content: '>>'; /* Or some other symbol */
+            color: var(--accent-green); /* Icon before header is green */
+        }
+        .project-grid-panel .panel-header {
+            margin-bottom: 2.5rem; /* Larger bottom margin for active_missions */
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 50%;
-            transition: var(--transition);
+        /* 3D View Hero Panel */
+        .hero-3d-view {
+            grid-column: 1 / -1; /* Span full width */
+            min-height: 500px;
+            background-color: var(--bg-primary);
+            border: 2px solid var(--accent-blue); /* Blue border for hero */
+            box-shadow: 0 0 20px var(--shadow-glow-blue); /* Blue glow for hero */
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push controls to top/bottom */
+            background-image: url('https://via.placeholder.com/1200x500/0A0F17/00B0FF?text=3D+ROBOT+MODEL+OR+POINT+CLOUD+VISUALIZATION'); /* Placeholder 3D image with blue accent */
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
+        }
+        .hero-3d-view::before { /* Overlay to darken image */
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(10,15,23,0.8), rgba(10,15,23,0.3), rgba(10,15,23,0.8));
             z-index: 1;
         }
 
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            z-index: -1;
-            opacity: 0;
-            transition: var(--transition);
+        .view-controls {
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+            font-family: var(--font-display);
+            color: var(--accent-green); /* View controls status text is green */
+            font-size: 0.85rem;
+            background-color: rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .view-controls span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .view-controls .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-blue); /* Status indicator dot is blue */
+            box-shadow: 0 0 5px var(--shadow-glow-blue);
         }
 
-        .social-links a:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .social-links a:hover::before {
-            opacity: 1;
-        }
-
-        /* Footer */
-        footer {
-            background-color: rgba(10, 10, 26, 0.9);
-            color: white;
-            padding: 3rem 2rem;
+        .view-main-area {
+            z-index: 2;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            position: relative;
-            width: 100%;
-            margin-top: auto;
+            padding: 0 2rem;
         }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(37, 99, 235, 0.8), rgba(59, 130, 246, 0.8), transparent);
+        .view-main-area h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--accent-blue); /* Hero title is blue */
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--shadow-glow-blue);
+            overflow: hidden;
         }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        /* Typewriter Animation Styles */
-        .typewriter {
-            display: inline-block;
-            position: relative;
+        .view-main-area .typewriter-text {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-green); /* Typewriter text is green */
             min-height: 1.5em;
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: hidden; /* Hide overflow during animation */
-        }
-
-        .typewriter-text {
             display: inline-block;
-            position: relative;
-            color: var(--accent-color);
-            font-weight: 500;
-            white-space: nowrap; /* Prevent text wrapping */
+            margin-bottom: 2rem;
         }
-
-        .typewriter-text::after {
-            content: '|';
-            position: relative;
-            right: 0;
-            animation: blink 1s step-end infinite;
-            display: inline-block; /* Keep cursor on same line */
+        .view-main-area .typewriter-text::after {
+            content: '_';
+            animation: blinkCaret 0.8s step-end infinite;
         }
-
-        @keyframes blink {
+        @keyframes blinkCaret {
             from, to { opacity: 1; }
             50% { opacity: 0; }
         }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        .view-main-area .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent-blue); /* CTA button is blue */
+            color: var(--bg-primary);
+            border-radius: 4px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            transition: var(--transition-speed);
+            box-shadow: 0 0 10px rgba(0, 176, 255, 0.4);
+        }
+        .view-main-area .cta-button:hover {
+            background-color: var(--accent-green); /* CTA hover to green */
+            color: var(--text-light);
+            box-shadow: 0 0 15px var(--shadow-glow-green);
+            transform: translateY(-3px);
         }
 
-        @keyframes deleting {
-            from { width: 100% }
-            to { width: 0 }
+        /* About Panel & About Media Panel */
+        .about-grid-container {
+            grid-column: 1 / -1; /* Span full width for the container */
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Two columns */
+            gap: 1.5rem;
         }
 
-        /* Skills Section */
-        #skills { /* Changed from .skills-section to #skills to match ID */
-             margin-top: 8rem;
-             position: relative;
-             padding: 4rem 0;
-             background: rgba(10, 10, 26, 0.95);
-             backdrop-filter: blur(10px);
-         }
+        #about {
+            /* Revert width for about card */
+            grid-column: auto;
+        }
+        #about .about-content {
+            display: flex;
+            flex-direction: column; /* Stack for responsive design */
+            gap: 1.5rem;
+            flex-grow: 1;
+        }
+        #about .about-text p {
+            margin-bottom: 0.8rem;
+            margin-left: 0.3rem;
+            margin-right: 0.3rem;
+            color: var(--text-light);
+        }
+        #about .profile-image-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-green); /* Profile image border green */
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.4); /* Profile image shadow green */
+            margin: 0 auto; /* Center image */
+            flex-shrink: 0;
+        }
+        #about .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+        }
 
+        #about-media .media-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-display);
+            color: var(--text-light);
+            text-align: center;
+            background-color: var(--bg-primary); /* Darker background for media */
+            border-radius: 6px;
+            border: 1px dashed var(--border-color);
+            min-height: 200px; /* Ensure visibility */
+        }
+        #about-media .media-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+
+        /* Projects Panel */
+        .project-grid-panel {
+            grid-column: 1 / -1; /* Span full width */
+            padding-bottom: 0; /* Adjust for internal padding of cards */
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            flex-grow: 1;
+        }
+        .project-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: var(--transition-speed);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            border-color: var(--accent-blue); /* Project card hover border blue */
+            box-shadow: 0 0 12px var(--shadow-glow-blue); /* Project card hover shadow blue */
+            transform: translateY(-4px);
+            background-color: rgba(0, 176, 255, 0.05); /* Project card hover bg blue */
+        }
+        .project-card-image {
+            height: 160px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .project-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(80%) grayscale(60%);
+            transition: var(--transition-speed);
+        }
+        .project-card:hover .project-card-image img {
+            filter: brightness(100%) grayscale(0%);
+            transform: scale(1.08);
+        }
+        .project-card-info {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card-info h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--accent-blue); /* Project card title blue */
+            margin-bottom: 0.4rem;
+        }
+        .project-card-info h4 {
+            font-size: 0.8rem;
+            color: var(--accent-green); /* Project card subtitle green */
+            margin-bottom: 0.8rem;
+        }
+        .project-card-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        .project-card-link {
+            font-family: var(--font-display);
+            color: var(--accent-blue); /* Project card link blue */
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            font-size: 0.9rem;
+        }
+        .project-card-link::after {
+            content: '>';
+            opacity: 0;
+            transition: var(--transition-speed);
+        }
+        .project-card-link:hover::after {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        /* Skills Panel */
         .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 0.8rem;
+            justify-items: center;
+            text-align: center;
+        }
+        .skill-widget {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 0.8rem 0.5rem;
+            transition: var(--transition-speed);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .skill-row {
-            display: flex;
             justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap; /* Allow wrapping by default */
+            width: 100%;
+            height: 100px;
+        }
+        .skill-widget:hover {
+            border-color: var(--accent-blue); /* Skill widget hover border blue */
+            box-shadow: 0 0 8px var(--shadow-glow-blue); /* Skill widget hover shadow blue */
+            transform: translateY(-2px);
+            background-color: rgba(0, 176, 255, 0.05); /* Skill widget hover bg blue */
+        }
+        .skill-widget-icon {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            filter: grayscale(80%) brightness(1.5);
+            transition: var(--transition-speed);
+            margin-bottom: 0.4rem;
+        }
+        .skill-widget:hover .skill-widget-icon {
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 4px var(--shadow-glow-blue));
+            transform: scale(1.1);
+        }
+        .skill-widget-name {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .skill-widget:hover .skill-widget-name {
+            color: var(--accent-blue); /* Skill widget name blue */
         }
 
-        .skill-circle {
+        /* Experiences Section */
+        #experiences ul {
+            list-style: none;
+            padding-left: 1.5rem; /* Indent for list items */
+        }
+        #experiences li {
+            margin-bottom: 1rem;
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0;
-            background: radial-gradient(circle, #3b82f6 0%, #1e3b8a00 100%);
-            border-radius: 50%;
+            color: var(--text-light);
+        }
+        #experiences li::before {
+            content: '-';
+            color: var(--accent-green);
+            position: absolute;
+            left: -1.5rem;
+        }
+        #experiences h3 {
+            font-family: var(--font-display);
+            color: var(--accent-blue);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        #experiences h4 {
+            font-family: var(--font-body);
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        #experiences p {
+            font-size: 0.9rem;
+        }
+
+
+        /* Contact Panel */
+        .contact-info-panel {
+            grid-column: 1 / -1; /* Span full width */
+        }
+        .contact-data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .contact-data-block {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.2rem;
+            transition: var(--transition-speed);
+        }
+        .contact-data-block:hover {
+            border-color: var(--accent-green); /* Contact data block hover border green */
+            box-shadow: 0 0 10px var(--shadow-glow-green); /* Contact data block hover shadow green */
+            transform: translateY(-2px);
+            background-color: rgba(0, 230, 118, 0.05); /* Contact data block hover bg green */
+        }
+        .contact-data-block h3 {
+            font-family: var(--font-display);
+            color: var(--accent-green); /* Contact data block title green */
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .contact-data-block p {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            cursor: pointer;
-            border: 2px solid rgba(37, 99, 235, 0.3);
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .contact-data-block p img {
+            width: 18px;
+            height: 18px;
+            filter: grayscale(100%) brightness(1.8);
+        }
+        .contact-data-block a {
+            color: var(--accent-blue); /* Contact data block link blue */
+        }
+        .contact-data-block a:hover {
+            color: var(--accent-green); /* Contact data block link hover green */
         }
 
-        /* Border accent */
-        .skill-circle::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: var(--gradient-dark);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0.8;
-            transition: var(--transition);
-            border: 2px solid rgba(37, 99, 235, 0.5);
-        }
-
-        .skill-circle:hover {
-            transform: translateY(-5px);
-            z-index: 2;
-            background: rgba(15, 15, 19, 0.9);
-            border-color: rgba(37, 99, 235, 0.6);
-        }
-
-        .skill-circle:hover::before {
-            opacity: 1;
-            filter: brightness(1.2);
-            border-color: rgba(37, 99, 235, 0.8);
-        }
-
-        .skill-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            opacity: 0.8;
-            transition: var(--transition);
-            z-index: 1;
-        }
-
-        .skill-circle:hover .skill-icon {
-            opacity: 1;
-            transform: scale(1.5);
-        }
-
-        .skill-name {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: var(--transition);
-            white-space: nowrap;
-            z-index: 1;
-        }
-
-        .skill-circle:hover .skill-name {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-5px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-             /* Adjustments for slightly smaller desktops / large tablets */
-             main {
-                 max-width: 1100px; /* Slightly reduce max-width */
-             }
-             .about-image {
-                 width: 450px;
-                 height: 450px;
-             }
-        }
-
-
+        /* Responsive */
         @media (max-width: 992px) {
-             /* Tablet Portrait / Large Phones Landscape */
-             main {
-                 padding: 6rem 1.5rem 3rem; /* Adjust padding */
-                 max-width: 90%; /* Use percentage */
-             }
+            .dashboard-layout {
+                grid-template-columns: 1fr; /* Stack sidebar and main content */
+            }
+            .dashboard-sidebar {
+                position: relative; /* Revert to relative for small screens */
+                height: auto;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                overflow-y: hidden;
+            }
+            .dashboard-main {
+                margin-left: 0; /* Remove offset */
+                padding: 1rem;
+                grid-template-columns: 1fr; /* Single column for panels */
+            }
+            .explorer-menu, .properties-menu {
+                flex: none; /* Remove flex sizing */
+                overflow-y: visible; /* Allow scrolling to propagate to body */
+                height: auto;
+            }
+            .properties-menu {
+                border-top: none; /* Remove border when stacked horizontally */
+            }
 
-             header {
-                 padding: 1.2rem 1.5rem;
-             }
-             header.scrolled {
-                 padding: 0.8rem 1.5rem;
-             }
+            .sidebar-nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .sidebar-nav a {
+                border-left: none;
+                border-bottom: 4px solid transparent;
+                padding: 0.7rem 1rem;
+            }
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--accent-blue); /* Blue border on active/hover for responsive */
+            }
+            .sidebar-header {
+                margin-bottom: 1rem;
+            }
+            .properties-menu {
+                padding-top: 0;
+            }
+            .properties-menu .menu-title {
+                display: none; /* Hide title if it clutters */
+            }
+            .properties-menu .status {
+                margin-bottom: 0.5rem;
+            }
 
-             /* Adjust nav link gap */
-             .nav-links {
-                 gap: 2rem; /* Reduced gap */
-             }
 
-             .hero h1 {
-                 font-size: 3.5rem;
-             }
-             .hero p {
-                 font-size: 1.15rem;
-             }
-
-             .section-heading h2 {
-                 font-size: 2.2rem;
-             }
-
-             .about-content {
-                 grid-template-columns: 1fr; /* Stack columns */
-                 gap: 3rem; /* Adjust gap */
-                 text-align: center; /* Center text when stacked */
-             }
-
-             .about-text {
-                 order: 2; /* Put text below image */
-             }
-
-             .about-image {
-                 order: 1; /* Put image above text */
-                 width: 70%; /* Responsive width */
-                 max-width: 400px; /* Max size */
-                 height: auto; /* Auto height */
-                 aspect-ratio: 1 / 1; /* Maintain square shape */
-                 margin-bottom: 2rem; /* Add space below image */
-             }
-
-             .projects {
-                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust min size */
-                 gap: 1.5rem;
-             }
-
-             .skills-grid {
-                 max-width: 100%;
-                 padding: 1.5rem;
-             }
-             .skill-circle {
-                 width: 90px;
-                 height: 90px;
-             }
-             .skill-icon {
-                 width: 35px; /* Adjusted icon size */
-                 height: 35px;
-             }
-             .skill-row {
-                 gap: 1.5rem;
-                 /* flex-wrap: wrap; Already default */
-             }
-
-             .iframe-container {
-                padding: 1.5rem;
-             }
-
-             .contact-container {
-                 grid-template-columns: 1fr; /* Stack contact cards */
-                 gap: 2rem;
-             }
+            .hero-3d-view h1 {
+                font-size: 2rem;
+            }
+            .hero-3d-view .typewriter-text {
+                font-size: 1.2rem;
+            }
+            .project-grid-panel, .contact-info-panel, .about-grid-container {
+                grid-column: auto; /* Reset span for small screens */
+                grid-template-columns: 1fr; /* Stack columns within about-grid-container */
+            }
         }
-
-        @media (max-width: 768px) {
-             /* Mobile Landscape / Tablet Portrait (Smaller) */
-             body {
-                 font-size: 15px; /* Slightly adjust base font size */
-             }
-
-             header {
-                 padding: 1rem 1.5rem; /* Adjust header padding */
-             }
-             header.scrolled {
-                 padding: 0.8rem 1.5rem;
-             }
-
-             /* --- Horizontal Scroll Navigation --- */
-             .nav-links {
-                 gap: 1.5rem; /* Further reduced gap */
-                 overflow-x: auto; /* Enable horizontal scroll if needed */
-                 white-space: nowrap; /* Prevent items from wrapping */
-                 /* Add some padding to the end to indicate scrollability */
-                 padding-right: 1rem;
-                 /* Hide scrollbar visually if desired (optional) */
-                 -ms-overflow-style: none;  /* IE and Edge */
-                 scrollbar-width: none;  /* Firefox */
-             }
-             .nav-links::-webkit-scrollbar { /* Chrome, Safari, Opera */
-                 display: none;
-             }
-             /* --- End Horizontal Scroll Navigation --- */
-
-
-             .hero {
-                 padding: 5rem 1rem 4rem; /* Adjust padding for smaller screens */
-                 min-height: 80vh; /* Reduce hero height slightly */
-             }
-             .hero h1 {
-                 font-size: 3rem;
-             }
-             .hero p {
-                 font-size: 1.1rem;
-                 max-width: 90%; /* Allow slightly wider text */
-             }
-
-             main {
-                 padding: 5rem 1rem 3rem;
-             }
-
-             section {
-                 margin-bottom: 5rem; /* Reduce space between sections */
-             }
-             .section-heading {
-                 margin-bottom: 3rem;
-             }
-             .section-heading h2 {
-                 font-size: 2rem;
-             }
-              .section-heading p {
-                 font-size: 0.95rem;
-                 max-width: 90%;
-             }
-
-             .about-image {
-                 width: 80%;
-                 max-width: 350px;
-             }
-             .about-text p {
-                font-size: 1rem;
-             }
-
-             .projects {
-                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Allow slightly smaller cards */
-             }
-             .project-card {
-                 /* Disable complex hover transform on touch devices */
-                 transform: none !important;
-             }
-             .project-card:hover {
-                 transform: translateY(-5px) !important; /* Simpler hover effect */
-                 box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
-             }
-             .project-info h3 {
-                font-size: 1.15rem;
-             }
-             .project-info p {
-                font-size: 0.9rem;
-             }
-
-             .skills-grid {
-                 padding: 1rem;
-             }
-             .skill-circle {
-                 width: 80px;
-                 height: 80px;
-             }
-             .skill-icon {
-                 width: 30px; /* Adjusted icon size */
-                 height: 30px;
-             }
-             .skill-circle:hover .skill-icon {
-                 transform: scale(1.3); /* Slightly reduce hover scale */
-             }
-             .skill-name {
-                 font-size: 0.75rem;
-                 bottom: -20px;
-             }
-             .skill-row {
-                 gap: 1.2rem; /* Further adjust gap */
-             }
-
-             .iframe-container {
-                 padding: 1rem;
-                 transform: none; /* Remove initial perspective */
-             }
-             .iframe-container > div {
-                 /* padding-top: 75%; */ /* Example: Adjust if content looks squashed */
-             }
-
-             .contact-info {
-                 padding: 1.5rem;
-             }
-             .contact-info h3 {
-                font-size: 1.3rem;
-             }
-             .social-links {
-                gap: 0.8rem;
-             }
-             .social-links a {
-                 width: 40px;
-                 height: 40px;
-             }
-             .social-links a img {
-                 width: 28px; /* Adjust icon size within link */
-                 height: 28px;
-             }
-
-             footer {
-                 padding: 2rem 1rem;
-             }
-        }
-
         @media (max-width: 576px) {
-             /* Mobile Portrait */
-             body {
-                 /* line-height: 1.5; */ /* Optional: Adjust line height */
-             }
-
-             header {
-                 padding: 1rem;
-             }
-             header.scrolled {
-                 padding: 0.8rem 1rem;
-             }
-
-             /* Keep horizontal scroll nav */
-             .nav-links {
-                 gap: 1rem; /* Smallest gap */
-                 /* Inherits overflow-x, white-space from 768px breakpoint */
-             }
-
-             .hero {
-                 padding: 4rem 1rem 3rem;
-                 min-height: 70vh;
-             }
-             .hero h1 {
-                 font-size: 2.5rem; /* Further reduce font size */
-                 margin-bottom: 1rem;
-             }
-             .hero p {
-                 font-size: 1rem;
-                 margin-bottom: 2rem;
-             }
-             .btn {
-                 padding: 0.8rem 1.5rem;
-                 font-size: 0.9rem;
-             }
-             .scroll-down {
-                bottom: 20px; /* Move scroll indicator up slightly */
-             }
-
-             main {
-                 padding: 4rem 1rem 2rem;
-             }
-             section {
-                 margin-bottom: 4rem;
-             }
-             .section-heading {
-                 margin-bottom: 2.5rem;
-             }
-             .section-heading h2 {
-                 font-size: 1.8rem;
-             }
-             .section-heading p {
-                 font-size: 0.9rem;
-             }
-
-             .about-image {
-                 width: 85%;
-                 max-width: 300px;
-             }
-             .about-text {
-                 text-align: left; /* Revert text align if needed */
-             }
-
-             .projects {
-                 grid-template-columns: 1fr; /* Force single column */
-                 gap: 1.5rem;
-             }
-
-             .skills-grid {
-                padding: 0.5rem;
-             }
-             .skill-circle {
-                 width: 70px; /* Even smaller */
-                 height: 70px;
-             }
-             .skill-icon {
-                 width: 28px;
-                 height: 28px;
-             }
-             .skill-row {
-                 gap: 1rem; /* Adjust gap for smaller circles */
-             }
-
-             .contact-container {
-                 grid-template-columns: 1fr; /* Ensure single column */
-                 gap: 1.5rem;
-             }
-             .contact-info p {
+            body {
+                font-size: 14px;
+            }
+            .sidebar-header .logo {
+                font-size: 1.4rem;
+            }
+            .sidebar-nav a {
                 font-size: 0.9rem;
-             }
-             .social-links {
-                justify-content: center; /* Center links */
-             }
+                gap: 0.5rem;
+            }
+            .sidebar-nav a .icon {
+                width: 18px;
+                height: 18px;
+            }
+            .hero-3d-view h1 {
+                font-size: 1.8rem;
+            }
+            .hero-3d-view .typewriter-text {
+                font-size: 1rem;
+            }
+            .hero-3d-view .cta-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            }
+            .skill-widget {
+                height: 80px;
+                padding: 0.5rem;
+            }
+            .skill-widget-icon {
+                width: 35px;
+                height: 35px;
+            }
+            .skill-widget-name {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
-    <svg class="shape shape-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="url(#gradient1)" d="M42.8,-62.2C54.9,-54.5,63.7,-41.1,69.2,-26.6C74.7,-12.1,76.9,3.5,73.2,17.8C69.5,32.1,60,45.1,47.4,53.1C34.8,61.1,19.1,64.2,3.3,60.6C-12.4,57,-28.1,46.6,-39.3,34.8C-50.5,22.9,-57.1,9.5,-58.5,-4.9C-59.9,-19.3,-56.1,-34.6,-47,-46.7C-37.9,-58.9,-23.6,-67.9,-7.8,-69C8,-70.1,30.6,-69.9,42.8,-62.2Z" transform="translate(100 100)" />
-    </svg>
-
-    <!-- <svg class="shape shape-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="url(#gradient2)" d="M53.2,-46.1C66.4,-33.5,72.7,-11,69.2,8.6C65.6,28.3,52.3,45.1,35.1,54.8C18,64.5,-3,67.1,-19.9,59.8C-36.9,52.5,-49.7,35.4,-57.2,15.1C-64.7,-5.2,-66.8,-28.7,-56.4,-42.2C-45.9,-55.8,-23,-59.3,-0.7,-58.7C21.6,-58.2,40,-58.7,53.2,-46.1Z" transform="translate(100 100)" />
-    </svg> -->
-
-    <svg class="shape shape-3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="url(#gradient3)" d="M44.4,-50.8C57.3,-36.9,67.5,-21.4,69.9,-4.6C72.2,12.3,66.6,30.6,54.8,43.9C43,57.2,24.9,65.5,7,65.3C-10.9,65,-28.6,56.2,-40.5,43.3C-52.3,30.3,-58.2,13.2,-60.4,-6.3C-62.7,-25.8,-61.2,-47.7,-49.8,-61.6C-38.5,-75.5,-17.3,-81.3,-0.2,-81.1C17,-80.9,31.5,-64.7,44.4,-50.8Z" transform="translate(100 100)" />
-    </svg>
-
-    <svg width="0" height="0">
-        <defs>
-            <linearGradient id="gradient1" gradientTransform="rotate(45)">
-                <stop offset="0%" stop-color="rgba(37, 99, 235, 0.6)" />
-                <stop offset="100%" stop-color="rgba(59, 130, 246, 0.6)" />
-            </linearGradient>
-            <linearGradient id="gradient2" gradientTransform="rotate(45)">
-                <stop offset="0%" stop-color="rgba(37, 99, 235, 0.6)" />
-                <stop offset="100%" stop-color="rgba(96, 165, 250, 0.6)" />
-            </linearGradient>
-            <linearGradient id="gradient3" gradientTransform="rotate(45)">
-                <stop offset="0%" stop-color="rgba(59, 130, 246, 0.6)" />
-                <stop offset="100%" stop-color="rgba(96, 165, 250, 0.6)" />
-            </linearGradient>
-        </defs>
-    </svg>
-
-    <header>
-        <nav>
-            <div class="logo">Portfolio</div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1>Hello, I'm <span>Kenneth Ross</span></h1>
-            <p><span class="typewriter">
-                <span class="typewriter-text"></span>
-            </span></p>
-            <a href="#contact" class="btn">Get in Touch</a>
-        </div>
-        <div class="scroll-down">
-            <span>scroll down</span>
-            <div class="mouse"></div>
-        </div>
-    </section>
-
-    <main>
-        <section id="about">
-            <div class="section-heading">
-                <h2>About Me</h2>
-                <p></p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
-
-                    </p>
-                    <p>
-                        I specialize in controls and embedded systems, with foundations in Game Development, and Mechanical Design. As an Associate Engineer at Highlander Racing Formula SAE, I own full responsibility of our Autonomous Braking System's design and integration into our overall Guidance, Navigation, and Controls architecture.
-                    </p>
-
-                    <p>
-                        Apart from my responsibilities with controls systems, I also create internal tooling software for our 3D Printing Fleet integrated into Discord, and a Tool Tracking system aimed at increasing tool retention and organization, while minimizing bureaucracy.  
-                    </p>
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-section explorer-menu">
+                <div class="sidebar-header">
+                    <span class="logo">EXPLORER</span>
                 </div>
-                <div class="about-image">
-                    <div class="profile-container">
-                        <svg class="profile-border" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="profileGradient" gradientTransform="rotate(45)">
-                                    <stop offset="0%" stop-color="rgba(37, 99, 235, 0.8)" />
-                                    <stop offset="50%" stop-color="rgba(59, 130, 246, 0.8)" />
-                                    <stop offset="100%" stop-color="rgba(96, 165, 250, 0.8)" />
-                                </linearGradient>
-                            </defs>
-                            <path fill="none" stroke="url(#profileGradient)" stroke-width="4" stroke-dasharray="8 4"
-                                d="M100,20
-                                C140,20 180,60 180,100
-                                C180,140 140,180 100,180
-                                C60,180 20,140 20,100
-                                C20,60 60,20 100,20 Z" />
-                            <circle cx="100" cy="20" r="4" fill="var(--primary-color)" />
-                            <circle cx="180" cy="100" r="4" fill="var(--secondary-color)" />
-                            <circle cx="100" cy="180" r="4" fill="var(--primary-color)" />
-                            <circle cx="20" cy="100" r="4" fill="var(--secondary-color)" />
-                            <circle cx="100" cy="100" r="75" fill="rgba(0,0,0,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
-                        </svg>
-                        <div class="profile-image">
-                            <img src="public/headshot.jpeg" alt="Profile picture" style="z-index: 1;">
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#overview"><img src="public/icon_location.png" alt="Overview Icon" class="icon">/VIEW/3D_MODEL.URDF</a></li>
+                        <li><a href="#about"><img src="public/icon_education.png" alt="Profile Icon" class="icon">/USER/PROFILE.JSON</a></li>
+                        <li><a href="#experiences"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Experiences Icon" class="icon">/USER/EXPERIENCES.LOG</a></li>
+                        <li><a href="#projects"><img src="public/icon_phone.png" alt="Projects Icon" class="icon">/ROBOT/PROJECTS/LOG.TXT</a></li>
+                        <li><a href="#skills"><img src="public/icon_email.png" alt="Skills Icon" class="icon">/ROBOT/SYSTEM/SKILLS.YAML</a></li>
+                        <li><a href="#contact"><img src="public/logo_linkedin.png" alt="Contact Icon" class="icon">/USER/CONTACT.CFG</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="sidebar-section properties-menu">
+                <div class="menu-title">System Properties</div>
+                <div class="status">SYSTEM_STATUS: NOMINAL [VER. 6.0]</div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/kennethsross/" target="_blank" rel="noopener noreferrer">
+                        <img src="public/logo_linkedin.png" alt="LinkedIn">
+                    </a>
+                    <a href="https://github.com/Kenneth-Ross" target="_blank" rel="noopener noreferrer">
+                        <img src="public/logo_github.png" alt="GitHub">
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <section id="overview" class="panel hero-3d-view">
+                <div class="view-controls">
+                    <span><span class="status-indicator"></span>LIVE_FEED: ACTIVE</span>
+                    <span>VIEW_MODE: ORBITAL [FPS: 60]</span>
+                    <span>COORD: [X:0.0 Y:0.0 Z:0.0]</span>
+                </div>
+                <div class="view-main-area">
+                    <h1>KENNETH ROSS // ROBOTICS ENGINEER</h1>
+                    <div class="typewriter-text">INITIALIZING 3D SENSOR STREAM...</div>
+                    <a href="#projects" class="cta-button">EXPLORE_PROJECT_MODELS</a>
+                </div>
+            </section>
+
+            <div class="about-grid-container">
+                <section id="about" class="panel">
+                    <div class="panel-header">/USER/PROFILE.JSON: DATA_VIEW</div>
+                    <div class="about-content">
+                        <div class="profile-image-container">
+                            <img src="public/headshot.jpeg" alt="Kenneth Ross">
+                        </div>
+                        <div class="about-text">
+                            <p>
+                                Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
+                            </p>
+                            <p>
+                                I am the newest Systems Lead at Highlander Racing Autonomous, and have previously done a Mixed Reality Full-Stack Software Internship. 
+                                I approach every project with total ownership; between hardware integration, or generative ML pipelines; I've built it end to end.
+                            </p>
+                            <p>
+                                As a Robotics student; my expertise lies in high-level systems design. 
+                                Recently, I've been working with synthetic data ML pipelines and autonomous vehicle control systems.
+                                I also manage project deliverables for my subteam; being responsible for more than 75% of the deliverables.
+                            </p>
+                                
+                            <p> 
+                                I'm driven by challenges and high-level design. Let's talk.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section id="about-media" class="panel">
+                    <div class="panel-header">/USER/PROFILE/MEDIA.JPG: SUPPLEMENTAL_VIEW</div>
+                    <div class="media-content">
+                        <img src="public/project_autonomouscontrols.gif" alt="About Me Media" />
+                    </div>
+                </section>
+            </div>
+
+
+            <section id="experiences" class="panel project-grid-panel">
+                <div class="panel-header">/USER/EXPERIENCES.LOG: WORK_AND_PROJECTS</div>
+                <div class="experience-list">
+                    <ul>
+                        <li>
+                            <h3>8i | Volumetric Video Capture - Internship</h3>
+                            <h4>XR Full-Stack Software Intern (Jul 2025-Sep 2025)</h4>
+                            <ul>
+                                <li>Analyzed logs and Docker orchestration within AWS product to reverse engineer pipeline and states of different files to expose and diagnose root issues in our processing and compute pipeline.</li>
+                                <li>Developed, tested, and shipped timestamp integration for proprietary file formats for synchronization debugging with minimal architectural impact, writing in C++, building in Docker; created scrappy testing tools like a mock server for network commands in Python for test driven development.</li>
+                                <li>Collaborated on migration of our sole production build pipeline to a stable, isolated development environment. Virtualized the production server on Proxmox to create a breakable developer clone, implementing version control and automated backup protocols to safeguard production integrity.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Highlander Racing - Formula SAE</h3>
+                            <h4>Autonomous Systems Engineer (Jan 2026-Current)</h4>
+                            <ul>
+                                <li>Owned the creation of a Synthetic Data Training Pipeline using multi-GPU distributed compute; using WanAI video generation; utilized randomized prompting to produce edge-case driving scenarios, integrated Meta SAM3 for labeling cones, and exported YOLO models for deployment on the Orange Pi's Rockchip NPU.</li>
+                                <li>Owned the complete design of the Autonomous GNC architecture, designing a custom Control Board PCB in Altium to manage high-to-low power step-down and distribute Edge Compute commands via serial, remote commands via ESP-NOW; interfaced a master ESP32 to command a steering CNC motor, braking linear actuator, and digital throttle potentiometer; aiming for low latency, modularity, and rules compliance.</li>
+                                <li>Owned the development of the autonomous software stack, architecting a modular ROS system for sensor fusion (IMU, Odometry, vSLAM) and YOLO-based perception; utilized CARLA for Software-in-the-Loop testing and Foxglove for real-time observability.</li>
+                                <li>Responsible for orchestrating and managing project deliverables and timelines for Mechanical, Software, and Electrical Associate Engineers to deliver on the overall vision and architecture of the Autonomous Kart.</li>
+                            </ul>
+                            <div style="margin-top: 1rem;"></div>
+                            <h4 style="color: var(--accent-green);">Autonomous Associate Engineer (Nov 2024-Jan 2026)</h4>
+                            <ul>
+                                <li>Developed and owned a 3D printer observer Discord application to provide real-time manufacturing oversight via Node.js, MQTT, and FTP, integrating Gemini as a multimodal image-to-confidence inference to automate failure detection; this system enabled immediate error response.</li>
+                                <li>Responsible for the mechanical design for our Braking Linear Actuator designed in Solidworks, reverse engineering mounting points on our kart's chassis, and printed on various BambuLab 3D Printers.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>2024 KidWind World Competition</h3>
+                            <h4>Design Lead (Sep 2023-May 2024)</h4>
+                            <ul>
+                                <li>Recipient of the 2024 World Judges Award and 3rd Place Winner of the World Simulation Challenge.</li>
+                                <li>Owned the entire CAD assembly of our Wind Turbine housing, gearbox, and Wind Turbine blades; designed in Fusion 360.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Roblox Freelance Game Developer</h3>
+                            <h4>(Jan 2020-Present)</h4>
+                            <ul>
+                                <li>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <section id="projects" class="panel project-grid-panel">
+                <div class="panel-header">/ROBOT/PROJECTS/LOG.TXT: ACTIVE_MISSIONS</div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="public/project_nfc.gif" alt="NFC Tag Tool Tracker">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>NFC Tag Tool Tracker</h3>
+                            <h4>PROJECT_ID: HLR_PM_001</h4>
+                            <p>Developed a tool tracking system using NFC tags, pre-filled forms, and a Google Sheet to keep track of the last user and time of a tool. This instantly improved tool retention and organization.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="public/project_discordapp.gif" alt="BambuLab Printer Discord Application">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>BambuLab Printer Discord Application</h3>
+                            <h4>PROJECT_ID: HLR_IT_002</h4>
+                            <p>Implemented a Discord Application that improves manufacturing oversight by allowing team members to view current print jobs through live updates, slash command invocation, and automated print failure detection.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking Control System">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>Autonomous Braking Control System</h3>
+                            <h4>PROJECT_ID: HLR_FSAE_003</h4>
+                            <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control, P.I.D, and Command Line Interface.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="public/project_roboticarm.jpeg" alt="Robotic Arm">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>Robotic Arm</h3>
+                            <h4>PROJECT_ID: PERSONAL_004</h4>
+                            <p>Further developed CAD ability on Fusion 360 on a systems level project, 3D printing optimizations, and motor control Arduino Integration.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="public/project_kidwind.jpeg" alt="KidWind Energy Competition">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>KidWind Energy Competition</h3>
+                            <h4>PROJECT_ID: COMPETITION_005</h4>
+                            <p>Led mechanical design for wind turbine blades, gearbox, and chassis. Raised $2500+ dollars through crowdsourcing under extreme budget constraints.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="/api/placeholder/400/320" alt="Roblox Game Development Placeholder">
+                        </div>
+                        <div class="project-card-info">
+                            <h3>Roblox Game Development</h3>
+                            <h4>PROJECT_ID: FREELANCE_006</h4>
+                            <p>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</p>
+                            <a href="#" class="project-card-link">VIEW_DATA</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="projects">
-            <div class="section-heading">
-                <h2>My Projects</h2>
-                <p></p>
-            </div>
-            <div class="projects">
-                <!-- PROJECT MODAL START -->
-                <div id="project-modal-overlay" style="display:none;"></div>
-                <div id="project-modal" style="display:none;">
-                    <button id="project-modal-close" aria-label="Close">&times;</button>
-                    <div id="project-modal-content">
-                        <!-- Placeholder content will be injected here -->
+            <section id="skills" class="panel">
+                <div class="panel-header">/ROBOT/SYSTEM/SKILLS.YAML: COMPONENT_LIST</div>
+                <div class="skills-grid">
+                    <div class="skill-widget">
+                        <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-widget-icon">
+                        <span class="skill-widget-name">SolidWorks</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_fusion360.png" alt="Fusion 360" class="skill-widget-icon">
+                        <span class="skill-widget-name">Fusion 360</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_blender.png" alt="Blender" class="skill-widget-icon">
+                        <span class="skill-widget-name">Blender</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_arduino.png" alt="Arduino" class="skill-widget-icon">
+                        <span class="skill-widget-name">Arduino</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_cpp.png" alt="C++" class="skill-widget-icon">
+                        <span class="skill-widget-name">C++</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_nodejs.png" alt="NodeJS" class="skill-widget-icon">
+                        <span class="skill-widget-name">NodeJS</span>
+                    </div>
+                    <div class="skill-widget">
+                        <img src="public/skill_matlab.png" alt="MATLAB" class="skill-widget-icon">
+                        <span class="skill-widget-name">MATLAB</span>
                     </div>
                 </div>
-                <!-- PROJECT MODAL END -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_nfc.gif" alt="Project Placeholder"> </div>
-                    <div class="project-info">
-                        <h3>NFC Tag Tool Tracker</h3>
-                        <h4>Highlander Racing - Project Management</h4>
-                        <p>Developed a tool tracking system using NFC tags, pre-filled forms, and a Google Sheet to keep track of the last user and time of a tool. This instantly improved tool retention and organization.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_discordapp.gif" alt="Discord Application"> </div>
-                    <div class="project-info">
-                        <h3>BambuLab Printer Discord Application</h3>
-                        <h4>Highlander Racing - Internal Tooling Software</h4>
-                        <p>Implemented a Discord Application that improves manufacturing oversight by allowing team members to view current print jobs through live updates, slash command invocation, and automated print failure detection.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking System"> </div>
-                    <div class="project-info">
-                        <h3>Autonomous Braking Control System</h3>
-                        <h4>Highlander Racing - Formula SAE</h4>
-                        <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control, P.I.D, and Command Line Interface.</p>
-                        <a href="#">View Details</a> </div>
-                    </div>
-                    <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_roboticarm.jpeg" alt="Robot Arm"> </div>
-                    <div class="project-info">
-                        <h3>Robotic Arm</h3>
-                        <h4>Personal Project</h4>
-                        <p>Futhur developed CAD ability on Fusion 360 on a systems level project, 3D printing optimizations, and motor control Arduino Integration.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="public/project_kidwind.jpeg" alt="KidWind Project"> </div>
-                    <div class="project-info">
-                        <h3>KidWind Energy Competition</h3>
-                        <h4>World Competition - Design Lead</h4>
-                        <p>Led mechanical design for wind turbine blades, gearbox, and chassis. Raised $2500+ dollars through crowdsourcing under extreme budget constriants.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project Placeholder"> </div>
-                    <div class="project-info">
-                        <h3>Roblox Game Development</h3>
-                        <h4>Freelance - Passion</h4>
-                        <p>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</p>
-                        <a href="#">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="skills">
-            <div class="section-heading">
-                <h2>Skills & Tools</h2>
-                <p>Software and Technology I work with</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">SolidWorks</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_fusion360.png" alt="Fusion 360" class="skill-icon" style="width: 55px; height: 55px;"> <span class="skill-name">Fusion 360</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_blender.png" alt="Blender" class="skill-icon" style="width: 60px; height: 70px;"> <span class="skill-name">Blender</span> </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skill_arduino.png" alt="Arduino" class="skill-icon" style="width: 50px; height: 50px;"> <span class="skill-name">Arduino</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_cpp.png" alt="C++" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">C++</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_nodejs.png" alt="NodeJS" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">NodeJS</span> </div>
-                    <div class="skill-circle"> <img src="public/skill_matlab.png" alt="matlab" class="skill-icon" style="width: 68px; height: 68px;"> <span class="skill-name">MATLAB</span> </div>
-                </div>
-                 <!-- <div class="skill-row">
-                    <div class="skill-circle"> <img src="public/skills/lua.png" alt="Lua" class="skill-icon"> <span class="skill-name">Lua</span> </div>
-                    <div class="skill-circle"> <img src="public/skills/canbus.png" alt="CAN Bus" class="skill-icon"> <span class="skill-name">CAN Bus</span> </div>
-                 </div> -->
-            </div>
-        </section>
-
-        <!-- <section id="featured">
-            <div class="section-heading">
-                <h2>Featured Work</h2>
-                <p>An in-depth look at my highlighted project</p>
-            </div>
-            <div class="iframe-container">
-                <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                        src="https://www.canva.com/design/DAGkeJ5vOow/IlSh0q5jcuso8BOt-LzLvw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-                    </iframe>
-                </div>
-                <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGkeJ5vOow&#x2F;IlSh0q5jcuso8BOt-LzLvw&#x2F;view?utm_content=DAGkeJ5vOow&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
-             </div>
-        </section> -->
-
-        <section id="contact">
-            <div class="section-heading">
-                <h2>Contact Me</h2>
-                <p>Let's connect and discuss your next project</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                     <p><img src="public/icon_location.png" alt="Location" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> Home: Bay Area, CA</p>
-                     <p><img src="public/icon_education.png" alt="Education" style="width: 20px; height: 20px; margin-right: 10px; vertical-align: middle;"> School: University Of California, Riverside</p>
-
-
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/kennethsross/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <img src="public/logo_linkedin.png" alt="LinkedIn Logo" style="width: 32px; height: 32px;"> </a>
-                        <a href="https://github.com/Kenneth-Ross" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <img src="public/logo_github.png" alt="GitHub Logo" style="width: 32px; height: 32px;"> </a>
+            <section id="contact" class="panel contact-info-panel">
+                <div class="panel-header">/USER/CONTACT.CFG: CONNECTION_DATA</div>
+                <div class="contact-data-grid">
+                    <div class="contact-data-block">
+                        <h3>USER_LOCATION_DATA</h3>
+                        <p><img src="public/icon_location.png" alt="Location"> Current: Bay Area, CA</p>
+                        <p><img src="public/icon_education.png" alt="Education"> School: U.C Riverside</p>
+                    </div>
+                    <div class="contact-data-block">
+                        <h3>NETWORK_IDENTIFIERS</h3>
+                        <p><img src="public/logo_linkedin.png" alt="LinkedIn"><a href="https://www.linkedin.com/in/kennethsross/" target="_blank" rel="noopener noreferrer"> LINKEDIN_PROFILE</a></p>
+                        <p><img src="public/logo_github.png" alt="GitHub"><a href="https://github.com/Kenneth-Ross" target="_blank" rel="noopener noreferrer"> GITHUB_REPO</a></p>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>Last Updated: July 2025</p>
-        </div>
-    </footer>
+            </section>
+        </main>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('header');
-            const mainContent = document.querySelector('main');
-            const heroSection = document.querySelector('.hero');
-            const sections = document.querySelectorAll('section:not(.hero)');
-            const shapes = document.querySelectorAll('.shape');
-            const projectCards = document.querySelectorAll('.project-card');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const typewriterText = document.querySelector('.typewriter-text');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            const typewriterElement = document.querySelector('.hero-3d-view .typewriter-text');
+            const roles = [
+                "RENDERING ROBOT STATE",
+                "VISUALIZING SENSOR INPUT",
+                "SIMULATING PATH PLANNING",
+                "DEBUGGING SYSTEM ALGORITHMS"
+            ];
+            let currentRoleIndex = 0;
+            let currentText = '';
+            let isDeleting = false;
+            const typingSpeed = 80;
+            const deletingSpeed = 40;
+            const pauseTime = 1800;
 
-            // Adjust main content padding based on header height
-            function adjustLayoutForHeader() {
-                const headerHeight = header.offsetHeight;
-                 // Apply padding top to hero and main to prevent overlap ONLY IF header is fixed
-                 if (getComputedStyle(header).position === 'fixed') {
-                     heroSection.style.paddingTop = `${headerHeight + 30}px`; // Add some extra space
-                     // Set main padding dynamically if needed, or ensure sections have enough top margin
-                     // mainContent.style.paddingTop = `${headerHeight}px`; // Might not be needed if hero handles it
-                 } else {
-                     heroSection.style.paddingTop = ''; // Reset if header isn't fixed
-                     mainContent.style.paddingTop = '';
-                 }
-            }
+            function typeWriterEffect() {
+                if (!typewriterElement) return;
 
-             // Set all sections to visible initially (prevents layout shifts)
-             const allSections = document.querySelectorAll('section');
-             allSections.forEach(section => {
-                 section.classList.add('visible');
-             });
-
-             // Call adjust layout on load and resize
-             adjustLayoutForHeader();
-             window.addEventListener('resize', adjustLayoutForHeader);
-
-
-            // Scroll animations (Header style + Section reveal)
-            const revealSection = () => {
-                const windowHeight = window.innerHeight;
-                sections.forEach(section => {
-                    const sectionTop = section.getBoundingClientRect().top;
-                    if (sectionTop < windowHeight * 0.85) {
-                        section.classList.add('visible'); // Use 'visible' class defined in CSS
-                    }
-                    // Optional: remove class if scrolled back up
-                    // else { section.classList.remove('visible'); }
-                });
-
-                // Change header style on scroll
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            };
-            window.addEventListener('scroll', revealSection);
-            revealSection(); // Initial check
-
-
-            // Parallax effect for shapes
-            window.addEventListener('scroll', () => {
-                const scrollValue = window.scrollY;
-                shapes.forEach((shape, index) => {
-                    const speed = 0.05 * (index + 1);
-                    shape.style.transform = `translateY(${scrollValue * speed}px)`;
-                });
-            });
-
-
-            // Project card hover effect (Desktop only)
-             if (window.matchMedia("(min-width: 769px)").matches) {
-                 projectCards.forEach(card => {
-                     card.addEventListener('mousemove', (e) => {
-                         const cardRect = card.getBoundingClientRect();
-                         const x = e.clientX - cardRect.left;
-                         const y = e.clientY - cardRect.top;
-                         const xPercent = x / cardRect.width;
-                         const yPercent = y / cardRect.height;
-                         const rotateX = (0.5 - yPercent) * 10;
-                         const rotateY = (xPercent - 0.5) * 10;
-                         card.style.transform = `perspective(1000px) translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                     });
-                     card.addEventListener('mouseleave', () => {
-                         card.style.transform = 'perspective(1000px) translateY(0) rotateX(0) rotateY(0)';
-                     });
-                 });
-             }
-
-
-            // Smooth scroll for navigation links (with header offset)
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-
-                    if (targetSection) {
-                        const headerOffset = header.offsetHeight + 20; // Extra space
-                        const elementPosition = targetSection.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                });
-            });
-
-
-             // Typewriter Animation Script
-             const roles = [
-                 "Mechanical Design Enthusiast",
-                 "3D Printing Enthusiast", "CAD Designer", 
-                 "Embedded Systems Developer", "Game Developer",
-             ];
-             let currentRole = 0;
-             let currentText = '';
-             let isDeleting = false;
-             let typingSpeed = 50;
-             let deletingSpeed = 30;
-             let pauseTime = 3000;
-
-             function typeWriter() {
-                if (!typewriterText) return;
-
-                const role = roles[currentRole];
-                let currentSpeed;
+                const role = roles[currentRoleIndex];
+                let speed = isDeleting ? deletingSpeed : typingSpeed;
 
                 if (isDeleting) {
                     currentText = role.substring(0, currentText.length - 1);
-                    currentSpeed = deletingSpeed;
                 } else {
                     currentText = role.substring(0, currentText.length + 1);
-                    currentSpeed = typingSpeed;
                 }
 
-                typewriterText.textContent = currentText;
+                typewriterElement.textContent = currentText;
 
                 if (!isDeleting && currentText === role) {
-                    currentSpeed = pauseTime;
+                    speed = pauseTime;
                     isDeleting = true;
                 } else if (isDeleting && currentText === '') {
                     isDeleting = false;
-                    currentRole = (currentRole + 1) % roles.length;
-
-                    // Pause *after* deleting before typing next role
-                    return setTimeout(typeWriter, 800); // adjust delay as needed
+                    currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+                    speed = 600; // Pause before typing next role
                 }
 
-                setTimeout(typeWriter, currentSpeed);
+                setTimeout(typeWriterEffect, speed);
             }
 
-            setTimeout(typeWriter, 1500);
-        }); // End DOMContentLoaded
+            // Start typewriter after a small delay
+            setTimeout(typeWriterEffect, 1000);
 
-    // Modal logic for project details
-    const projectsSection = document.querySelector('.projects');
-    const modalOverlay = projectsSection.querySelector('#project-modal-overlay');
-    const modal = projectsSection.querySelector('#project-modal');
-    const modalContent = projectsSection.querySelector('#project-modal-content');
-    const modalClose = projectsSection.querySelector('#project-modal-close');
+            // Section visibility on scroll
+            const panels = document.querySelectorAll('.panel');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the panel is visible
+            };
 
-    if (!modalClose) {
-      console.error('Modal close button not found! Is the modal HTML inside .projects?');
-    }
-    // Placeholder project details (replace with real content later)
-    const projectDetails = [
-            {
-            title: 'NFC Tag Tool Tracker',
-            subtitle: 'Highlander Racing - Project Management',
-            paragraphs: [
-                `Highlander Racing fased significant challenges with losing tools; lost tools cost critical time and money; I can't even count on my hand how many times I've needed something and couldn't find it.`,
-
-                `Like our 3D Prints it was highly suggested that we have a tool tracking system; many suggested a sign out sheet, however on a team of 50+ students this was impractical, this would create frustration and bureaucracy.`,
-
-                `I first suggested QR codes on each part, or even better; NFC Tags on each tool. Each NFC Tag would be pre-programmed with a prefilled Google Form to its corresponding tool.`,
-
-                `Whenever the Google Form was submitted, it would append a google sheet with the last user and time of the tool. This was a much more practical approach to tracking our tools; a 5 second solution that eliminates unnecessary bureaucracy and has the least friction.`,
-
-                `In the future I plan on implementing a Discord Bot Integration that allows uers to invoke the last time a tool was used and who used it.`,
-            ],
-            images: [
-                'public/project_nfc.gif',
-                'public/project_nfc_spreadsheet.png'
-            ],
-            link: null
-        },
-        {
-            title: 'BambuLab Printer Discord Application',
-            subtitle: 'Highlander Racing - Internal Tooling Software',
-            paragraphs: [
-                `Highlander Racing faced significant challenges with our 3D printing fleet, primarily the lack of accountability and oversight across our printing operations. With a team of 50+ members, manually logging prints on Discord proved impractical and unreliable.`,
-
-                `I discovered that BambuLab provides comprehensive APIs allowing software to interface with their printers via MQTT and FTP over the local network. This revelation transformed our approach from simple logging to a full-featured monitoring system. The Discord bot could now access live camera feeds, monitor print status, and even send GCode commands directly to printers.`,
-
-                `As I deepened my understanding of the BambuLab API, I enhanced the Discord bot with invokable slash commands and user-subscribed alerts for real-time status updates. The system now provides live camera feeds and comprehensive print monitoring capabilities.`,
-
-                `While the bot met our original requirements, I identified additional opportunities to address critical team needs.`,
-
-                `After observing our Aerodynamics subteam struggle with print failures on 15+ hour prints that consumed significant filament, I implemented an AI-powered print failure detection system. While some solutions required expensive cloud subscriptions or self-hosted agents, I developed a free alternative using Google's Gemini API.`,
-
-                `The system captures print snapshots every 5 minutes and analyzes them through Gemini with detailed prompts to assess failure probability. Based on the AI's confidence level and descriptive analysis, users receive automated alerts with attached images and failure justifications, enabling proactive intervention before catastrophic failures occur.`,
-            ],
-            images: ['public/project_discordapp.gif'],
-            link: null
-        },
-        {
-            title: 'Autonomous Braking Control System',
-            subtitle: 'Highlander Racing - Autonomous Subteam',
-            paragraphs: [
-                "My introduction to the Autonomous subteam began with a barebones GoKart.",
-                "My first task was to research and implement a braking system using a motor to control the brake pedal. After considering several control methods, I chose a linear actuator. I sourced a suitable actuator, but was also asked to prototype with a more affordable motor first.",
-                "To mount the actuator, I created a SolidWorks model and 3D printed the part. Since no CAD or documentation existed for the GoKart, I reverse-engineered the surrounding area to ensure a precise fit.",
-                "Much of my CAD work involved modeling the GoKart chassis and actuator, focusing on tolerances for 3D printing.",
-                "In parallel, I developed the control software on an Arduino Due with a motor driver, implementing a command-line interface for speed and direction control.",
-                "Later, I integrated the system with our radio control (RC) setup, learning to process RC signals on the Arduino by studying datasheets and debugging with an oscilloscope.",
-                "I mapped RC signal frequencies to actuator speed and direction, then implemented a PID controller to allow position-based control using a linear potentiometer for feedback.",
-                "This project required a blend of mechanical design, embedded programming, and signal processing, resulting in a robust autonomous braking system for our team."
-            ],
-            images: [
-                'public/project_autonomous_brakes.png',
-                'public/project_autonomouscontrols.gif',
-                'public/project_brakingassembly.jpg'
-            ],
-            link: null
-        },
-        {
-            title: 'Robotic Arm',
-            subtitle: 'Personal Project',
-            paragraphs: [
-                'This Robotic Arm is a personal project that aimed at improving my CAD skills and understanding of mechanical systems in an Assembly-level project. I also was learning how to implement a controls system using three Servo Motors, Motor Driver, and Arduino. Robotic Arm V2 Coming soon.',
-            ],
-            images: [
-                'public/project_roboticarm.jpeg',
-                'public/project_robotarm2.jpg,',
-            ],
-            link: null
-        },
-        {
-            title: 'KidWind Energy Competition',
-            subtitle: 'World Competition - Design Lead',
-            paragraphs: [
-                'This is our KidWind Energy Competition Presentation.',
-
-                `https://gale.standafer.dev/`,
-            ],
-            images: [],
-            link: 'https://gale.standafer.dev/'
-        },
-        {
-            title: 'Roblox Game Development',
-            subtitle: 'Freelance - Passion',
-            paragraphs: [
-                `CONTENT COMING SOON.`,
-            ],
-            images: ['https://placehold.co/600x400?text=Project+6+Image'],
-            link: null
-        },
-    ];
-
-    // Add modal CSS
-    const modalStyle = document.createElement('style');
-    modalStyle.textContent = `
-    .projects {
-        position: relative;
-    }
-    #project-modal-overlay {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
-        z-index: 99;
-        display: none;
-        transition: opacity 0.3s;
-        width: 100%;
-        height: 100%;
-        border-radius: 16px;
-    }
-    #project-modal-overlay.active {
-        display: block;
-        opacity: 1;
-    }
-    #project-modal {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 100%;
-        max-height: 100%;
-        width: 100%;
-        height: auto;
-        box-sizing: border-box;
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
-        border: 1px solid rgba(37, 99, 235, 0.1);
-        color: #fff;
-        z-index: 100;
-        min-width: 320px;
-        overflow-y: auto;
-        padding: 2.5rem 2rem 2rem 2rem;
-        display: none;
-        animation: modalFadeIn 0.3s cubic-bezier(0.25,0.8,0.25,1);
-    }
-    #project-modal.active {
-        display: block;
-    }
-    @keyframes modalFadeIn {
-        from { opacity: 0; transform: translate(-50%, -40%) scale(0.95); }
-        to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    }
-    #project-modal-close {
-        position: absolute;
-        top: 1.2rem;
-        right: 1.5rem;
-        background: none;
-        border: none;
-        color: var(--primary-color);
-        font-size: 2.2rem;
-        font-weight: 700;
-        cursor: pointer;
-        z-index: 2;
-        border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 8px 0 rgba(37,99,235,0.10);
-        background: rgba(37,99,235,0.08);
-        transition: color 0.2s, background 0.2s, box-shadow 0.2s;
-    }
-    #project-modal-close:hover {
-        color: #fff;
-        background: var(--primary-color);
-        box-shadow: 0 4px 16px 0 rgba(37,99,235,0.18);
-    }
-    #project-modal-content {
-        margin-top: 1.5rem;
-        background: transparent;
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        backdrop-filter: none;
-    }
-    #project-modal-content h2 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        color: #fff;
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 0.5px;
-        text-shadow: 0 2px 8px rgba(37,99,235,0.10);
-        position: relative;
-    }
-    #project-modal-content h2::after {
-        content: '';
-        position: absolute;
-        width: 165px;
-        height: 4px;
-        bottom: -6px;
-        left: 5rem;
-        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-        border-radius: 2px;
-    }
-    #project-modal-content h3 {
-        font-size: 1.1rem;
-        color: rgba(255,255,255,0.7);
-        margin-bottom: 1.2rem;
-        font-weight: 500;
-    }
-    #project-modal-content p {
-        color: rgba(255,255,255,0.9);
-        margin-bottom: 1.2rem;
-        font-size: 1.05rem;
-        line-height: 1.7;
-    }
-    #project-modal-content img {
-        width: 100%;
-        border-radius: 12px;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 8px 24px rgba(37,99,235,0.15);
-        border: 1.5px solid rgba(37,99,235,0.10);
-    }
-    #project-modal-content iframe {
-        width: 100%;
-        min-height: 600px; /* Increased from 350px */
-        height: 600px;     /* Optional: set a fixed height */
-        border: none;
-        border-radius: 12px;
-        margin-bottom: 1.2rem;
-        background: #fff;
-        box-shadow: 0 8px 24px rgba(37,99,235,0.10);
-        border: 1.5px solid rgba(37,99,235,0.10);
-    }
-    @media (max-width: 700px) {
-        #project-modal {
-            width: 98vw;
-            min-width: 0;
-            padding: 1.2rem 0.5rem 1.5rem 0.5rem;
-        }
-        #project-modal-content h2 {
-            font-size: 1.3rem;
-        }
-    }
-    `;
-    document.head.appendChild(modalStyle);
-
-    // Helper to disable/enable background scroll
-    // No-op: scrolling is always enabled now
-    function setBodyScrollDisabled(disabled) {
-        // Do nothing, scrolling always enabled
-    }
-
-    // Open modal with project index
-    function openProjectModal(index) {
-        const project = projectDetails[index];
-        if (!project) return;
-        let html = `<h2>${project.title}</h2>`;
-        if (project.subtitle) html += `<h3>${project.subtitle}</h3>`;
-        if (project.images && project.images.length) {
-            project.images.forEach(img => {
-                html += `<img src='${img}' alt='${project.title} image'>`;
-            });
-        }
-        if (project.paragraphs && project.paragraphs.length) {
-            project.paragraphs.forEach(p => {
-                html += `<p>${p}</p>`;
-            });
-        }
-        if (project.link) {
-            html += `<iframe src='${project.link}' allowfullscreen></iframe>`;
-        }
-        modalContent.innerHTML = html;
-        modalOverlay.classList.add('active');
-        modal.classList.add('active');
-        modalOverlay.style.display = 'block';
-        modal.style.display = 'block';
-        setBodyScrollDisabled(true);
-    }
-
-    // Close modal
-    function closeProjectModal() {
-        modalOverlay.classList.remove('active');
-        modal.classList.remove('active');
-        modalOverlay.style.display = 'none';
-        modal.style.display = 'none';
-        setBodyScrollDisabled(false);
-    }
-
-    // Attach close events
-    if (modalClose) {
-      modalClose.addEventListener('click', closeProjectModal);
-    }
-    if (modalOverlay) {
-      modalOverlay.addEventListener('click', closeProjectModal);
-    }
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeProjectModal();
-    });
-
-    // Attach open events to project cards
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, i) => {
-        const detailsLink = card.querySelector('a');
-        if (detailsLink) {
-            detailsLink.addEventListener('click', function(e) {
-                // Only open modal for 'View Details' (not for external links)
-                if (detailsLink.textContent.toLowerCase().includes('view details')) {
-                    e.preventDefault();
-                    openProjectModal(i);
-                }
-            });
-        }
-    });
-
-    const header = document.querySelector('header');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (!targetId.startsWith('#')) return; // Only handle anchor links
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                e.preventDefault();
-                const headerOffset = header ? header.offsetHeight + 20 : 0;
-                const elementPosition = targetSection.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
+            const panelObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
                 });
-            }
-        });
-    });
+            }, observerOptions);
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const header = document.querySelector('header');
-        const navLinks = document.querySelectorAll('.nav-links a');
+            panels.forEach(panel => {
+                panelObserver.observe(panel);
+            });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (!targetId.startsWith('#')) return;
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    e.preventDefault();
-                    // First scroll to the section
-                    targetSection.scrollIntoView({behavior: 'smooth', block: 'start'});
-                    // Then adjust for header offset after a short delay
-                    setTimeout(() => {
-                        const headerOffset = header ? header.offsetHeight + 20 : 0;
-                        const scrolledY = window.scrollY;
-                        window.scrollTo({
-                            top: scrolledY - headerOffset,
-                            behavior: 'instant'
+            // Smooth scrolling for sidebar navigation and active link highlighting
+            const sections = document.querySelectorAll('main section');
+            const scrollObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Highlight when 50% of the section is visible
+            };
+
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${entry.target.id}`) {
+                                link.classList.add('active');
+                            }
                         });
-                    }, 400); // 400ms matches the smooth scroll duration
-                }
+                    }
+                });
+            }, scrollObserverOptions);
+
+            sections.forEach(section => {
+                scrollObserver.observe(section);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
         });
-    });
     </script>
 </body>
 </html>
