@@ -391,24 +391,6 @@
             filter: grayscale(20%);
         }
 
-        #about-media .media-content {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: var(--font-display);
-            color: var(--text-light);
-            text-align: center;
-            background-color: var(--bg-primary); /* Darker background for media */
-            border-radius: 6px;
-            border: 1px dashed var(--border-color);
-            min-height: 200px; /* Ensure visibility */
-        }
-        #about-media .media-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
 
 
         /* Projects Panel */
@@ -629,6 +611,188 @@
             color: var(--accent-green); /* Contact data block link hover green */
         }
 
+        /* Featured ML Pipeline Section */
+        .featured-panel {
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.2);
+        }
+        .featured-panel .panel-header {
+            color: var(--accent-orange);
+            border-bottom-color: rgba(255, 152, 0, 0.3);
+        }
+        .featured-headline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .featured-headline h2 {
+            font-family: var(--font-display);
+            color: var(--accent-orange);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            flex: 1;
+            min-width: 200px;
+        }
+        .featured-headline p {
+            font-size: 0.9rem;
+            color: rgba(232, 237, 243, 0.7);
+            flex: 2;
+            min-width: 200px;
+        }
+        .featured-link {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+            padding: 0.4rem 0.9rem;
+            border-radius: 3px;
+            white-space: nowrap;
+            align-self: flex-start;
+            transition: var(--transition-speed);
+        }
+        .featured-link:hover {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--accent-orange);
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+            text-shadow: none;
+        }
+        .pipeline-stages {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        .pipeline-stage {
+            background-color: var(--bg-tertiary);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 4px;
+            padding: 1rem 1.2rem;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .pipeline-arrow {
+            display: flex;
+            align-items: center;
+        }
+        .pipeline-stage-id {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            color: var(--accent-orange);
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .pipeline-stage-name {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--accent-orange);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .pipeline-stage-sub {
+            font-size: 0.75rem;
+            color: rgba(232, 237, 243, 0.55);
+        }
+        .pipeline-arrow {
+            font-family: var(--font-display);
+            color: rgba(255, 152, 0, 0.4);
+            font-size: 1.2rem;
+            padding: 0 0.5rem;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        .benchmark-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-primary);
+            border: 1px dashed rgba(255, 152, 0, 0.25);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .benchmark-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .benchmark-card-image .img-placeholder {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            color: rgba(255, 152, 0, 0.3);
+        }
+        .featured-media {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 16 / 9;
+        }
+        .featured-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .featured-media .img-placeholder {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: rgba(255, 152, 0, 0.3);
+        }
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .benchmark-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1.2rem;
+        }
+        .benchmark-card h4 {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .benchmark-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .benchmark-stat-label {
+            color: rgba(232, 237, 243, 0.6);
+            font-size: 0.8rem;
+        }
+        .benchmark-stat-value {
+            font-family: var(--font-display);
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+        }
+        .benchmark-stat-value.improved {
+            color: var(--accent-green);
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .dashboard-layout {
@@ -750,9 +914,10 @@
                     <ul>
                         <li><a href="#overview"><img src="public/icon_location.png" alt="Overview Icon" class="icon">/VIEW/3D_MODEL.URDF</a></li>
                         <li><a href="#about"><img src="public/icon_education.png" alt="Profile Icon" class="icon">/USER/PROFILE.JSON</a></li>
+                        <li><a href="#featured"><img src="public/icon_email.png" alt="Featured Icon" class="icon">/ML/PIPELINE/FEATURED.LOG</a></li>
                         <li><a href="#experiences"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Experiences Icon" class="icon">/USER/EXPERIENCES.LOG</a></li>
                         <li><a href="#projects"><img src="public/icon_phone.png" alt="Projects Icon" class="icon">/ROBOT/PROJECTS/LOG.TXT</a></li>
-                        <li><a href="#skills"><img src="public/icon_email.png" alt="Skills Icon" class="icon">/ROBOT/SYSTEM/SKILLS.YAML</a></li>
+                        <li><a href="#skills"><img src="public/icon_phone.png" alt="Skills Icon" class="icon">/ROBOT/SYSTEM/SKILLS.YAML</a></li>
                         <li><a href="#contact"><img src="public/logo_linkedin.png" alt="Contact Icon" class="icon">/USER/CONTACT.CFG</a></li>
                     </ul>
                 </nav>
@@ -803,7 +968,6 @@
                             <p>
                                 As a Robotics student; my expertise lies in high-level systems design. 
                                 Recently, I've been working with synthetic data ML pipelines and autonomous vehicle control systems.
-                                I also manage project deliverables for my subteam; being responsible for more than 75% of the deliverables.
                             </p>
                                 
                             <p> 
@@ -812,14 +976,83 @@
                         </div>
                     </div>
                 </section>
-                <section id="about-media" class="panel">
-                    <div class="panel-header">/USER/PROFILE/MEDIA.JPG: SUPPLEMENTAL_VIEW</div>
-                    <div class="media-content">
-                        <img src="public/project_autonomouscontrols.gif" alt="About Me Media" />
+                <section id="featured" class="panel featured-panel">
+                    <div class="panel-header">/ML/PIPELINE/FEATURED.LOG: HIGHLIGHTED_MISSION</div>
+                    <div class="featured-headline">
+                        <div>
+                            <h2>SYNTHETIC_DATA_PIPELINE //<br>SCALING DATA WHEN YOU CAN'T SCALE COMPUTE</h2>
+                        </div>
+                        <p>Built a multi-GPU distributed pipeline to generate synthetic cone-detection training data for edge AI deployment on a resource-constrained Orange Pi 5 Pro (6 TOPs NPU) — bypassing compute limits through data scaling instead.</p>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7430875596823584768/" target="_blank" rel="noopener noreferrer" class="featured-link">VIEW_POST →</a>
+                    </div>
+                    <div class="pipeline-stages">
+                        <div class="pipeline-stage">
+                            <span class="pipeline-stage-id">STAGE_01</span>
+                            <span class="pipeline-stage-name">VIDEO_GEN</span>
+                            <span class="pipeline-stage-sub">Wan2.2-14B<br>Randomized edge-case prompts</span>
+                        </div>
+                        <div class="pipeline-arrow">→</div>
+                        <div class="pipeline-stage">
+                            <span class="pipeline-stage-id">STAGE_02</span>
+                            <span class="pipeline-stage-name">AUTO_LABEL</span>
+                            <span class="pipeline-stage-sub">Meta SAM3<br>Automated cone segmentation</span>
+                        </div>
+                        <div class="pipeline-arrow">→</div>
+                        <div class="pipeline-stage">
+                            <span class="pipeline-stage-id">STAGE_03</span>
+                            <span class="pipeline-stage-name">MODEL_TRAIN</span>
+                            <span class="pipeline-stage-sub">YOLOv11n<br>Dual RTX A5000 GPUs</span>
+                        </div>
+                        <div class="pipeline-arrow">→</div>
+                        <div class="pipeline-stage">
+                            <span class="pipeline-stage-id">STAGE_04</span>
+                            <span class="pipeline-stage-name">EDGE_DEPLOY</span>
+                            <span class="pipeline-stage-sub">Rockchip NPU<br>Orange Pi 5 Pro</span>
+                        </div>
+                    </div>
+                    <div class="benchmark-grid">
+                        <div class="benchmark-card">
+                            <h4>DATASET_A: 15_VIDEOS [~8HR COMPUTE]</h4>
+                            <div class="benchmark-card-image">
+                                <img src="public/output_rkopt_15.jpg" alt="Dataset A - 15 Video Model Output">
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">INFERENCE_TIME</span>
+                                <span class="benchmark-stat-value">52ms (~19 FPS)</span>
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">DETECTIONS</span>
+                                <span class="benchmark-stat-value">86</span>
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">BBOX_ACCURACY</span>
+                                <span class="benchmark-stat-value">BASELINE</span>
+                            </div>
+                        </div>
+                        <div class="benchmark-card">
+                            <h4>DATASET_B: 100_VIDEOS [50+HR COMPUTE]</h4>
+                            <div class="benchmark-card-image">
+                                <img src="public/output_rkopt_100.jpg" alt="Dataset B - 100 Video Model Output">
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">INFERENCE_TIME</span>
+                                <span class="benchmark-stat-value improved">47.1ms (~21 FPS)</span>
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">DETECTIONS</span>
+                                <span class="benchmark-stat-value">78</span>
+                            </div>
+                            <div class="benchmark-stat">
+                                <span class="benchmark-stat-label">BBOX_ACCURACY</span>
+                                <span class="benchmark-stat-value improved">IMPROVED ↑</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-media">
+                        <img src="public/linkedin_post_two.gif" alt="Synthetic Data Pipeline Demo">
                     </div>
                 </section>
             </div>
-
 
             <section id="experiences" class="panel project-grid-panel">
                 <div class="panel-header">/USER/EXPERIENCES.LOG: WORK_AND_PROJECTS</div>
@@ -839,8 +1072,8 @@
                             <h4>Autonomous Systems Engineer (Jan 2026-Current)</h4>
                             <ul>
                                 <li>Owned the creation of a Synthetic Data Training Pipeline using multi-GPU distributed compute; using WanAI video generation; utilized randomized prompting to produce edge-case driving scenarios, integrated Meta SAM3 for labeling cones, and exported YOLO models for deployment on the Orange Pi's Rockchip NPU.</li>
-                                <li>Owned the complete design of the Autonomous GNC architecture, designing a custom Control Board PCB in Altium to manage high-to-low power step-down and distribute Edge Compute commands via serial, remote commands via ESP-NOW; interfaced a master ESP32 to command a steering CNC motor, braking linear actuator, and digital throttle potentiometer; aiming for low latency, modularity, and rules compliance.</li>
-                                <li>Owned the development of the autonomous software stack, architecting a modular ROS system for sensor fusion (IMU, Odometry, vSLAM) and YOLO-based perception; utilized CARLA for Software-in-the-Loop testing and Foxglove for real-time observability.</li>
+                                <li>Designing the Autonomous GNC architecture, designing a custom Control Board PCB in Altium to manage high-to-low power step-down and distribute Edge Compute commands via serial, remote commands via ESP-NOW; interfaced a master ESP32 to command a steering CNC motor, braking linear actuator, and digital throttle potentiometer; aiming for low latency, modularity, and rules compliance.</li>
+                                <li>Developing the autonomous software stack, architecting a modular ROS system for sensor fusion (IMU, Odometry, vSLAM) and YOLO-based perception; utilized Gazebo for Software-in-the-Loop testing and Foxglove for real-time observability.</li>
                                 <li>Responsible for orchestrating and managing project deliverables and timelines for Mechanical, Software, and Electrical Associate Engineers to deliver on the overall vision and architecture of the Autonomous Kart.</li>
                             </ul>
                             <div style="margin-top: 1rem;"></div>
