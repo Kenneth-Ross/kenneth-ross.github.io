@@ -712,9 +712,11 @@
         }
         .benchmark-card-image {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: var(--bg-primary);
-            border: 1px dashed rgba(255, 152, 0, 0.25);
+            height: 350px;
+            background-color: #05080c;
+            background-image: radial-gradient(circle, rgba(0, 176, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border: 1px solid rgba(61, 68, 80, 0.5);
             border-radius: 3px;
             overflow: hidden;
             margin-bottom: 1rem;
@@ -756,8 +758,9 @@
         }
         .benchmark-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         .benchmark-card {
             background-color: var(--bg-tertiary);
@@ -978,79 +981,83 @@
             </section>
 
             <section id="scopecreep" class="panel featured-panel" style="border-color: #D500F9; box-shadow: 0 0 20px rgba(213, 0, 249, 0.2);">
-                <div class="panel-header" style="color: #D500F9; border-bottom-color: rgba(213, 0, 249, 0.3);">/AGENT/HARDWARE/SCOPECREEP.LOG: HACKATHON_WINNER</div>
+                <div class="panel-header" style="color: #D500F9; border-bottom-color: rgba(213, 0, 249, 0.3);">/AGENT/HARDWARE/SCOPECREEP.LOG: JETBRAINS_X_CODEX_WINNER</div>
                 <div class="featured-headline">
                     <div>
-                        <h2 style="color: #D500F9;">SCOPECREEP //<br>AGENTIC HARDWARE TESTBENCHING</h2>
+                        <h2 style="color: #D500F9;">SCOPECREEP //<br>JETBRAINS X CODEX HACKATHON WINNER</h2>
                     </div>
-                    <p>Reverse-engineered Altium's proprietary .SchDoc format to feed structured board topology into an LLM. This "Agent-In-Loop" system synthesizes hardware test plans and executes them by driving PSUs and Oscilloscopes via serial protocols, surfacing results directly in a JetBrains IDE plugin.</p>
+                    <p>Awarded 2nd Place at the JetBrains x Codex Hackathon. We reverse-engineered Altium's proprietary .SchDoc format to bridge the gap between static EDA schematics and LLM reasoning, enabling an "Agent-In-Loop" system that generates and executes hardware test plans in real-time.</p>
                     <a href="https://github.com/BhavikFTW/Scopecreep" target="_blank" rel="noopener noreferrer" class="featured-link" style="color: #D500F9; border-color: #D500F9;">VIEW_PROJECT →</a>
+                    <a href="https://www.youtube.com/shorts/x56vTEeutgk" target="_blank" rel="noopener noreferrer" class="featured-link" style="color: #D500F9; border-color: #D500F9; margin-left: 0.5rem;">WATCH_DEMO_DIRECT →</a>
                 </div>
                 <div class="pipeline-stages">
                     <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
                         <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_01</span>
                         <span class="pipeline-stage-name" style="color: #D500F9;">BINARY_RE</span>
-                        <span class="pipeline-stage-sub">Altium .SchDoc parser<br>Structured Netlist Extraction</span>
+                        <span class="pipeline-stage-sub">Altium .SchDoc parser<br>Netlist Extraction</span>
                     </div>
                     <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
                     <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
                         <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_02</span>
                         <span class="pipeline-stage-name" style="color: #D500F9;">LLM_SYNTH</span>
-                        <span class="pipeline-stage-sub">OpenAI Function Calls<br>Test Plan Generation</span>
+                        <span class="pipeline-stage-sub">Codex/OpenAI Agent<br>Test Case Generation</span>
                     </div>
                     <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
                     <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
                         <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_03</span>
                         <span class="pipeline-stage-name" style="color: #D500F9;">TOOL_DRIVE</span>
-                        <span class="pipeline-stage-sub">Serial/SCPI Control<br>PSU & Scope Execution</span>
+                        <span class="pipeline-stage-sub">SCPI Instrument Control<br>PSU & Scope Execution</span>
                     </div>
                     <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
                     <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
                         <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_04</span>
                         <span class="pipeline-stage-name" style="color: #D500F9;">IDE_PLUGIN</span>
-                        <span class="pipeline-stage-sub">Kotlin / JetBrains<br>Real-time PASS/FAIL Verdicts</span>
+                        <span class="pipeline-stage-sub">JetBrains SDK / Kotlin<br>In-Editor Test Verdicts</span>
                     </div>
                 </div>
-                <div class="benchmark-grid">
+                <div class="benchmark-grid" style="max-width: 1200px; margin: 0 auto 1.5rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                     <div class="benchmark-card">
-                        <h4>MANUAL_HARDWARE_TESTING [ESTIMATED]</h4>
+                        <h4>MANUAL_SCHEMATIC_ANALYSIS</h4>
                         <div class="benchmark-card-image">
-                            <img src="https://via.placeholder.com/600x400/0A0F17/3D4450?text=MANUAL+PROBING+VISUALIZATION" alt="Manual Probing">
+                            <img src="public/hackathon_schematic_parsing.png" alt="Manual Schematic Analysis" style="filter: grayscale(100%) opacity(0.6); object-fit: contain;">
                         </div>
                         <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">SETUP_TIME</span>
-                            <span class="benchmark-stat-value">~45 mins</span>
+                            <span class="benchmark-stat-label">INPUT</span>
+                            <span class="benchmark-stat-value">Static .SchDoc Schematics</span>
                         </div>
                         <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">EXECUTION_LATENCY</span>
-                            <span class="benchmark-stat-value">~2.5 hours</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">HUMAN_ERROR_RATE</span>
-                            <span class="benchmark-stat-value">HIGH</span>
+                            <span class="benchmark-stat-label">EXTRACTION</span>
+                            <span class="benchmark-stat-value">Manual Component Discovery</span>
                         </div>
                     </div>
                     <div class="benchmark-card">
-                        <h4 style="color: #D500F9;">SCOPECREEP_AGENT_EXECUTION</h4>
+                        <h4 style="color: #D500F9;">AGENTIC_INSTRUMENT_EXECUTION</h4>
                         <div class="benchmark-card-image" style="border-color: rgba(213, 0, 249, 0.3);">
-                            <img src="https://via.placeholder.com/600x400/0A0F17/D500F9?text=AGENTIC+TESTBENCH+UI" alt="Scopecreep Agent UI">
+                            <img src="public/hackathon_instrument.jpeg" alt="Agent-Driven Instrument Execution" style="object-fit: contain;">
                         </div>
                         <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">SETUP_TIME</span>
-                            <span class="benchmark-stat-value improved">30 seconds</span>
+                            <span class="benchmark-stat-label">INPUT</span>
+                            <span class="benchmark-stat-value improved">LLM-Parsed Topology</span>
                         </div>
                         <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">EXECUTION_LATENCY</span>
-                            <span class="benchmark-stat-value improved">4.2 mins</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">HUMAN_ERROR_RATE</span>
-                            <span class="benchmark-stat-value improved">ZERO (AUTOMATED)</span>
+                            <span class="benchmark-stat-label">EXTRACTION</span>
+                            <span class="benchmark-stat-value improved">Automated Tool Driving</span>
                         </div>
                     </div>
-                </div>
-                <div class="featured-media" style="border-color: rgba(213, 0, 249, 0.3);">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x56vTEeutgk" title="Scopecreep Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
+                    <div class="benchmark-card">
+                        <h4 style="color: #D500F9;">DEMO_VIDEO_FEED</h4>
+                        <div class="benchmark-card-image" style="border-color: rgba(213, 0, 249, 0.3); background-color: #000; height: 350px;">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x56vTEeutgk?rel=0&amp;modestbranding=1" title="Scopecreep Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border: none;"></iframe>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">SOURCE</span>
+                            <span class="benchmark-stat-value">YouTube Live Demo</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">STATUS</span>
+                            <span class="benchmark-stat-value improved">STREAM_ACTIVE</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
