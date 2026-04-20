@@ -914,6 +914,7 @@
                     <ul>
                         <li><a href="#overview"><img src="public/icon_location.png" alt="Overview Icon" class="icon">/VIEW/3D_MODEL.URDF</a></li>
                         <li><a href="#about"><img src="public/icon_education.png" alt="Profile Icon" class="icon">/USER/PROFILE.JSON</a></li>
+                        <li><a href="#scopecreep"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Scopecreep Icon" class="icon">/AGENT/HARDWARE/SCOPECREEP.LOG</a></li>
                         <li><a href="#featured"><img src="public/icon_email.png" alt="Featured Icon" class="icon">/ML/PIPELINE/FEATURED.LOG</a></li>
                         <li><a href="#experiences"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Experiences Icon" class="icon">/USER/EXPERIENCES.LOG</a></li>
                         <li><a href="#projects"><img src="public/icon_phone.png" alt="Projects Icon" class="icon">/ROBOT/PROJECTS/LOG.TXT</a></li>
@@ -950,114 +951,200 @@
                 </div>
             </section>
 
-            <div class="about-grid-container">
-                <section id="about" class="panel">
-                    <div class="panel-header">/USER/PROFILE.JSON: DATA_VIEW</div>
-                    <div class="about-content">
-                        <div class="profile-image-container">
-                            <img src="public/headshot.jpeg" alt="Kenneth Ross">
+            <section id="about" class="panel">
+                <div class="panel-header">/USER/PROFILE.JSON: DATA_VIEW</div>
+                <div class="about-content" style="flex-direction: row; align-items: flex-start; gap: 2.5rem;">
+                    <div class="profile-image-container" style="margin: 0; width: 180px; height: 180px; border-radius: 8px;">
+                        <img src="public/headshot.jpeg" alt="Kenneth Ross">
+                    </div>
+                    <div class="about-text" style="flex: 1;">
+                        <p>
+                            Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
+                        </p>
+                        <p>
+                            I am the newest Systems Lead at Highlander Racing Autonomous, and have previously done a Mixed Reality Full-Stack Software Internship. 
+                            I approach every project with total ownership; between hardware integration, or generative ML pipelines; I've built it end to end.
+                        </p>
+                        <p>
+                            As a Robotics student; my expertise lies in high-level systems design. 
+                            Recently, I've been working with synthetic data ML pipelines and autonomous vehicle control systems.
+                        </p>
+                            
+                        <p> 
+                            I'm driven by challenges and high-level design. Let's talk.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="scopecreep" class="panel featured-panel" style="border-color: #D500F9; box-shadow: 0 0 20px rgba(213, 0, 249, 0.2);">
+                <div class="panel-header" style="color: #D500F9; border-bottom-color: rgba(213, 0, 249, 0.3);">/AGENT/HARDWARE/SCOPECREEP.LOG: HACKATHON_WINNER</div>
+                <div class="featured-headline">
+                    <div>
+                        <h2 style="color: #D500F9;">SCOPECREEP //<br>AGENTIC HARDWARE TESTBENCHING</h2>
+                    </div>
+                    <p>Reverse-engineered Altium's proprietary .SchDoc format to feed structured board topology into an LLM. This "Agent-In-Loop" system synthesizes hardware test plans and executes them by driving PSUs and Oscilloscopes via serial protocols, surfacing results directly in a JetBrains IDE plugin.</p>
+                    <a href="https://github.com/BhavikFTW/Scopecreep" target="_blank" rel="noopener noreferrer" class="featured-link" style="color: #D500F9; border-color: #D500F9;">VIEW_PROJECT →</a>
+                </div>
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
+                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_01</span>
+                        <span class="pipeline-stage-name" style="color: #D500F9;">BINARY_RE</span>
+                        <span class="pipeline-stage-sub">Altium .SchDoc parser<br>Structured Netlist Extraction</span>
+                    </div>
+                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
+                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
+                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_02</span>
+                        <span class="pipeline-stage-name" style="color: #D500F9;">LLM_SYNTH</span>
+                        <span class="pipeline-stage-sub">OpenAI Function Calls<br>Test Plan Generation</span>
+                    </div>
+                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
+                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
+                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_03</span>
+                        <span class="pipeline-stage-name" style="color: #D500F9;">TOOL_DRIVE</span>
+                        <span class="pipeline-stage-sub">Serial/SCPI Control<br>PSU & Scope Execution</span>
+                    </div>
+                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
+                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
+                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_04</span>
+                        <span class="pipeline-stage-name" style="color: #D500F9;">IDE_PLUGIN</span>
+                        <span class="pipeline-stage-sub">Kotlin / JetBrains<br>Real-time PASS/FAIL Verdicts</span>
+                    </div>
+                </div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <h4>MANUAL_HARDWARE_TESTING [ESTIMATED]</h4>
+                        <div class="benchmark-card-image">
+                            <img src="https://via.placeholder.com/600x400/0A0F17/3D4450?text=MANUAL+PROBING+VISUALIZATION" alt="Manual Probing">
                         </div>
-                        <div class="about-text">
-                            <p>
-                                Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
-                            </p>
-                            <p>
-                                I am the newest Systems Lead at Highlander Racing Autonomous, and have previously done a Mixed Reality Full-Stack Software Internship. 
-                                I approach every project with total ownership; between hardware integration, or generative ML pipelines; I've built it end to end.
-                            </p>
-                            <p>
-                                As a Robotics student; my expertise lies in high-level systems design. 
-                                Recently, I've been working with synthetic data ML pipelines and autonomous vehicle control systems.
-                            </p>
-                                
-                            <p> 
-                                I'm driven by challenges and high-level design. Let's talk.
-                            </p>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">SETUP_TIME</span>
+                            <span class="benchmark-stat-value">~45 mins</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">EXECUTION_LATENCY</span>
+                            <span class="benchmark-stat-value">~2.5 hours</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">HUMAN_ERROR_RATE</span>
+                            <span class="benchmark-stat-value">HIGH</span>
                         </div>
                     </div>
-                </section>
-                <section id="featured" class="panel featured-panel">
-                    <div class="panel-header">/ML/PIPELINE/FEATURED.LOG: HIGHLIGHTED_MISSION</div>
-                    <div class="featured-headline">
-                        <div>
-                            <h2>SYNTHETIC_DATA_PIPELINE //<br>SCALING DATA WHEN YOU CAN'T SCALE COMPUTE</h2>
+                    <div class="benchmark-card">
+                        <h4 style="color: #D500F9;">SCOPECREEP_AGENT_EXECUTION</h4>
+                        <div class="benchmark-card-image" style="border-color: rgba(213, 0, 249, 0.3);">
+                            <img src="https://via.placeholder.com/600x400/0A0F17/D500F9?text=AGENTIC+TESTBENCH+UI" alt="Scopecreep Agent UI">
                         </div>
-                        <p>Built a multi-GPU distributed pipeline to generate synthetic cone-detection training data for edge AI deployment on a resource-constrained Orange Pi 5 Pro (6 TOPs NPU) — bypassing compute limits through data scaling instead.</p>
-                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7430875596823584768/" target="_blank" rel="noopener noreferrer" class="featured-link">VIEW_POST →</a>
-                    </div>
-                    <div class="pipeline-stages">
-                        <div class="pipeline-stage">
-                            <span class="pipeline-stage-id">STAGE_01</span>
-                            <span class="pipeline-stage-name">VIDEO_GEN</span>
-                            <span class="pipeline-stage-sub">Wan2.2-14B<br>Randomized edge-case prompts</span>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">SETUP_TIME</span>
+                            <span class="benchmark-stat-value improved">30 seconds</span>
                         </div>
-                        <div class="pipeline-arrow">→</div>
-                        <div class="pipeline-stage">
-                            <span class="pipeline-stage-id">STAGE_02</span>
-                            <span class="pipeline-stage-name">AUTO_LABEL</span>
-                            <span class="pipeline-stage-sub">Meta SAM3<br>Automated cone segmentation</span>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">EXECUTION_LATENCY</span>
+                            <span class="benchmark-stat-value improved">4.2 mins</span>
                         </div>
-                        <div class="pipeline-arrow">→</div>
-                        <div class="pipeline-stage">
-                            <span class="pipeline-stage-id">STAGE_03</span>
-                            <span class="pipeline-stage-name">MODEL_TRAIN</span>
-                            <span class="pipeline-stage-sub">YOLOv11n<br>Dual RTX A5000 GPUs</span>
-                        </div>
-                        <div class="pipeline-arrow">→</div>
-                        <div class="pipeline-stage">
-                            <span class="pipeline-stage-id">STAGE_04</span>
-                            <span class="pipeline-stage-name">EDGE_DEPLOY</span>
-                            <span class="pipeline-stage-sub">Rockchip NPU<br>Orange Pi 5 Pro</span>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">HUMAN_ERROR_RATE</span>
+                            <span class="benchmark-stat-value improved">ZERO (AUTOMATED)</span>
                         </div>
                     </div>
-                    <div class="benchmark-grid">
-                        <div class="benchmark-card">
-                            <h4>DATASET_A: 15_VIDEOS [~8HR COMPUTE]</h4>
-                            <div class="benchmark-card-image">
-                                <img src="public/output_rkopt_15.jpg" alt="Dataset A - 15 Video Model Output">
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">INFERENCE_TIME</span>
-                                <span class="benchmark-stat-value">52ms (~19 FPS)</span>
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">DETECTIONS</span>
-                                <span class="benchmark-stat-value">86</span>
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">BBOX_ACCURACY</span>
-                                <span class="benchmark-stat-value">BASELINE</span>
-                            </div>
+                </div>
+                <div class="featured-media" style="border-color: rgba(213, 0, 249, 0.3);">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x56vTEeutgk" title="Scopecreep Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
+                </div>
+            </section>
+
+            <section id="featured" class="panel featured-panel">
+                <div class="panel-header">/ML/PIPELINE/FEATURED.LOG: HIGHLIGHTED_MISSION</div>
+                <div class="featured-headline">
+                    <div>
+                        <h2>SYNTHETIC_DATA_PIPELINE //<br>SCALING DATA WHEN YOU CAN'T SCALE COMPUTE</h2>
+                    </div>
+                    <p>Built a multi-GPU distributed pipeline to generate synthetic cone-detection training data for edge AI deployment on a resource-constrained Orange Pi 5 Pro (6 TOPs NPU) — bypassing compute limits through data scaling instead.</p>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7430875596823584768/" target="_blank" rel="noopener noreferrer" class="featured-link">VIEW_POST →</a>
+                </div>
+                <div class="pipeline-stages">
+                    <div class="pipeline-stage">
+                        <span class="pipeline-stage-id">STAGE_01</span>
+                        <span class="pipeline-stage-name">VIDEO_GEN</span>
+                        <span class="pipeline-stage-sub">Wan2.2-14B<br>Randomized edge-case prompts</span>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-stage">
+                        <span class="pipeline-stage-id">STAGE_02</span>
+                        <span class="pipeline-stage-name">AUTO_LABEL</span>
+                        <span class="pipeline-stage-sub">Meta SAM3<br>Automated cone segmentation</span>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-stage">
+                        <span class="pipeline-stage-id">STAGE_03</span>
+                        <span class="pipeline-stage-name">MODEL_TRAIN</span>
+                        <span class="pipeline-stage-sub">YOLOv11n<br>Dual RTX A5000 GPUs</span>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-stage">
+                        <span class="pipeline-stage-id">STAGE_04</span>
+                        <span class="pipeline-stage-name">EDGE_DEPLOY</span>
+                        <span class="pipeline-stage-sub">Rockchip NPU<br>Orange Pi 5 Pro</span>
+                    </div>
+                </div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <h4>DATASET_A: 15_VIDEOS [~8HR COMPUTE]</h4>
+                        <div class="benchmark-card-image">
+                            <img src="public/output_rkopt_15.jpg" alt="Dataset A - 15 Video Model Output">
                         </div>
-                        <div class="benchmark-card">
-                            <h4>DATASET_B: 100_VIDEOS [50+HR COMPUTE]</h4>
-                            <div class="benchmark-card-image">
-                                <img src="public/output_rkopt_100.jpg" alt="Dataset B - 100 Video Model Output">
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">INFERENCE_TIME</span>
-                                <span class="benchmark-stat-value improved">47.1ms (~21 FPS)</span>
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">DETECTIONS</span>
-                                <span class="benchmark-stat-value">78</span>
-                            </div>
-                            <div class="benchmark-stat">
-                                <span class="benchmark-stat-label">BBOX_ACCURACY</span>
-                                <span class="benchmark-stat-value improved">IMPROVED ↑</span>
-                            </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">INFERENCE_TIME</span>
+                            <span class="benchmark-stat-value">52ms (~19 FPS)</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">DETECTIONS</span>
+                            <span class="benchmark-stat-value">86</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">BBOX_ACCURACY</span>
+                            <span class="benchmark-stat-value">BASELINE</span>
                         </div>
                     </div>
-                    <div class="featured-media">
-                        <img src="public/linkedin_post_two.gif" alt="Synthetic Data Pipeline Demo">
+                    <div class="benchmark-card">
+                        <h4>DATASET_B: 100_VIDEOS [50+HR COMPUTE]</h4>
+                        <div class="benchmark-card-image">
+                            <img src="public/output_rkopt_100.jpg" alt="Dataset B - 100 Video Model Output">
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">INFERENCE_TIME</span>
+                            <span class="benchmark-stat-value improved">47.1ms (~21 FPS)</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">DETECTIONS</span>
+                            <span class="benchmark-stat-value">78</span>
+                        </div>
+                        <div class="benchmark-stat">
+                            <span class="benchmark-stat-label">BBOX_ACCURACY</span>
+                            <span class="benchmark-stat-value improved">IMPROVED ↑</span>
+                        </div>
                     </div>
-                </section>
-            </div>
+                </div>
+                <div class="featured-media">
+                    <img src="public/linkedin_post_two.gif" alt="Synthetic Data Pipeline Demo">
+                </div>
+            </section>
 
             <section id="experiences" class="panel project-grid-panel">
                 <div class="panel-header">/USER/EXPERIENCES.LOG: WORK_AND_PROJECTS</div>
                 <div class="experience-list">
                     <ul>
+                        <li>
+                            <h3>Scopecreep (Agentic Hardware Testbench) - JetBrains x Codex Hackathon</h3>
+                            <h4>2nd Place Winner (Apr 2026)</h4>
+                            <ul>
+                                <li>Reverse-engineered Altium’s .SchDoc binary format to feed structured board topology, components, power rails, and net connectivity directly into an LLM for automated test case generation.</li>
+                                <li>Closed the loop from schematic to hardware execution: LLM-synthesized test plans with typed voltage tolerances dispatched as OpenAI function calls driving real PSU and oscilloscope instruments for Agent-In-Loop hardware test bench.</li>
+                                <li>Reverse-engineered PSU and oscilloscope serial protocols from schematics and open-source references, validated command behavior against live hardware, and exposed instrument control as typed LLM tool calls.</li>
+                                <li>Shipped a JetBrains IDE plugin (Kotlin) managing full Python sidecar lifecycle and surfacing per-point PASS/FAIL verdicts in-editor.</li>
+                            </ul>
+                        </li>
                         <li>
                             <h3>8i | Volumetric Video Capture - Internship</h3>
                             <h4>XR Full-Stack Software Intern (Jul 2025-Sep 2025)</h4>
@@ -1235,7 +1322,8 @@
                 "RENDERING ROBOT STATE",
                 "VISUALIZING SENSOR INPUT",
                 "SIMULATING PATH PLANNING",
-                "DEBUGGING SYSTEM ALGORITHMS"
+                "DEBUGGING SYSTEM ALGORITHMS",
+                "GENERATING AGENTIC TEST PLANS"
             ];
             let currentRoleIndex = 0;
             let currentText = '';
