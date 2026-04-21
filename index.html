@@ -351,20 +351,23 @@
         }
 
         /* About Panel & About Media Panel */
-        .about-grid-container {
-            grid-column: 1 / -1; /* Span full width for the container */
-            display: grid;
-            grid-template-columns: 1fr 2fr; /* Two columns */
-            gap: 1.5rem;
+        .about-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 2.5rem;
+        }
+        .profile-img-box {
+            margin: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            flex-shrink: 0;
         }
 
-        #about {
-            /* Revert width for about card */
-            grid-column: auto;
-        }
         #about .about-content {
             display: flex;
-            flex-direction: column; /* Stack for responsive design */
+            flex-direction: column; /* Fallback */
             gap: 1.5rem;
             flex-grow: 1;
         }
@@ -400,7 +403,7 @@
         }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1rem;
             flex-grow: 1;
         }
@@ -569,7 +572,7 @@
         }
         .contact-data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
         }
         .contact-data-block {
@@ -665,7 +668,17 @@
             gap: 0;
             margin-bottom: 2rem;
             overflow-x: auto;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
+        }
+        .pipeline-stages::-webkit-scrollbar {
+            height: 6px;
+        }
+        .pipeline-stages::-webkit-scrollbar-thumb {
+            background: rgba(255, 152, 0, 0.4);
+            border-radius: 3px;
+        }
+        .pipeline-stages::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
         }
         .pipeline-stage {
             background-color: var(--bg-tertiary);
@@ -673,7 +686,7 @@
             border-radius: 4px;
             padding: 1rem 1.2rem;
             flex: 1;
-            min-width: 120px;
+            min-width: 140px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -758,7 +771,7 @@
         }
         .benchmark-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
@@ -853,15 +866,29 @@
             }
 
 
+            .hero-3d-view {
+                min-height: 400px;
+            }
             .hero-3d-view h1 {
                 font-size: 2rem;
             }
             .hero-3d-view .typewriter-text {
                 font-size: 1.2rem;
+                min-height: 2.5em; /* Prevent jitter */
             }
             .project-grid-panel, .contact-info-panel, .about-grid-container {
                 grid-column: auto; /* Reset span for small screens */
                 grid-template-columns: 1fr; /* Stack columns within about-grid-container */
+            }
+            .about-content-wrapper {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .profile-img-box {
+                width: 150px;
+                height: 150px;
             }
         }
         @media (max-width: 576px) {
@@ -956,11 +983,11 @@
 
             <section id="about" class="panel">
                 <div class="panel-header">/USER/PROFILE.JSON: DATA_VIEW</div>
-                <div class="about-content" style="flex-direction: row; align-items: flex-start; gap: 2.5rem;">
-                    <div class="profile-image-container" style="margin: 0; width: 180px; height: 180px; border-radius: 8px;">
+                <div class="about-content about-content-wrapper">
+                    <div class="profile-image-container profile-img-box">
                         <img src="public/headshot.jpeg" alt="Kenneth Ross">
                     </div>
-                    <div class="about-text" style="flex: 1;">
+                    <div class="about-text">
                         <p>
                             Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
                         </p>
@@ -1017,7 +1044,7 @@
                         <span class="pipeline-stage-sub">JetBrains SDK / Kotlin<br>In-Editor Test Verdicts</span>
                     </div>
                 </div>
-                <div class="benchmark-grid" style="max-width: 1200px; margin: 0 auto 1.5rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="benchmark-grid">
                     <div class="benchmark-card">
                         <h4>MANUAL_SCHEMATIC_ANALYSIS</h4>
                         <div class="benchmark-card-image">
