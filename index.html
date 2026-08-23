@@ -1,1472 +1,374 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ26GZ8RCH"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-NQ26GZ8RCH');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenneth Ross - Robotics Dashboard v7 (Refined Sidebar & Layout)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Modern CSS Reset */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Variables for Theme 7: Refined Robotics Visualization Dashboard */
-        :root {
-            --bg-primary: #0A0F17; /* Very dark blue-gray */
-            --bg-secondary: #1C2433; /* Darker panel background */
-            --bg-tertiary: #2A3647; /* Lighter panel background, for nested elements */
-            --text-light: #E8EDF3; /* Off-white for general text */
-            --accent-blue: #00B0FF; /* Bright blue for primary highlights (data, active) */
-            --accent-green: #00E676; /* Bright green for secondary highlights (headers, links) */
-            --accent-orange: #FF9800; /* Orange for warnings/attention */
-            --border-color: rgba(61, 68, 80, 0.4); /* Subtle border */
-            --shadow-glow-blue: rgba(0, 176, 255, 0.25); /* Blue glow for interactivity */
-            --shadow-glow-green: rgba(0, 230, 118, 0.25); /* Green glow */
-            --font-display: 'Roboto Mono', monospace;
-            --font-body: 'Inter', sans-serif;
-            --transition-speed: 0.3s ease-out;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-body);
-            line-height: 1.6;
-            color: var(--text-light);
-            background-color: var(--bg-primary);
-            display: flex;
-            min-height: 100vh;
-            position: relative;
-            font-size: 16px;
-        }
-        body::before { /* Background grid/noise */
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image:
-                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
-                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--accent-green); /* Links start green now */
-            transition: var(--transition-speed);
-        }
-
-        a:hover {
-            color: var(--accent-blue); /* Hover to blue */
-            text-shadow: 0 0 5px var(--shadow-glow-blue);
-        }
-
-        /* Dashboard Layout */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr; /* Sidebar fixed, main content flexible */
-            grid-template-rows: 1fr;
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* Sidebar - File Explorer / Navigation */
-        .dashboard-sidebar {
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            position: fixed; /* Changed to fixed for persistence */
-            top: 0;
-            bottom: 0; /* Extends to full height */
-            left: 0;
-            width: 280px; /* Fixed width */
-            z-index: 10;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.4);
-        }
-
-        .sidebar-section {
-            padding: 1.5rem 0; /* Apply padding to sections */
-            display: flex; /* Ensure inner content is also flex for vertical distribution */
-            flex-direction: column;
-        }
-
-        .explorer-menu {
-            flex: 1; /* Takes 50% height */
-            overflow-y: auto; /* Allows scrolling for explorer content */
-        }
-
-        .properties-menu {
-            flex: 1; /* Takes 50% height */
-            overflow-y: auto; /* Allows scrolling for properties content */
-            border-top: 1px solid var(--border-color); /* Separator between sections */
-            justify-content: flex-end; /* Push content to bottom of its half */
-        }
-
-
-        .sidebar-header {
-            text-align: left;
-            margin-bottom: 2.5rem;
-            padding: 0 1.5rem;
-        }
-        .sidebar-header .logo {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-blue); /* Logo is blue */
-            text-shadow: 0 0 10px var(--shadow-glow-blue);
-            letter-spacing: 1px;
-            display: block;
-        }
-
-        .sidebar-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            padding: 0.9rem 1.5rem;
-            color: var(--text-light);
-            font-family: var(--font-display); /* Use mono for file paths */
-            font-weight: 500;
-            border-left: 4px solid transparent;
-            transition: var(--transition-speed);
-            gap: 1rem;
-            text-transform: uppercase;
-        }
-        .sidebar-nav a .icon {
-            width: 20px;
-            height: 20px;
-            filter: grayscale(100%) brightness(1.5);
-            transition: var(--transition-speed);
-        }
-        .sidebar-nav a:hover, .sidebar-nav a.active {
-            background-color: rgba(0, 176, 255, 0.08); /* Blue background on active/hover */
-            border-left-color: var(--accent-blue); /* Blue border */
-            color: var(--accent-blue); /* Blue text */
-            text-shadow: 0 0 3px var(--shadow-glow-blue);
-        }
-        .sidebar-nav a:hover .icon, .sidebar-nav a.active .icon {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 3px var(--shadow-glow-blue));
-        }
-
-        .properties-menu .menu-title {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--accent-green);
-            padding: 0 1.5rem 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .properties-menu .status {
-            font-size: 0.8rem;
-            color: var(--accent-blue); /* Status blue */
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            padding: 0 1.5rem;
-        }
-        .properties-menu .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-        }
-        .properties-menu .social-links img {
-            width: 32px;
-            height: 32px;
-            filter: grayscale(100%) brightness(1.5);
-            transition: var(--transition-speed);
-        }
-        .properties-menu .social-links a:hover img {
-            filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 5px var(--shadow-glow-blue));
-            transform: scale(1.1);
-        }
-
-        /* Main Content Area - Visualization Panels */
-        .dashboard-main {
-            grid-column: 2 / -1;
-            padding: 1.5rem;
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: 1fr; /* Flexible panel layout */
-            align-content: start; /* Align content to the top */
-        }
-
-        .dashboard-main > .panel { /* Ensure all direct child panels span full width */
-            grid-column: 1 / -1;
-        }
-
-        .panel {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            opacity: 0; /* For scroll-in animation */
-            transform: translateY(20px); /* For scroll-in animation */
-            transition: opacity 0.6s var(--transition-speed), transform 0.6s var(--transition-speed);
-        }
-        .panel.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .panel-header {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            color: var(--accent-blue); /* Panel headers are blue */
-            margin-bottom: 1rem;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-transform: uppercase;
-        }
-        .panel-header::before {
-            content: '>>'; /* Or some other symbol */
-            color: var(--accent-green); /* Icon before header is green */
-        }
-        .project-grid-panel .panel-header {
-            margin-bottom: 2.5rem; /* Larger bottom margin for active_missions */
-        }
-
-        /* 3D View Hero Panel */
-        .hero-3d-view {
-            grid-column: 1 / -1; /* Span full width */
-            min-height: 500px;
-            background-color: var(--bg-primary);
-            border: 2px solid var(--accent-blue); /* Blue border for hero */
-            box-shadow: 0 0 20px var(--shadow-glow-blue); /* Blue glow for hero */
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Push controls to top/bottom */
-            background-image: url('https://via.placeholder.com/1200x500/0A0F17/00B0FF?text=3D+ROBOT+MODEL+OR+POINT+CLOUD+VISUALIZATION'); /* Placeholder 3D image with blue accent */
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-        }
-        .hero-3d-view::before { /* Overlay to darken image */
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(10,15,23,0.8), rgba(10,15,23,0.3), rgba(10,15,23,0.8));
-            z-index: 1;
-        }
-
-        .view-controls {
-            z-index: 2;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            padding: 1rem 1.5rem;
-            font-family: var(--font-display);
-            color: var(--accent-green); /* View controls status text is green */
-            font-size: 0.85rem;
-            background-color: rgba(0,0,0,0.3);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .view-controls span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .view-controls .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent-blue); /* Status indicator dot is blue */
-            box-shadow: 0 0 5px var(--shadow-glow-blue);
-        }
-
-        .view-main-area {
-            z-index: 2;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-        }
-        .view-main-area h1 {
-            font-family: var(--font-display);
-            font-size: 2.8rem;
-            color: var(--accent-blue); /* Hero title is blue */
-            margin-bottom: 1rem;
-            text-shadow: 0 0 15px var(--shadow-glow-blue);
-            overflow: hidden;
-        }
-        .view-main-area .typewriter-text {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--accent-green); /* Typewriter text is green */
-            min-height: 1.5em;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        .view-main-area .typewriter-text::after {
-            content: '_';
-            animation: blinkCaret 0.8s step-end infinite;
-        }
-        @keyframes blinkCaret {
-            from, to { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .view-main-area .cta-button {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: var(--accent-blue); /* CTA button is blue */
-            color: var(--bg-primary);
-            border-radius: 4px;
-            font-family: var(--font-display);
-            font-weight: 700;
-            transition: var(--transition-speed);
-            box-shadow: 0 0 10px rgba(0, 176, 255, 0.4);
-        }
-        .view-main-area .cta-button:hover {
-            background-color: var(--accent-green); /* CTA hover to green */
-            color: var(--text-light);
-            box-shadow: 0 0 15px var(--shadow-glow-green);
-            transform: translateY(-3px);
-        }
-
-        /* About Panel & About Media Panel */
-        .about-content-wrapper {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: 2.5rem;
-        }
-        .profile-img-box {
-            margin: 0;
-            width: 180px;
-            height: 180px;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        #about .about-content {
-            display: flex;
-            flex-direction: column; /* Fallback */
-            gap: 1.5rem;
-            flex-grow: 1;
-        }
-        #about .about-text p {
-            margin-bottom: 0.8rem;
-            margin-left: 0.3rem;
-            margin-right: 0.3rem;
-            color: var(--text-light);
-        }
-        #about .profile-image-container {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--accent-green); /* Profile image border green */
-            box-shadow: 0 0 10px rgba(0, 230, 118, 0.4); /* Profile image shadow green */
-            margin: 0 auto; /* Center image */
-            flex-shrink: 0;
-        }
-        #about .profile-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(20%);
-        }
-
-
-
-        /* Projects Panel */
-        .project-grid-panel {
-            grid-column: 1 / -1; /* Span full width */
-            padding-bottom: 0; /* Adjust for internal padding of cards */
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
-            flex-grow: 1;
-        }
-        .project-card {
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            transition: var(--transition-speed);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-        }
-        .project-card:hover {
-            border-color: var(--accent-blue); /* Project card hover border blue */
-            box-shadow: 0 0 12px var(--shadow-glow-blue); /* Project card hover shadow blue */
-            transform: translateY(-4px);
-            background-color: rgba(0, 176, 255, 0.05); /* Project card hover bg blue */
-        }
-        .project-card-image {
-            height: 160px;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .project-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(80%) grayscale(60%);
-            transition: var(--transition-speed);
-        }
-        .project-card:hover .project-card-image img {
-            filter: brightness(100%) grayscale(0%);
-            transform: scale(1.08);
-        }
-        .project-card-info {
-            padding: 1rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .project-card-info h3 {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            color: var(--accent-blue); /* Project card title blue */
-            margin-bottom: 0.4rem;
-        }
-        .project-card-info h4 {
-            font-size: 0.8rem;
-            color: var(--accent-green); /* Project card subtitle green */
-            margin-bottom: 0.8rem;
-        }
-        .project-card-info p {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            flex-grow: 1;
-            margin-bottom: 1rem;
-        }
-        .project-card-link {
-            font-family: var(--font-display);
-            color: var(--accent-blue); /* Project card link blue */
-            align-self: flex-start;
-            display: flex;
-            align-items: center;
-            gap: 0.3em;
-            font-size: 0.9rem;
-        }
-        .project-card-link::after {
-            content: '>';
-            opacity: 0;
-            transition: var(--transition-speed);
-        }
-        .project-card-link:hover::after {
-            opacity: 1;
-            transform: translateX(3px);
-        }
-
-        /* Skills Panel */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 0.8rem;
-            justify-items: center;
-            text-align: center;
-        }
-        .skill-widget {
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 0.8rem 0.5rem;
-            transition: var(--transition-speed);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100px;
-        }
-        .skill-widget:hover {
-            border-color: var(--accent-blue); /* Skill widget hover border blue */
-            box-shadow: 0 0 8px var(--shadow-glow-blue); /* Skill widget hover shadow blue */
-            transform: translateY(-2px);
-            background-color: rgba(0, 176, 255, 0.05); /* Skill widget hover bg blue */
-        }
-        .skill-widget-icon {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            filter: grayscale(80%) brightness(1.5);
-            transition: var(--transition-speed);
-            margin-bottom: 0.4rem;
-        }
-        .skill-widget:hover .skill-widget-icon {
-            filter: grayscale(0%) brightness(1) drop-shadow(0 0 4px var(--shadow-glow-blue));
-            transform: scale(1.1);
-        }
-        .skill-widget-name {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: var(--text-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .skill-widget:hover .skill-widget-name {
-            color: var(--accent-blue); /* Skill widget name blue */
-        }
-
-        /* Experiences Section */
-        #experiences ul {
-            list-style: none;
-            padding-left: 1.5rem; /* Indent for list items */
-        }
-        #experiences li {
-            margin-bottom: 1rem;
-            position: relative;
-            color: var(--text-light);
-        }
-        #experiences li::before {
-            content: '-';
-            color: var(--accent-green);
-            position: absolute;
-            left: -1.5rem;
-        }
-        #experiences h3 {
-            font-family: var(--font-display);
-            color: var(--accent-blue);
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-        }
-        #experiences h4 {
-            font-family: var(--font-body);
-            color: var(--accent-green);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-        #experiences p {
-            font-size: 0.9rem;
-        }
-
-
-        /* Contact Panel */
-        .contact-info-panel {
-            grid-column: 1 / -1; /* Span full width */
-        }
-        .contact-data-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-        .contact-data-block {
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 1.2rem;
-            transition: var(--transition-speed);
-        }
-        .contact-data-block:hover {
-            border-color: var(--accent-green); /* Contact data block hover border green */
-            box-shadow: 0 0 10px var(--shadow-glow-green); /* Contact data block hover shadow green */
-            transform: translateY(-2px);
-            background-color: rgba(0, 230, 118, 0.05); /* Contact data block hover bg green */
-        }
-        .contact-data-block h3 {
-            font-family: var(--font-display);
-            color: var(--accent-green); /* Contact data block title green */
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-        .contact-data-block p {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 0.6rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-        .contact-data-block p img {
-            width: 18px;
-            height: 18px;
-            filter: grayscale(100%) brightness(1.8);
-        }
-        .contact-data-block a {
-            color: var(--accent-blue); /* Contact data block link blue */
-        }
-        .contact-data-block a:hover {
-            color: var(--accent-green); /* Contact data block link hover green */
-        }
-
-        /* Featured ML Pipeline Section */
-        .featured-panel {
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 20px rgba(255, 152, 0, 0.2);
-        }
-        .featured-panel .panel-header {
-            color: var(--accent-orange);
-            border-bottom-color: rgba(255, 152, 0, 0.3);
-        }
-        .featured-headline {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .featured-headline h2 {
-            font-family: var(--font-display);
-            color: var(--accent-orange);
-            font-size: 1.1rem;
-            line-height: 1.5;
-            flex: 1;
-            min-width: 200px;
-        }
-        .featured-headline p {
-            font-size: 0.9rem;
-            color: rgba(232, 237, 243, 0.7);
-            flex: 2;
-            min-width: 200px;
-        }
-        .featured-link {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            color: var(--accent-orange);
-            border: 1px solid var(--accent-orange);
-            padding: 0.4rem 0.9rem;
-            border-radius: 3px;
-            white-space: nowrap;
-            align-self: flex-start;
-            transition: var(--transition-speed);
-        }
-        .featured-link:hover {
-            background-color: rgba(255, 152, 0, 0.1);
-            color: var(--accent-orange);
-            box-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
-            text-shadow: none;
-        }
-        .pipeline-stages {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            padding-bottom: 0.8rem;
-        }
-        .pipeline-stages::-webkit-scrollbar {
-            height: 6px;
-        }
-        .pipeline-stages::-webkit-scrollbar-thumb {
-            background: rgba(255, 152, 0, 0.4);
-            border-radius: 3px;
-        }
-        .pipeline-stages::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-        }
-        .pipeline-stage {
-            background-color: var(--bg-tertiary);
-            border: 1px solid rgba(255, 152, 0, 0.3);
-            border-radius: 4px;
-            padding: 1rem 1.2rem;
-            flex: 1;
-            min-width: 140px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .pipeline-arrow {
-            display: flex;
-            align-items: center;
-        }
-        .pipeline-stage-id {
-            font-family: var(--font-display);
-            font-size: 0.65rem;
-            color: var(--accent-orange);
-            opacity: 0.7;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-        .pipeline-stage-name {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            color: var(--accent-orange);
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        .pipeline-stage-sub {
-            font-size: 0.75rem;
-            color: rgba(232, 237, 243, 0.55);
-        }
-        .pipeline-arrow {
-            font-family: var(--font-display);
-            color: rgba(255, 152, 0, 0.4);
-            font-size: 1.2rem;
-            padding: 0 0.5rem;
-            flex-shrink: 0;
-            align-self: center;
-        }
-        .benchmark-card-image {
-            width: 100%;
-            height: 350px;
-            background-color: #05080c;
-            background-image: radial-gradient(circle, rgba(0, 176, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            border: 1px solid rgba(61, 68, 80, 0.5);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .benchmark-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .benchmark-card-image .img-placeholder {
-            font-family: var(--font-display);
-            font-size: 0.7rem;
-            color: rgba(255, 152, 0, 0.3);
-        }
-        .featured-media {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 152, 0, 0.3);
-            border-radius: 4px;
-            overflow: hidden;
-            background-color: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            aspect-ratio: 16 / 9;
-        }
-        .featured-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .featured-media .img-placeholder {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: rgba(255, 152, 0, 0.3);
-        }
-        .benchmark-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .benchmark-card {
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1.2rem;
-        }
-        .benchmark-card h4 {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            color: var(--accent-green);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .benchmark-stat {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-        }
-        .benchmark-stat-label {
-            color: rgba(232, 237, 243, 0.6);
-            font-size: 0.8rem;
-        }
-        .benchmark-stat-value {
-            font-family: var(--font-display);
-            color: var(--accent-blue);
-            font-size: 0.85rem;
-        }
-        .benchmark-stat-value.improved {
-            color: var(--accent-green);
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr; /* Stack sidebar and main content */
-            }
-            .dashboard-sidebar {
-                position: relative; /* Revert to relative for small screens */
-                height: auto;
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-                overflow-y: hidden;
-            }
-            .dashboard-main {
-                margin-left: 0; /* Remove offset */
-                padding: 1rem;
-                grid-template-columns: 1fr; /* Single column for panels */
-            }
-            .explorer-menu, .properties-menu {
-                flex: none; /* Remove flex sizing */
-                overflow-y: visible; /* Allow scrolling to propagate to body */
-                height: auto;
-            }
-            .properties-menu {
-                border-top: none; /* Remove border when stacked horizontally */
-            }
-
-            .sidebar-nav ul {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-            .sidebar-nav a {
-                border-left: none;
-                border-bottom: 4px solid transparent;
-                padding: 0.7rem 1rem;
-            }
-            .sidebar-nav a:hover, .sidebar-nav a.active {
-                border-left-color: transparent;
-                border-bottom-color: var(--accent-blue); /* Blue border on active/hover for responsive */
-            }
-            .sidebar-header {
-                margin-bottom: 1rem;
-            }
-            .properties-menu {
-                padding-top: 0;
-            }
-            .properties-menu .menu-title {
-                display: none; /* Hide title if it clutters */
-            }
-            .properties-menu .status {
-                margin-bottom: 0.5rem;
-            }
-
-
-            .hero-3d-view {
-                min-height: 400px;
-            }
-            .hero-3d-view h1 {
-                font-size: 2rem;
-            }
-            .hero-3d-view .typewriter-text {
-                font-size: 1.2rem;
-                min-height: 2.5em; /* Prevent jitter */
-            }
-            .project-grid-panel, .contact-info-panel, .about-grid-container {
-                grid-column: auto; /* Reset span for small screens */
-                grid-template-columns: 1fr; /* Stack columns within about-grid-container */
-            }
-            .about-content-wrapper {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1.5rem;
-            }
-            .profile-img-box {
-                width: 150px;
-                height: 150px;
-            }
-        }
-        @media (max-width: 576px) {
-            body {
-                font-size: 14px;
-            }
-            .sidebar-header .logo {
-                font-size: 1.4rem;
-            }
-            .sidebar-nav a {
-                font-size: 0.9rem;
-                gap: 0.5rem;
-            }
-            .sidebar-nav a .icon {
-                width: 18px;
-                height: 18px;
-            }
-            .hero-3d-view h1 {
-                font-size: 1.8rem;
-            }
-            .hero-3d-view .typewriter-text {
-                font-size: 1rem;
-            }
-            .hero-3d-view .cta-button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.9rem;
-            }
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            }
-            .skill-widget {
-                height: 80px;
-                padding: 0.5rem;
-            }
-            .skill-widget-icon {
-                width: 35px;
-                height: 35px;
-            }
-            .skill-widget-name {
-                font-size: 0.7rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Kenneth Ross — robotics engineering portfolio spanning simulation, perception, embedded control, hardware test, and XR systems.">
+  <link rel="canonical" href="https://kenneth-ross.github.io/concepts/linear-schematic/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kenneth Ross — Robotics Systems Portfolio">
+  <meta property="og:title" content="Kenneth Ross — Linear Systems Schematic">
+  <meta property="og:description" content="A robotics systems portfolio spanning simulation, perception, edge compute, embedded control, hardware test, and XR systems.">
+  <meta property="og:url" content="https://kenneth-ross.github.io/concepts/linear-schematic/">
+  <meta property="og:image" content="https://kenneth-ross.github.io/public/portfolio-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Dark robotics schematic with an amber signal timeline">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kenneth Ross — Linear Systems Schematic">
+  <meta name="twitter:description" content="Simulation, perception, edge compute, embedded control, hardware test, and XR systems.">
+  <meta name="twitter:image" content="https://kenneth-ross.github.io/public/portfolio-og.png">
+  <title>Kenneth Ross — Linear Systems Schematic</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ26GZ8RCH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NQ26GZ8RCH');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=port45">
 </head>
 <body>
-    <div class="dashboard-layout">
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-section explorer-menu">
-                <div class="sidebar-header">
-                    <span class="logo">EXPLORER</span>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Back to portfolio concepts">
+      <span class="brand-mark" aria-hidden="true">KR</span>
+      <span><strong>Systems portfolio</strong><small>linear schematic</small></span>
+    </a>
+    <span class="scroll-progress" aria-hidden="true"></span>
+  </header>
+
+  <div class="page-grid">
+    <aside class="rail" aria-label="Schematic hierarchy">
+      <p class="rail-title">SCHEMATIC HIERARCHY</p>
+      <nav>
+        <a href="#top" data-section-link="top"><i></i>KENNETH_ROSS</a>
+        <div class="rail-children">
+          <a href="#fsae" data-section-link="fsae"><i></i>HIGHLANDER_RACING</a>
+          <a href="#scopecreep" data-section-link="scopecreep"><i></i>SCOPECREEP</a>
+          <a href="#eighti" data-section-link="eighti"><i></i>8I_XR_SYSTEMS</a>
+        </div>
+      </nav>
+      <nav class="rail-artifacts" aria-label="Evidence index">
+        <span>EVIDENCE INDEX</span>
+        <a href="#sim2edge"><i></i><span><b>RUN</b><small>Simulation → Edge</small></span></a>
+        <a href="#cone-perception"><i></i><span><b>MODEL</b><small>Cone perception</small></span></a>
+        <a href="#control-unit"><i></i><span><b>PCB</b><small>Control unit</small></span></a>
+        <a href="#scopecreep"><i></i><span><b>IDE</b><small>Generated test plan</small></span></a>
+        <a href="#eighti"><i></i><span><b>TIMING</b><small>XR capture path</small></span></a>
+      </nav>
+      <nav class="rail-contacts" aria-label="Contact links">
+        <span>CONTACTS</span>
+        <a href="https://www.linkedin.com/in/kennethsross/" target="_blank" rel="noopener noreferrer">LINKEDIN <b>↗</b></a>
+        <a href="https://github.com/Kenneth-Ross" target="_blank" rel="noopener noreferrer">GITHUB <b>↗</b></a>
+      </nav>
+    </aside>
+
+    <main id="top" class="document" data-observe-section>
+      <section class="hero sheet-block" aria-labelledby="hero-title">
+        <div class="sheet-ref">ROOT / PORTFOLIO</div>
+        <div class="hero-grid">
+          <div>
+            <h1 id="hero-title">KENNETH<br>ROSS</h1>
+            <p class="hero-role">Robotics Engineer</p>
+          </div>
+          <div class="hero-copy">
+            <p>Robotics Engineering @ UC Riverside · 2028. Building systems across simulation, perception, edge compute, embedded control, and hardware test.</p>
+            <dl>
+              <div><dt>PRIMARY STACK</dt><dd>C++ · Python · ROS 2 · Ubuntu 24.04 · ESP32</dd></div>
+              <div><dt>SYSTEMS</dt><dd>Autonomy · Embedded Control · Edge AI · Simulation</dd></div>
+              <div><dt>CURRENT FOCUS</dt><dd>Formula SAE autonomy from simulated sensors to physical actuation.</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div id="timeline" class="hero-timeline">
+          <div class="timeline-ruler" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i class="is-year" data-year="2026"></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <ol class="hero-bus" aria-label="Projects positioned by end or current month from July 2025 through August 2026">
+            <li data-timeline-kind="range">
+              <a href="#eighti">
+                <span class="timeline-date">JUL–SEP 2025</span>
+                <i class="timeline-node" aria-hidden="true"></i>
+                <strong>8I XR SYSTEMS</strong>
+                <small>XR INTERNSHIP · COMPLETED</small>
+              </a>
+            </li>
+            <li data-timeline-kind="point">
+              <a href="#scopecreep">
+                <span class="timeline-date">APR 2026</span>
+                <i class="timeline-node" aria-hidden="true"></i>
+                <strong>SCOPECREEP</strong>
+                <small>HACKATHON · 2ND OVERALL</small>
+              </a>
+            </li>
+            <li class="is-current" data-timeline-kind="range" data-starts-before-scale="true">
+              <a href="#fsae">
+                <span class="timeline-date">NOV 2024–CURRENT</span>
+                <i class="timeline-node" aria-hidden="true"></i>
+                <strong>HIGHLANDER RACING</strong>
+                <small>FORMULA SAE · ACTIVE</small>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="fsae" class="project-section" data-observe-section aria-labelledby="fsae-title">
+        <header class="project-header">
+          <div>
+            <p>FORMULA SAE / ACTIVE DEVELOPMENT</p>
+            <h2 id="fsae-title">Highlander Racing</h2>
+            <p class="project-lede">A single vehicle program connecting simulation, synthetic perception, edge deployment, drive-by-wire control, and shop operations.</p>
+          </div>
+        </header>
+
+        <dl class="boundary-ledger" aria-label="Highlander Racing validation boundary">
+          <div><dt>BOUNDARY</dt><dd>Simulation server → physical Orange Pi 5 Pro</dd></div>
+          <div><dt>EVIDENCE</dt><dd>RGB-D, IMU, and odometry streamed into the edge autonomy stack</dd></div>
+        </dl>
+
+        <figure class="io-architecture" aria-labelledby="fsae-architecture-title" tabindex="0">
+          <figcaption id="fsae-architecture-title"><span>SIMULATION LOOP / HARDWARE PORT TARGET</span><span class="signal-hint"><i></i> HOVER / FOCUS TO TRACE</span></figcaption>
+          <div class="io-horizontal-flow">
+            <section class="io-lane" data-signal-flow tabindex="0" aria-label="Simulation autonomy development loop">
+              <header class="io-lane-label"><span>CURRENT DEVELOPMENT</span><strong>SIMULATION LOOP</strong></header>
+              <div class="io-lane-flow">
+                <div class="io-endpoint">
+                  <strong>GAZEBO HARMONIC</strong>
+                  <div class="io-subnodes"><span>(RGB-D)</span><span>(IMU)</span><span>(WHEEL ODOMETRY)</span></div>
                 </div>
-                <nav class="sidebar-nav">
-                    <ul>
-                        <li><a href="#overview"><img src="public/icon_location.png" alt="Overview Icon" class="icon">/VIEW/3D_MODEL.URDF</a></li>
-                        <li><a href="#about"><img src="public/icon_education.png" alt="Profile Icon" class="icon">/USER/PROFILE.JSON</a></li>
-                        <li><a href="#scopecreep"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Scopecreep Icon" class="icon">/AGENT/HARDWARE/SCOPECREEP.LOG</a></li>
-                        <li><a href="#featured"><img src="public/icon_email.png" alt="Featured Icon" class="icon">/ML/PIPELINE/FEATURED.LOG</a></li>
-                        <li><a href="#experiences"><img src="public/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Experiences Icon" class="icon">/USER/EXPERIENCES.LOG</a></li>
-                        <li><a href="#projects"><img src="public/icon_phone.png" alt="Projects Icon" class="icon">/ROBOT/PROJECTS/LOG.TXT</a></li>
-                        <li><a href="#skills"><img src="public/icon_phone.png" alt="Skills Icon" class="icon">/ROBOT/SYSTEM/SKILLS.YAML</a></li>
-                        <li><a href="#contact"><img src="public/logo_linkedin.png" alt="Contact Icon" class="icon">/USER/CONTACT.CFG</a></li>
-                    </ul>
-                </nav>
+                <b>→</b>
+                <div class="io-core-flow" aria-label="Simulation edge processing chain">
+                  <span class="io-core-node">ORANGE PI 5 PRO</span><b>→</b><span>ROS 2</span><b>→</b><span>YOLO</span><b>→</b><span>RTAB-MAP SLAM</span>
+                </div>
+                <b>→</b>
+                <div class="io-endpoint io-command-endpoint"><strong>AUTONOMOUS COMMANDS</strong><span>GAZEBO HARMONIC</span></div>
+              </div>
+            </section>
+            <div class="io-port-note">
+              <strong>HARDWARE PORT IN MIND</strong>
+              <span>THE AUTONOMY SOFTWARE KEEPS THE SAME EDGE INTERFACES; SIMULATION AND VEHICLE I/O REMAIN SEPARATE.</span>
             </div>
-            <div class="sidebar-section properties-menu">
-                <div class="menu-title">System Properties</div>
-                <div class="status">SYSTEM_STATUS: NOMINAL [VER. 6.0]</div>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/kennethsross/" target="_blank" rel="noopener noreferrer">
-                        <img src="public/logo_linkedin.png" alt="LinkedIn">
-                    </a>
-                    <a href="https://github.com/Kenneth-Ross" target="_blank" rel="noopener noreferrer">
-                        <img src="public/logo_github.png" alt="GitHub">
-                    </a>
+            <section class="io-lane" data-signal-flow tabindex="0" aria-label="Vehicle hardware port target">
+              <header class="io-lane-label"><span>PORT TARGET</span><strong>VEHICLE LOOP</strong></header>
+              <div class="io-lane-flow">
+                <div class="io-endpoint">
+                  <strong>VEHICLE SENSORS</strong>
+                  <div class="io-subnodes"><span>(LUXONIS OAK-D LR)</span><span>(IMU)</span><span>(WHEEL ODOMETRY)</span></div>
                 </div>
+                <b>→</b>
+                <div class="io-core-flow" aria-label="Vehicle edge processing chain">
+                  <span class="io-core-node">ORANGE PI 5 PRO</span><b>→</b><span>ROS 2</span><b>→</b><span>YOLO</span><b>→</b><span>RTAB-MAP SLAM</span>
+                </div>
+                <b>→</b>
+                <div class="io-endpoint io-command-endpoint"><strong>AUTONOMOUS COMMANDS</strong><span>ESP32 STEER-BY-WIRE</span></div>
+              </div>
+            </section>
+          </div>
+        </figure>
+
+        <article id="sim2edge" class="subsystem subsystem-diagram">
+          <header><span>SIL/HIL WORKFLOW</span><h3>Simulation-to-edge autonomy</h3></header>
+          <figure class="project-hero-media">
+            <img src="../../public/sim_demo.webp" alt="Gazebo cone-track simulation beside Foxglove sensor, odometry, and 3D visualization panels" width="2560" height="1440" loading="lazy">
+            <figcaption>Gazebo server and Foxglove view of the simulation-to-edge development loop</figcaption>
+          </figure>
+          <div class="subsystem-grid">
+            <figure class="architecture-figure" data-signal-flow tabindex="0" aria-label="Simulation-to-edge sensor and command data flow">
+              <div class="architecture-node">GAZEBO SERVER<br><small>CONE TRACK · ACKERMANN VEHICLE</small></div>
+              <div class="architecture-row"><span>OAK-D LR RGB + DEPTH</span><span>IMU</span><span>ODOMETRY</span></div>
+              <b>ETHERNET / ROS 2 SENSOR TOPICS</b>
+              <div class="architecture-node">ORANGE PI 5 PRO</div>
+              <div class="architecture-row"><span>YOLO · CONE X/Y + DEPTH</span><span>EKF · IMU + ODOMETRY</span><span>RTAB-MAP SLAM</span></div>
+              <b>PATH PLANNING → DRIVE COMMANDS</b>
+              <div class="architecture-node">GAZEBO VEHICLE</div>
+              <figcaption>The server simulates the environment; real edge hardware runs perception, localization, mapping, and planning before returning drive commands.</figcaption>
+            </figure>
+            <details class="technical-details">
+              <summary>TECHNICAL NOTES</summary>
+              <div class="technical-details-content">
+                <div class="evidence-grid evidence-grid-three">
+                  <section><h4>WHAT I BUILT</h4><p>Gazebo runs cone-bounded tracks, a barebones Ackermann vehicle, and simulated RGB-D, IMU, and odometry. On the physical Orange Pi 5 Pro, YOLO estimates cone position and depth, an EKF filters IMU and odometry, and RTAB-Map supports localization before path planning.</p></section>
+                  <section><h4>WHAT IS VALIDATED</h4><p>RGB, depth, IMU, and odometry leave the simulation server over Ethernet and reach the edge autonomy stack. The loop returns autonomous drive commands to Gazebo.</p></section>
+                  <section><h4>WHAT REMAINS OPEN</h4><p>Controls hardware is not yet integrated. Physical closed-loop validation remains pending; the next validation is porting the autonomy command interface from the simulation sink to the separate vehicle-control interface.</p></section>
+                </div>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article id="cone-perception" class="subsystem">
+          <header><span>PERCEPTION / MODEL MIGRATION</span><h3>Cone perception evolution</h3></header>
+          <div class="version-compare" aria-label="Cone perception versions">
+            <section>
+              <span>PREVIOUS / WORKING BASELINE</span>
+              <h4>Existing cone model</h4>
+              <p>The outputs below compare the same detector after pretraining on different quantities of synthetic video. This remains the reference point for the next iteration.</p>
+            </section>
+            <section>
+              <span>NEW / IN DEVELOPMENT</span>
+              <h4>Procedural2Diffusion pretraining</h4>
+              <p>A new pretraining architecture built around procedurally generated scenes, diffusion-transformed imagery, and assisted labels. RKNN remains the downstream edge-deployment target.</p>
+            </section>
+          </div>
+          <details class="technical-details rationale-details">
+            <summary>ENGINEERING RATIONALE</summary>
+            <div class="technical-details-content">
+              <div class="architecture-delta" aria-label="Previous and new cone perception architecture changes">
+                <div class="delta-header" aria-hidden="true"><span>ELEMENT</span><span>PREVIOUS</span><span>NEW / ENGINEERING REASON</span></div>
+                <div class="delta-row"><strong>DATA SOURCE</strong><span data-label="Previous">Wan 2.2-14B synthetic data</span><span data-label="New / reason">Procedural Blender scenes transformed with Ref2V / LTX 2.5 provide controllable track geometry before realism is added.</span></div>
+                <div class="delta-row"><strong>LABEL PATH</strong><span data-label="Previous">SAM3</span><span data-label="New / reason">SAM3-assisted labels plus projected 2D ground truth support direct comparison against known scene geometry.</span></div>
+                <div class="delta-row"><strong>EDGE PATH</strong><span data-label="Previous">YOLO RKNN</span><span data-label="New / reason">YOLOv11n continues through distillation and quantization toward the 6-TOPS Rockchip NPU.</span></div>
+              </div>
             </div>
-        </aside>
+          </details>
+          <p class="evidence-label architecture-label">PREVIOUS ARCHITECTURE / SYNTHETIC TRAINING</p>
+          <div class="signal-chain signal-chain-previous" data-signal-flow tabindex="0" aria-label="Previous cone perception training flow"><span>WAN 2.2-14B</span><b>→</b><span>SAM3</span><b>→</b><span>YOLO RKNN</span></div>
+          <p class="evidence-label">PREVIOUS MODEL / PRETRAINING SCALE COMPARISON</p>
+          <div class="media-grid">
+            <figure><img src="../../public/output_rkopt_15.jpg" alt="Cone-detector result after pretraining with 15 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>15-video pretraining result</figcaption></figure>
+            <figure><img src="../../public/output_rkopt_100.jpg" alt="Cone-detector result after pretraining with 100 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>100-video pretraining result</figcaption></figure>
+            <figure class="media-wide"><img src="../../public/linkedin_post_two.webp" alt="Cone detections and SAM3 annotations on Wan 2.2-14B synthetic driving data" width="720" height="720" loading="lazy" decoding="async" fetchpriority="low"><figcaption>Wan 2.2-14B Synthetic Data + SAM3 Annotation</figcaption></figure>
+          </div>
+          <p class="evidence-label architecture-label">NEW ARCHITECTURE / PROCEDURAL2DIFFUSION PRETRAINING</p>
+          <div class="signal-chain" data-signal-flow tabindex="0" aria-label="Procedural2Diffusion pretraining flow"><span>PROCEDURAL BLENDER SCENES</span><b>→</b><span>REF2V / LTX 2.5</span><b>→</b><span>SAM3-ASSISTED LABELS</span><b>→</b><span>PROCEDURAL2DIFFUSION PRETRAINING</span><b>→</b><span>YOLOV11N / RKNN</span></div>
+          <p class="evidence-label architecture-label">POST-TRAINING STRATEGY / IN DEVELOPMENT</p>
+          <p class="strategy-description">Known Blender scene geometry produces projected 2D ground-truth boxes. YOLO misses are grouped by failure mode—especially occlusion and long-range cones—then returned as targeted fine-tuning data before distillation, quantization, and RKNN edge deployment. Measured gains remain unvalidated.</p>
+          <div class="signal-chain strategy-chain" data-signal-flow tabindex="0" aria-label="Post-training edge optimization flow"><span>PROJECTED 2D GROUND TRUTH</span><b>→</b><span>YOLO DETECTION COMPARISON</span><b>→</b><span>OCCLUSION + LONG-RANGE FAILURE MINING</span><b>→</b><span>TARGETED FINE-TUNING</span><b>→</b><span>KNOWLEDGE DISTILLATION</span><b>→</b><span>QUANTIZATION</span><b>→</b><span>RKNN / 6-TOPS NPU</span></div>
+          <details class="technical-details">
+            <summary>TECHNICAL NOTES</summary>
+            <div class="technical-details-content">
+              <div class="evidence-grid evidence-grid-three">
+                <section><h4>WHAT I BUILT</h4><p>Procedural track topology, cone and camera placement, diffusion generation, assisted annotation, and pretraining preparation. Distillation and quantization target the Orange Pi 5 Pro rather than a workstation GPU.</p></section>
+                <section><h4>CURRENT EVIDENCE</h4><p>The 15-video and 100-video results provide the previous-model baseline. New-architecture scene and label inspection is active.</p></section>
+                <section><h4>WHAT REMAINS OPEN</h4><p>Replacement status, final latency, closed-loop failure mining, and measured gains remain unvalidated.</p></section>
+              </div>
+            </div>
+          </details>
+        </article>
 
-        <main class="dashboard-main">
-            <section id="overview" class="panel hero-3d-view">
-                <div class="view-controls">
-                    <span><span class="status-indicator"></span>LIVE_FEED: ACTIVE</span>
-                    <span>VIEW_MODE: ORBITAL [FPS: 60]</span>
-                    <span>COORD: [X:0.0 Y:0.0 Z:0.0]</span>
-                </div>
-                <div class="view-main-area">
-                    <h1>KENNETH ROSS // ROBOTICS ENGINEER</h1>
-                    <div class="typewriter-text">INITIALIZING 3D SENSOR STREAM...</div>
-                    <a href="#projects" class="cta-button">EXPLORE_PROJECT_MODELS</a>
-                </div>
-            </section>
+        <article id="control-unit" class="subsystem">
+          <header><span>CONTROLS / BOARD WIP</span><h3>Autonomous Control Unit</h3></header>
+          <div class="media-grid media-grid-control">
+            <figure><img src="../../public/project_brakingassembly.jpg" alt="Linear brake actuator and mechanical mount prototype on a workbench" width="5712" height="4284" loading="lazy"><figcaption>Brake actuator and mechanical mount</figcaption></figure>
+            <figure><img src="../../public/project_autonomouscontrols.webp" alt="Bench testing radio-control input with a linear actuator" width="360" height="640" loading="lazy"><figcaption>Control-path bench test</figcaption></figure>
+            <figure class="media-wide media-board"><img src="../../public/autonomous_control_unit_kicad.png" alt="Early KiCad 3D render of the Autonomous Control Unit circuit board" width="1243" height="853" loading="lazy"><figcaption>Early Autonomous Control Unit revision in KiCad · work in progress</figcaption></figure>
+          </div>
+          <div class="signal-chain" data-signal-flow tabindex="0" aria-label="Autonomous Control Unit command flow"><span>RC ESP32 / ESP-NOW</span><b class="signal-merge">+</b><span>ORANGE PI / SERIAL</span><b>→</b><span>MASTER ESP32</span><b>→</b><span>STEERING · BRAKE · THROTTLE</span></div>
+          <details class="technical-details">
+            <summary>TECHNICAL NOTES</summary>
+            <div class="technical-details-content">
+              <div class="evidence-grid evidence-grid-three">
+                <section><h4>WHAT I BUILT</h4><p>The WIP control unit accepts manual commands over ESP-NOW and autonomous commands from the Orange Pi over serial. A master ESP32 coordinates a separately driven 12 Nm NEMA 34 steering motor, linear brake actuator, and digital-potentiometer throttle path.</p></section>
+                <section><h4>WHAT IS VALIDATED</h4><p>Mechanical brake-actuator mounting and bench-level radio-control prototyping are complete.</p></section>
+                <section><h4>WHAT REMAINS OPEN</h4><p>Board fabrication, bring-up, complete controls integration, and on-vehicle validation are not complete.</p></section>
+              </div>
+            </div>
+          </details>
+        </article>
 
-            <section id="about" class="panel">
-                <div class="panel-header">/USER/PROFILE.JSON: DATA_VIEW</div>
-                <div class="about-content about-content-wrapper">
-                    <div class="profile-image-container profile-img-box">
-                        <img src="public/headshot.jpeg" alt="Kenneth Ross">
-                    </div>
-                    <div class="about-text">
-                        <p>
-                            Hello! I'm Kenneth Ross, and I study Robotics Engineering at University Of California, Riverside.
-                        </p>
-                        <p>
-                            I am the newest Systems Lead at Highlander Racing Autonomous, and have previously done a Mixed Reality Full-Stack Software Internship. 
-                            I approach every project with total ownership; between hardware integration, or generative ML pipelines; I've built it end to end.
-                        </p>
-                        <p>
-                            As a Robotics student; my expertise lies in high-level systems design. 
-                            Recently, I've been working with synthetic data ML pipelines and autonomous vehicle control systems.
-                        </p>
-                            
-                        <p> 
-                            I'm driven by challenges and high-level design. Let's talk.
-                        </p>
-                    </div>
-                </div>
-            </section>
+        <article class="subsystem">
+          <header><span>OPERATIONS</span><h3>Machine observers</h3></header>
+          <div class="media-grid">
+            <figure><img src="../../public/project_discordapp.webp" alt="Discord application reporting a live 3D-printer job" width="720" height="480" loading="lazy"><figcaption>Printer observer reporting to Discord</figcaption></figure>
+            <figure><img src="../../public/project_nfc.webp" alt="Phone scanning an NFC tag for team tool tracking" width="1080" height="1920" loading="lazy"><figcaption>NFC tool workflow</figcaption></figure>
+          </div>
+          <details class="technical-details">
+            <summary>TECHNICAL NOTES</summary>
+            <div class="technical-details-content">
+              <div class="evidence-grid">
+                <section><h4>PRINTER OBSERVER</h4><p>Node.js uses MQTT and FTP for job state and imagery, then sends live updates and Gemini-assisted failure confidence to Discord.</p></section>
+                <section><h4>TOOL TRACKER</h4><p>NFC tags open pre-filled forms that record the last user and checkout time in a shared Google Sheet.</p></section>
+              </div>
+            </div>
+          </details>
+        </article>
+      </section>
 
-            <section id="scopecreep" class="panel featured-panel" style="border-color: #D500F9; box-shadow: 0 0 20px rgba(213, 0, 249, 0.2);">
-                <div class="panel-header" style="color: #D500F9; border-bottom-color: rgba(213, 0, 249, 0.3);">/AGENT/HARDWARE/SCOPECREEP.LOG: JETBRAINS_X_CODEX_WINNER</div>
-                <div class="featured-headline">
-                    <div>
-                        <h2 style="color: #D500F9;">SCOPECREEP //<br>JETBRAINS X CODEX HACKATHON WINNER</h2>
-                    </div>
-                    <p>Awarded 2nd Place at the JetBrains x Codex Hackathon. We reverse-engineered Altium's proprietary .SchDoc format to bridge the gap between static EDA schematics and LLM reasoning, enabling an "Agent-In-Loop" system that generates and executes hardware test plans in real-time.</p>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <a href="https://github.com/BhavikFTW/Scopecreep" target="_blank" rel="noopener noreferrer" class="featured-link" style="color: #D500F9; border-color: #D500F9; text-align: center;">VIEW_PROJECT →</a>
-                        <a href="https://www.youtube.com/shorts/x56vTEeutgk" target="_blank" rel="noopener noreferrer" class="featured-link" style="color: #D500F9; border-color: #D500F9; text-align: center;">WATCH_DEMO_DIRECT →</a>
-                    </div>
-                </div>
-                <div class="pipeline-stages">
-                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
-                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_01</span>
-                        <span class="pipeline-stage-name" style="color: #D500F9;">BINARY_RE</span>
-                        <span class="pipeline-stage-sub">Altium .SchDoc parser<br>Netlist Extraction</span>
-                    </div>
-                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
-                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
-                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_02</span>
-                        <span class="pipeline-stage-name" style="color: #D500F9;">LLM_SYNTH</span>
-                        <span class="pipeline-stage-sub">Codex/OpenAI Agent<br>Test Case Generation</span>
-                    </div>
-                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
-                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
-                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_03</span>
-                        <span class="pipeline-stage-name" style="color: #D500F9;">TOOL_DRIVE</span>
-                        <span class="pipeline-stage-sub">SCPI Instrument Control<br>PSU & Scope Execution</span>
-                    </div>
-                    <div class="pipeline-arrow" style="color: rgba(213, 0, 249, 0.4);">→</div>
-                    <div class="pipeline-stage" style="border-color: rgba(213, 0, 249, 0.3);">
-                        <span class="pipeline-stage-id" style="color: #D500F9;">STAGE_04</span>
-                        <span class="pipeline-stage-name" style="color: #D500F9;">IDE_PLUGIN</span>
-                        <span class="pipeline-stage-sub">JetBrains SDK / Kotlin<br>In-Editor Test Verdicts</span>
-                    </div>
-                </div>
-                <div class="benchmark-grid">
-                    <div class="benchmark-card">
-                        <h4>MANUAL_SCHEMATIC_ANALYSIS</h4>
-                        <div class="benchmark-card-image">
-                            <img src="public/hackathon_schematic_parsing.png" alt="Manual Schematic Analysis" style="filter: grayscale(100%) opacity(0.6); object-fit: contain;">
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">INPUT</span>
-                            <span class="benchmark-stat-value">Static .SchDoc Schematics</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">EXTRACTION</span>
-                            <span class="benchmark-stat-value">Manual Component Discovery</span>
-                        </div>
-                    </div>
-                    <div class="benchmark-card">
-                        <h4 style="color: #D500F9;">AGENTIC_INSTRUMENT_EXECUTION</h4>
-                        <div class="benchmark-card-image" style="border-color: rgba(213, 0, 249, 0.3);">
-                            <img src="public/hackathon_instrument.jpeg" alt="Agent-Driven Instrument Execution" style="object-fit: contain;">
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">INPUT</span>
-                            <span class="benchmark-stat-value improved">LLM-Parsed Topology</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">EXTRACTION</span>
-                            <span class="benchmark-stat-value improved">Automated Tool Driving</span>
-                        </div>
-                    </div>
-                    <div class="benchmark-card">
-                        <h4 style="color: #D500F9;">DEMO_VIDEO_FEED</h4>
-                        <div class="benchmark-card-image" style="border-color: rgba(213, 0, 249, 0.3); background-color: #000; height: 350px;">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x56vTEeutgk?rel=0&amp;modestbranding=1" title="Scopecreep Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border: none;"></iframe>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">SOURCE</span>
-                            <span class="benchmark-stat-value">YouTube Live Demo</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">STATUS</span>
-                            <span class="benchmark-stat-value improved">STREAM_ACTIVE</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <section id="scopecreep" class="project-section" data-observe-section aria-labelledby="scope-title">
+        <header class="project-header">
+          <div>
+            <p>JETBRAINS × CODEX HACKATHON / 2ND OVERALL</p>
+            <h2 id="scope-title">Scopecreep</h2>
+            <p class="project-lede">Schematic-aware instrument automation that turns an Altium design into executable bench tests and IDE verdicts.</p>
+          </div>
+        </header>
+        <dl class="boundary-ledger" aria-label="Scopecreep validation boundary">
+          <div><dt>BOUNDARY</dt><dd>.SchDoc context → typed instrument commands</dd></div>
+          <div><dt>EVIDENCE</dt><dd>Generated IDE test plan and a live programmable-instrument bench</dd></div>
+        </dl>
+        <div class="media-grid media-grid-scopecreep">
+          <figure class="media-ide"><img src="../../public/hackathon_schematic_parsing.png" alt="Scopecreep JetBrains plugin displaying a generated hardware test plan" width="1554" height="1730" loading="lazy"><figcaption>Generated test plan inside the IDE</figcaption></figure>
+          <figure><img src="../../public/hackathon_instrument.jpeg" alt="Programmable power supply connected to the Scopecreep development laptop" width="5712" height="4284" loading="lazy"><figcaption>Live programmable-instrument bench</figcaption></figure>
+          <figure class="media-video">
+            <iframe src="https://www.youtube-nocookie.com/embed/x56vTEeutgk" title="Scopecreep JetBrains × Codex Hackathon demonstration" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <figcaption>JetBrains × Codex Hackathon demonstration</figcaption>
+          </figure>
+        </div>
+        <div class="signal-chain" data-signal-flow tabindex="0" aria-label="Scopecreep schematic-to-verdict flow"><span>.SCHDOC</span><b>→</b><span>STRUCTURED CONTEXT</span><b>→</b><span>TYPED PLAN</span><b>→</b><span>PSU / SCOPE</span><b>→</b><span>PASS / FAIL</span></div>
+        <details class="technical-details">
+          <summary>TECHNICAL NOTES</summary>
+          <div class="technical-details-content">
+            <div class="evidence-grid evidence-grid-three">
+              <section><h4>WHAT I BUILT</h4><p>.SchDoc reverse engineering, schematic-context extraction, serial-protocol validation, and instrument tool design. A Kotlin JetBrains plugin manages the Python sidecar and reports per-test verdicts inside the IDE.</p></section>
+              <section><h4>WHAT IS VALIDATED</h4><p>The hackathon demonstration generated an IDE test plan and exercised a live programmable-instrument bench.</p></section>
+              <section><h4>WHAT REMAINS OPEN</h4><p>Verdict quality depends on extracted schematic context and instrument communication. Repeatable bench coverage needs to expand beyond the hackathon demonstration.</p></section>
+            </div>
+          </div>
+        </details>
+        <nav class="project-links" aria-label="Scopecreep links"><a href="https://github.com/BhavikFTW/Scopecreep" target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href="https://www.youtube.com/shorts/x56vTEeutgk" target="_blank" rel="noopener noreferrer">DEMO ↗</a></nav>
+      </section>
 
-            <section id="featured" class="panel featured-panel">
-                <div class="panel-header">/ML/PIPELINE/FEATURED.LOG: HIGHLIGHTED_MISSION</div>
-                <div class="featured-headline">
-                    <div>
-                        <h2>SYNTHETIC_DATA_PIPELINE //<br>SCALING DATA WHEN YOU CAN'T SCALE COMPUTE</h2>
-                    </div>
-                    <p>Built a multi-GPU distributed pipeline to generate synthetic cone-detection training data for edge AI deployment on a resource-constrained Orange Pi 5 Pro (6 TOPs NPU) — bypassing compute limits through data scaling instead.</p>
-                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7430875596823584768/" target="_blank" rel="noopener noreferrer" class="featured-link">VIEW_POST →</a>
-                </div>
-                <div class="pipeline-stages">
-                    <div class="pipeline-stage">
-                        <span class="pipeline-stage-id">STAGE_01</span>
-                        <span class="pipeline-stage-name">VIDEO_GEN</span>
-                        <span class="pipeline-stage-sub">Wan2.2-14B<br>Randomized edge-case prompts</span>
-                    </div>
-                    <div class="pipeline-arrow">→</div>
-                    <div class="pipeline-stage">
-                        <span class="pipeline-stage-id">STAGE_02</span>
-                        <span class="pipeline-stage-name">AUTO_LABEL</span>
-                        <span class="pipeline-stage-sub">Meta SAM3<br>Automated cone segmentation</span>
-                    </div>
-                    <div class="pipeline-arrow">→</div>
-                    <div class="pipeline-stage">
-                        <span class="pipeline-stage-id">STAGE_03</span>
-                        <span class="pipeline-stage-name">MODEL_TRAIN</span>
-                        <span class="pipeline-stage-sub">YOLOv11n<br>Dual RTX A5000 GPUs</span>
-                    </div>
-                    <div class="pipeline-arrow">→</div>
-                    <div class="pipeline-stage">
-                        <span class="pipeline-stage-id">STAGE_04</span>
-                        <span class="pipeline-stage-name">EDGE_DEPLOY</span>
-                        <span class="pipeline-stage-sub">Rockchip NPU<br>Orange Pi 5 Pro</span>
-                    </div>
-                </div>
-                <div class="benchmark-grid">
-                    <div class="benchmark-card">
-                        <h4>DATASET_A: 15_VIDEOS [~8HR COMPUTE]</h4>
-                        <div class="benchmark-card-image">
-                            <img src="public/output_rkopt_15.jpg" alt="Dataset A - 15 Video Model Output">
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">INFERENCE_TIME</span>
-                            <span class="benchmark-stat-value">52ms (~19 FPS)</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">DETECTIONS</span>
-                            <span class="benchmark-stat-value">86</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">BBOX_ACCURACY</span>
-                            <span class="benchmark-stat-value">BASELINE</span>
-                        </div>
-                    </div>
-                    <div class="benchmark-card">
-                        <h4>DATASET_B: 100_VIDEOS [50+HR COMPUTE]</h4>
-                        <div class="benchmark-card-image">
-                            <img src="public/output_rkopt_100.jpg" alt="Dataset B - 100 Video Model Output">
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">INFERENCE_TIME</span>
-                            <span class="benchmark-stat-value improved">47.1ms (~21 FPS)</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">DETECTIONS</span>
-                            <span class="benchmark-stat-value">78</span>
-                        </div>
-                        <div class="benchmark-stat">
-                            <span class="benchmark-stat-label">BBOX_ACCURACY</span>
-                            <span class="benchmark-stat-value improved">IMPROVED ↑</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-media">
-                    <img src="public/linkedin_post_two.gif" alt="Synthetic Data Pipeline Demo">
-                </div>
-            </section>
+      <section id="eighti" class="project-section" data-observe-section aria-labelledby="eighti-title">
+        <header class="project-header">
+          <div>
+            <p>XR CAPTURE / IMPLEMENTED DIAGNOSTICS</p>
+            <h2 id="eighti-title">8i XR systems</h2>
+            <p class="project-lede">Timing diagnostics and safe development infrastructure for a hardware-dependent volumetric capture pipeline.</p>
+          </div>
+        </header>
+        <dl class="boundary-ledger" aria-label="8i timing validation boundary">
+          <div><dt>BOUNDARY</dt><dd>Authoritative hardware trigger → C++ capture timestamp</dd></div>
+          <div><dt>EVIDENCE</dt><dd>Timestamp diagnostics, Docker targets, and repeatable Python network mocks</dd></div>
+        </dl>
+        <figure class="capture-diagram" data-signal-flow tabindex="0" aria-label="XR camera trigger and timestamp data flow">
+          <div class="camera-array" aria-label="More than 25 cameras"><span>CAM 01</span><span>CAM 02</span><span>CAM 03</span><span>…</span><span>CAM 25+</span></div>
+          <b>HARDWARE TRIGGER</b>
+          <div class="capture-node">TRIGGER BOX<br><small>AUTHORITATIVE TIMING</small></div>
+          <b>C++ TIMESTAMPS</b>
+          <div class="capture-node">ML RENDER PIPELINE</div>
+          <figcaption>Synchronization authority and downstream timing path.</figcaption>
+        </figure>
+        <details class="technical-details">
+          <summary>TECHNICAL NOTES</summary>
+          <div class="technical-details-content">
+            <div class="evidence-grid evidence-grid-three">
+              <section><h4>WHAT I BUILT</h4><p>Reworked legacy timestamp logic, built Docker targets, created Python network mocks, and virtualized the sole openSUSE build server with Proxmox for isolated development.</p></section>
+              <section><h4>WHAT IS VALIDATED</h4><p>The diagnostics and development infrastructure were implemented and exercised for diagnosis; they are not presented as a formally deployed production migration.</p></section>
+              <section><h4>WHAT REMAINS OPEN</h4><p>Hardware timing dependencies remain inside an undocumented, multi-million-line production codebase. Timing behavior still needs verification against authoritative capture hardware before migration.</p></section>
+            </div>
+          </div>
+        </details>
+      </section>
 
-            <section id="experiences" class="panel project-grid-panel">
-                <div class="panel-header">/USER/EXPERIENCES.LOG: WORK_AND_PROJECTS</div>
-                <div class="experience-list">
-                    <ul>
-                        <li>
-                            <h3>Scopecreep (Agentic Hardware Testbench) - JetBrains x Codex Hackathon</h3>
-                            <h4>2nd Place Winner (Apr 2026)</h4>
-                            <ul>
-                                <li>Reverse-engineered Altium’s .SchDoc binary format to feed structured board topology, components, power rails, and net connectivity directly into an LLM for automated test case generation.</li>
-                                <li>Closed the loop from schematic to hardware execution: LLM-synthesized test plans with typed voltage tolerances dispatched as OpenAI function calls driving real PSU and oscilloscope instruments for Agent-In-Loop hardware test bench.</li>
-                                <li>Reverse-engineered PSU and oscilloscope serial protocols from schematics and open-source references, validated command behavior against live hardware, and exposed instrument control as typed LLM tool calls.</li>
-                                <li>Shipped a JetBrains IDE plugin (Kotlin) managing full Python sidecar lifecycle and surfacing per-point PASS/FAIL verdicts in-editor.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>8i | Volumetric Video Capture - Internship</h3>
-                            <h4>XR Full-Stack Software Intern (Jul 2025-Sep 2025)</h4>
-                            <ul>
-                                <li>Analyzed logs and Docker orchestration within AWS product to reverse engineer pipeline and states of different files to expose and diagnose root issues in our processing and compute pipeline.</li>
-                                <li>Developed, tested, and shipped timestamp integration for proprietary file formats for synchronization debugging with minimal architectural impact, writing in C++, building in Docker; created scrappy testing tools like a mock server for network commands in Python for test driven development.</li>
-                                <li>Collaborated on migration of our sole production build pipeline to a stable, isolated development environment. Virtualized the production server on Proxmox to create a breakable developer clone, implementing version control and automated backup protocols to safeguard production integrity.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>Highlander Racing - Formula SAE</h3>
-                            <h4>Autonomous Systems Engineer (Jan 2026-Current)</h4>
-                            <ul>
-                                <li>Owned the creation of a Synthetic Data Training Pipeline using multi-GPU distributed compute; using WanAI video generation; utilized randomized prompting to produce edge-case driving scenarios, integrated Meta SAM3 for labeling cones, and exported YOLO models for deployment on the Orange Pi's Rockchip NPU.</li>
-                                <li>Designing the Autonomous GNC architecture, designing a custom Control Board PCB in Altium to manage high-to-low power step-down and distribute Edge Compute commands via serial, remote commands via ESP-NOW; interfaced a master ESP32 to command a steering CNC motor, braking linear actuator, and digital throttle potentiometer; aiming for low latency, modularity, and rules compliance.</li>
-                                <li>Developing the autonomous software stack, architecting a modular ROS system for sensor fusion (IMU, Odometry, vSLAM) and YOLO-based perception; utilized Gazebo for Software-in-the-Loop testing and Foxglove for real-time observability.</li>
-                                <li>Responsible for orchestrating and managing project deliverables and timelines for Mechanical, Software, and Electrical Associate Engineers to deliver on the overall vision and architecture of the Autonomous Kart.</li>
-                            </ul>
-                            <div style="margin-top: 1rem;"></div>
-                            <h4 style="color: var(--accent-green);">Autonomous Associate Engineer (Nov 2024-Jan 2026)</h4>
-                            <ul>
-                                <li>Developed and owned a 3D printer observer Discord application to provide real-time manufacturing oversight via Node.js, MQTT, and FTP, integrating Gemini as a multimodal image-to-confidence inference to automate failure detection; this system enabled immediate error response.</li>
-                                <li>Responsible for the mechanical design for our Braking Linear Actuator designed in Solidworks, reverse engineering mounting points on our kart's chassis, and printed on various BambuLab 3D Printers.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>2024 KidWind World Competition</h3>
-                            <h4>Design Lead (Sep 2023-May 2024)</h4>
-                            <ul>
-                                <li>Recipient of the 2024 World Judges Award and 3rd Place Winner of the World Simulation Challenge.</li>
-                                <li>Owned the entire CAD assembly of our Wind Turbine housing, gearbox, and Wind Turbine blades; designed in Fusion 360.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>Roblox Freelance Game Developer</h3>
-                            <h4>(Jan 2020-Present)</h4>
-                            <ul>
-                                <li>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-
-            <section id="projects" class="panel project-grid-panel">
-                <div class="panel-header">/ROBOT/PROJECTS/LOG.TXT: ACTIVE_MISSIONS</div>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="public/project_nfc.gif" alt="NFC Tag Tool Tracker">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>NFC Tag Tool Tracker</h3>
-                            <h4>PROJECT_ID: HLR_PM_001</h4>
-                            <p>Developed a tool tracking system using NFC tags, pre-filled forms, and a Google Sheet to keep track of the last user and time of a tool. This instantly improved tool retention and organization.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="public/project_discordapp.gif" alt="BambuLab Printer Discord Application">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>BambuLab Printer Discord Application</h3>
-                            <h4>PROJECT_ID: HLR_IT_002</h4>
-                            <p>Implemented a Discord Application that improves manufacturing oversight by allowing team members to view current print jobs through live updates, slash command invocation, and automated print failure detection.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="public/project_autonomous_brakes.png" alt="Autonomous Braking Control System">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>Autonomous Braking Control System</h3>
-                            <h4>PROJECT_ID: HLR_FSAE_003</h4>
-                            <p>Owned full responsibility of Highlander Racing's Autonomous Braking Control System and Mounts. Integrating Radio Control, P.I.D, and Command Line Interface.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="public/project_roboticarm.jpeg" alt="Robotic Arm">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>Robotic Arm</h3>
-                            <h4>PROJECT_ID: PERSONAL_004</h4>
-                            <p>Further developed CAD ability on Fusion 360 on a systems level project, 3D printing optimizations, and motor control Arduino Integration.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="public/project_kidwind.jpeg" alt="KidWind Energy Competition">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>KidWind Energy Competition</h3>
-                            <h4>PROJECT_ID: COMPETITION_005</h4>
-                            <p>Led mechanical design for wind turbine blades, gearbox, and chassis. Raised $2500+ dollars through crowdsourcing under extreme budget constraints.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-card-image">
-                            <img src="/api/placeholder/400/320" alt="Roblox Game Development Placeholder">
-                        </div>
-                        <div class="project-card-info">
-                            <h3>Roblox Game Development</h3>
-                            <h4>PROJECT_ID: FREELANCE_006</h4>
-                            <p>Designed and implemented core game architecture and systems, including Combat AI and weapons management. Contributed to open-source projects and led the development of a custom fork of an open-source weapons system.</p>
-                            <a href="#" class="project-card-link">VIEW_DATA</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="skills" class="panel">
-                <div class="panel-header">/ROBOT/SYSTEM/SKILLS.YAML: COMPONENT_LIST</div>
-                <div class="skills-grid">
-                    <div class="skill-widget">
-                        <img src="public/skill_solidworks.png" alt="SolidWorks" class="skill-widget-icon">
-                        <span class="skill-widget-name">SolidWorks</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_fusion360.png" alt="Fusion 360" class="skill-widget-icon">
-                        <span class="skill-widget-name">Fusion 360</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_blender.png" alt="Blender" class="skill-widget-icon">
-                        <span class="skill-widget-name">Blender</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_arduino.png" alt="Arduino" class="skill-widget-icon">
-                        <span class="skill-widget-name">Arduino</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_cpp.png" alt="C++" class="skill-widget-icon">
-                        <span class="skill-widget-name">C++</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_nodejs.png" alt="NodeJS" class="skill-widget-icon">
-                        <span class="skill-widget-name">NodeJS</span>
-                    </div>
-                    <div class="skill-widget">
-                        <img src="public/skill_matlab.png" alt="MATLAB" class="skill-widget-icon">
-                        <span class="skill-widget-name">MATLAB</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="panel contact-info-panel">
-                <div class="panel-header">/USER/CONTACT.CFG: CONNECTION_DATA</div>
-                <div class="contact-data-grid">
-                    <div class="contact-data-block">
-                        <h3>USER_LOCATION_DATA</h3>
-                        <p><img src="public/icon_location.png" alt="Location"> Current: Bay Area, CA</p>
-                        <p><img src="public/icon_education.png" alt="Education"> School: U.C Riverside</p>
-                    </div>
-                    <div class="contact-data-block">
-                        <h3>NETWORK_IDENTIFIERS</h3>
-                        <p><img src="public/logo_linkedin.png" alt="LinkedIn"><a href="https://www.linkedin.com/in/kennethsross/" target="_blank" rel="noopener noreferrer"> LINKEDIN_PROFILE</a></p>
-                        <p><img src="public/logo_github.png" alt="GitHub"><a href="https://github.com/Kenneth-Ross" target="_blank" rel="noopener noreferrer"> GITHUB_REPO</a></p>
-                    </div>
-                </div>
-            </section>
-        </main>
+      <footer class="sheet-footer">
+        <div><span>SHEET</span><strong>kenneth_ross_portfolio.sch</strong></div>
+        <div><span>TITLE</span><strong>Robotics Systems Portfolio</strong></div>
+        <div><span>CONTACT</span><a href="https://www.linkedin.com/in/kennethsross/">LinkedIn ↗</a><a href="https://github.com/Kenneth-Ross">GitHub ↗</a></div>
+      </footer>
+    </main>
+  </div>
+  <dialog class="media-lightbox" data-media-lightbox aria-label="Expanded project media">
+    <div class="media-lightbox-panel">
+      <button class="media-lightbox-close" type="button" data-media-lightbox-close aria-label="Close expanded media">CLOSE</button>
+      <div class="media-lightbox-viewport" data-media-lightbox-viewport></div>
+      <p class="media-lightbox-caption" data-media-lightbox-caption></p>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.sidebar-nav a');
-            const typewriterElement = document.querySelector('.hero-3d-view .typewriter-text');
-            const roles = [
-                "RENDERING ROBOT STATE",
-                "VISUALIZING SENSOR INPUT",
-                "SIMULATING PATH PLANNING",
-                "DEBUGGING SYSTEM ALGORITHMS",
-                "GENERATING AGENTIC TEST PLANS"
-            ];
-            let currentRoleIndex = 0;
-            let currentText = '';
-            let isDeleting = false;
-            const typingSpeed = 80;
-            const deletingSpeed = 40;
-            const pauseTime = 1800;
-
-            function typeWriterEffect() {
-                if (!typewriterElement) return;
-
-                const role = roles[currentRoleIndex];
-                let speed = isDeleting ? deletingSpeed : typingSpeed;
-
-                if (isDeleting) {
-                    currentText = role.substring(0, currentText.length - 1);
-                } else {
-                    currentText = role.substring(0, currentText.length + 1);
-                }
-
-                typewriterElement.textContent = currentText;
-
-                if (!isDeleting && currentText === role) {
-                    speed = pauseTime;
-                    isDeleting = true;
-                } else if (isDeleting && currentText === '') {
-                    isDeleting = false;
-                    currentRoleIndex = (currentRoleIndex + 1) % roles.length;
-                    speed = 600; // Pause before typing next role
-                }
-
-                setTimeout(typeWriterEffect, speed);
-            }
-
-            // Start typewriter after a small delay
-            setTimeout(typeWriterEffect, 1000);
-
-            // Section visibility on scroll
-            const panels = document.querySelectorAll('.panel');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1 // Trigger when 10% of the panel is visible
-            };
-
-            const panelObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target); // Stop observing once visible
-                    }
-                });
-            }, observerOptions);
-
-            panels.forEach(panel => {
-                panelObserver.observe(panel);
-            });
-
-            // Smooth scrolling for sidebar navigation and active link highlighting
-            const sections = document.querySelectorAll('main section');
-            const scrollObserverOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.5 // Highlight when 50% of the section is visible
-            };
-
-            const scrollObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${entry.target.id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, scrollObserverOptions);
-
-            sections.forEach(section => {
-                scrollObserver.observe(section);
-            });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+  </dialog>
+  <script src="app.js?v=port45"></script>
 </body>
 </html>
