@@ -60,7 +60,7 @@
       tick.style.setProperty('--timeline-delay', `${40 + (index * 24)}ms`);
     });
 
-    const endpointFractions = [2 / 13, 9 / 13, 1];
+    const endpointFractions = [2 / 15, 9 / 15, 1, 1];
     timelineItems.forEach((item, index) => {
       const node = item.querySelector('.timeline-node');
       const delay = 90 + Math.round((endpointFractions[index] || 0) * 320);
@@ -192,7 +192,12 @@
     if (!source) return;
 
     let expanded;
-    if (source instanceof HTMLImageElement) {
+    if (figure.dataset.sceneUrl) {
+      expanded = document.createElement('iframe');
+      expanded.src = figure.dataset.sceneUrl;
+      expanded.title = 'Interactive labelled MedTech instrument tray';
+      expanded.allowFullscreen = true;
+    } else if (source instanceof HTMLImageElement) {
       expanded = document.createElement('img');
       expanded.src = source.currentSrc || source.src;
       expanded.alt = source.alt;
@@ -251,6 +256,10 @@
   });
 
   lightboxClose?.addEventListener('click', closeLightbox);
+  window.addEventListener('message', (event) => {
+    const viewer = lightboxViewport?.querySelector('iframe');
+    if (event.origin === location.origin && event.source === viewer?.contentWindow && event.data === 'medtech-close') closeLightbox();
+  });
   lightbox?.addEventListener('click', (event) => {
     if (event.target === lightbox) closeLightbox();
   });
@@ -270,6 +279,33 @@
     lightboxViewport?.replaceChildren();
     lightboxTrigger?.focus();
     lightboxTrigger = null;
+  });
+
+  document.querySelectorAll('[data-comparison-slider]').forEach((slider) => {
+    const images = slider.closest('.marigold-comparison').querySelector('.comparison-images');
+    const update = () => {
+      images.style.setProperty('--split', `${slider.value}%`);
+      slider.setAttribute('aria-valuetext', `${100 - Number(slider.value)} percent surface normals`);
+    };
+    slider.addEventListener('input', update);
+    const moveDivider = (event) => {
+      const bounds = images.getBoundingClientRect();
+      slider.value = String(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))));
+      update();
+    };
+    images.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) return;
+      images.setPointerCapture(event.pointerId);
+      slider.focus({ preventScroll: true });
+      moveDivider(event);
+    });
+    images.addEventListener('pointermove', (event) => {
+      if (images.hasPointerCapture(event.pointerId)) moveDivider(event);
+    });
+    images.addEventListener('pointerup', (event) => {
+      if (images.hasPointerCapture(event.pointerId)) images.releasePointerCapture(event.pointerId);
+    });
+    images.addEventListener('dragstart', (event) => event.preventDefault());
   });
 
   updateProgress();

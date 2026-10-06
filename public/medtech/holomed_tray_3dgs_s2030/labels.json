@@ -1,0 +1,2289 @@
+{
+ "scene": "HoloMed procedural mock-layout scene, rt230 seed 2030 (render_mock_normals.py, real instruments), Blender 5.1.2",
+ "num_splats": 266492,
+ "files": {
+  "spz": "scene.spz",
+  "splat": "scene.splat",
+  "labels": "labels.bin"
+ },
+ "labels_bin": "uint8 per splat in file order (scene.spz and scene.splat share the order); 0 = unassigned, 1..N tool instances, 101 drape, 102 towel, 103+ rolls",
+ "frame": "three.js Y-up, metres; origin = tray centre on the tray top (Blender world [-0.025, 1.5, 1.1715] Z-up, mapped (x, y, z) -> (x, z, -y))",
+ "sh_degree": 1,
+ "classes": [
+  {
+   "name": "Forcep",
+   "class_id": 0,
+   "color": "#e6194b",
+   "n_instances": 21
+  },
+  {
+   "name": "Scissor",
+   "class_id": 1,
+   "color": "#3cb44b",
+   "n_instances": 2
+  },
+  {
+   "name": "Tweezer",
+   "class_id": 2,
+   "color": "#ffe119",
+   "n_instances": 8
+  },
+  {
+   "name": "Retractor",
+   "class_id": 3,
+   "color": "#4363d8",
+   "n_instances": 2
+  },
+  {
+   "name": "Probe",
+   "class_id": 12,
+   "color": "#911eb4",
+   "n_instances": 1
+  },
+  {
+   "name": "drape",
+   "class_id": null,
+   "color": "#5f7f9f",
+   "n_instances": 1
+  },
+  {
+   "name": "towel",
+   "class_id": null,
+   "color": "#46597a",
+   "n_instances": 1
+  },
+  {
+   "name": "roll",
+   "class_id": null,
+   "color": "#9aa7d6",
+   "n_instances": 3
+  }
+ ],
+ "instances": [
+  {
+   "id": 1,
+   "name": "MockTool_023_retractor_real",
+   "kind": "tool",
+   "class_name": "Retractor",
+   "class_id": 3,
+   "n_splats": 4267,
+   "color": "#ff8126",
+   "archetype": "retractor_real",
+   "model": "retractor__Retractor_Langenbeck",
+   "pose": "flat",
+   "band": "heavy",
+   "centroid": [
+    -0.14383,
+    0.0122,
+    0.14617
+   ],
+   "aabb": [
+    [
+     -0.25184,
+     0.00212,
+     0.12529
+    ],
+    [
+     -0.03597,
+     0.03713,
+     0.15905
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.14437,
+     0.0234,
+     0.14622
+    ],
+    "axes": [
+     [
+      0.99651,
+      -0.02948,
+      0.07809
+     ],
+     [
+      0.07842,
+      0.01027,
+      -0.99687
+     ],
+     [
+      0.02859,
+      0.99951,
+      0.01255
+     ]
+    ],
+    "half_extents": [
+     0.1094,
+     0.01506,
+     0.01761
+    ]
+   },
+   "iou_check": 0.8416
+  },
+  {
+   "id": 2,
+   "name": "MockTool_024_retractor_real",
+   "kind": "tool",
+   "class_name": "Retractor",
+   "class_id": 3,
+   "n_splats": 5110,
+   "color": "#4226ff",
+   "archetype": "retractor_real",
+   "model": "retractor__retractor_v1_ref",
+   "pose": "flat",
+   "band": "heavy",
+   "centroid": [
+    -0.15192,
+    0.04462,
+    0.10208
+   ],
+   "aabb": [
+    [
+     -0.2187,
+     0.00633,
+     0.06911
+    ],
+    [
+     -0.05173,
+     0.06912,
+     0.13675
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.13533,
+     0.03852,
+     0.10206
+    ],
+    "axes": [
+     [
+      0.94643,
+      -0.32255,
+      -0.01516
+     ],
+     [
+      -0.01602,
+      0.0,
+      -0.99987
+     ],
+     [
+      0.32251,
+      0.94655,
+      -0.00517
+     ]
+    ],
+    "half_extents": [
+     0.09001,
+     0.03562,
+     0.00553
+    ]
+   },
+   "iou_check": 0.9383
+  },
+  {
+   "id": 3,
+   "name": "MockTool_025_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 2011,
+   "color": "#4aff26",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Surgical_Tweezers",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.14823,
+    0.00766,
+    0.3114
+   ],
+   "aabb": [
+    [
+     -0.23099,
+     -0.00564,
+     0.29054
+    ],
+    [
+     -0.07783,
+     0.02704,
+     0.33142
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.15569,
+     0.00416,
+     0.31338
+    ],
+    "axes": [
+     [
+      -0.95625,
+      0.1828,
+      0.22842
+     ],
+     [
+      -0.23168,
+      0.00358,
+      -0.97279
+     ],
+     [
+      -0.17864,
+      -0.98314,
+      0.03893
+     ]
+    ],
+    "half_extents": [
+     0.08005,
+     0.00635,
+     0.01233
+    ]
+   },
+   "iou_check": 0.7875
+  },
+  {
+   "id": 4,
+   "name": "MockTool_026_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 1928,
+   "color": "#ff2689",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Surgical_Tweezers",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.15242,
+    0.00686,
+    0.27674
+   ],
+   "aabb": [
+    [
+     -0.23828,
+     -0.01365,
+     0.26824
+    ],
+    [
+     -0.08078,
+     0.02767,
+     0.28344
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.15989,
+     0.01393,
+     0.27738
+    ],
+    "axes": [
+     [
+      0.9993,
+      -0.02474,
+      -0.02789
+     ],
+     [
+      -0.02785,
+      0.0021,
+      -0.99961
+     ],
+     [
+      0.02479,
+      0.99969,
+      0.00141
+     ]
+    ],
+    "half_extents": [
+     0.08005,
+     0.00635,
+     0.01233
+    ]
+   },
+   "iou_check": 0.7463
+  },
+  {
+   "id": 5,
+   "name": "MockTool_027_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 1633,
+   "color": "#26c8ff",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Surgical_Tweezers",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.18947,
+    0.01431,
+    0.22506
+   ],
+   "aabb": [
+    [
+     -0.27129,
+     0.00068,
+     0.2193
+    ],
+    [
+     -0.11268,
+     0.02907,
+     0.23361
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.19099,
+     0.00932,
+     0.225
+    ],
+    "axes": [
+     [
+      -0.98924,
+      -0.14055,
+      0.0406
+     ],
+     [
+      -0.0437,
+      0.01905,
+      -0.99886
+     ],
+     [
+      0.13962,
+      -0.98989,
+      -0.02499
+     ]
+    ],
+    "half_extents": [
+     0.08005,
+     0.00635,
+     0.01233
+    ]
+   },
+   "iou_check": 0.6835
+  },
+  {
+   "id": 6,
+   "name": "MockTool_028_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 2042,
+   "color": "#fff726",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Atraumatic_tweezers_DeBakey",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.16271,
+    0.0329,
+    0.25198
+   ],
+   "aabb": [
+    [
+     -0.25645,
+     0.01865,
+     0.24544
+    ],
+    [
+     -0.05777,
+     0.05511,
+     0.25925
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.15753,
+     0.03698,
+     0.25432
+    ],
+    "axes": [
+     [
+      0.99688,
+      0.07641,
+      -0.01956
+     ],
+     [
+      -0.05528,
+      0.5,
+      -0.86426
+     ],
+     [
+      -0.05626,
+      0.86265,
+      0.50267
+     ]
+    ],
+    "half_extents": [
+     0.10224,
+     0.00591,
+     0.01269
+    ]
+   },
+   "iou_check": 0.8643
+  },
+  {
+   "id": 7,
+   "name": "MockTool_029_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 1579,
+   "color": "#b726ff",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Surgical_Tweezers",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.18822,
+    0.01143,
+    0.24858
+   ],
+   "aabb": [
+    [
+     -0.2612,
+     -0.01499,
+     0.23805
+    ],
+    [
+     -0.10459,
+     0.02814,
+     0.2609
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.18251,
+     0.01796,
+     0.24932
+    ],
+    "axes": [
+     [
+      0.99856,
+      -0.02382,
+      0.04815
+     ],
+     [
+      0.04935,
+      0.05244,
+      -0.9974
+     ],
+     [
+      0.02123,
+      0.99834,
+      0.05354
+     ]
+    ],
+    "half_extents": [
+     0.08005,
+     0.00635,
+     0.01233
+    ]
+   },
+   "iou_check": 0.6548
+  },
+  {
+   "id": 8,
+   "name": "MockTool_030_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 1613,
+   "color": "#26ff78",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Surgical_Tweezers",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.1453,
+    0.01199,
+    0.23851
+   ],
+   "aabb": [
+    [
+     -0.22897,
+     -0.0058,
+     0.22639
+    ],
+    [
+     -0.07176,
+     0.02602,
+     0.24649
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.15018,
+     0.01721,
+     0.23795
+    ],
+    "axes": [
+     [
+      -0.9944,
+      0.04204,
+      -0.097
+     ],
+     [
+      -0.09774,
+      -0.01589,
+      0.99509
+     ],
+     [
+      0.0403,
+      0.99899,
+      0.01991
+     ]
+    ],
+    "half_extents": [
+     0.08005,
+     0.00635,
+     0.01233
+    ]
+   },
+   "iou_check": 0.564
+  },
+  {
+   "id": 9,
+   "name": "MockTool_031_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 2306,
+   "color": "#ff3926",
+   "archetype": "tweezers_real",
+   "model": "tweezers__Atraumatic_tweezers_DeBakey",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.19647,
+    0.03211,
+    0.22024
+   ],
+   "aabb": [
+    [
+     -0.28435,
+     0.02078,
+     0.21274
+    ],
+    [
+     -0.08555,
+     0.04966,
+     0.2308
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.18403,
+     0.0359,
+     0.21885
+    ],
+    "axes": [
+     [
+      0.99654,
+      0.03499,
+      0.07541
+     ],
+     [
+      0.08279,
+      -0.5,
+      -0.86206
+     ],
+     [
+      0.00754,
+      0.86532,
+      -0.50117
+     ]
+    ],
+    "half_extents": [
+     0.10224,
+     0.00591,
+     0.01269
+    ]
+   },
+   "iou_check": 0.8415
+  },
+  {
+   "id": 10,
+   "name": "MockTool_032_probe_real",
+   "kind": "tool",
+   "class_name": "Probe",
+   "class_id": 12,
+   "n_splats": 531,
+   "color": "#2653ff",
+   "archetype": "probe_real",
+   "model": "probe__Inspec_Diagnostic_Sharp_Explorer_1_RemoveHighlightsO",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.18148,
+    0.00954,
+    0.2005
+   ],
+   "aabb": [
+    [
+     -0.22334,
+     0.00294,
+     0.19579
+    ],
+    [
+     -0.11141,
+     0.01436,
+     0.20463
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.16619,
+     0.00806,
+     0.20108
+    ],
+    "axes": [
+     [
+      -0.99796,
+      0.0274,
+      0.05761
+     ],
+     [
+      -0.04529,
+      0.33177,
+      -0.94227
+     ],
+     [
+      -0.04493,
+      -0.94296,
+      -0.32986
+     ]
+    ],
+    "half_extents": [
+     0.05724,
+     0.00431,
+     0.00252
+    ]
+   },
+   "iou_check": 0.6134
+  },
+  {
+   "id": 11,
+   "name": "MockTool_033_tweezers_real",
+   "kind": "tool",
+   "class_name": "Tweezer",
+   "class_id": 2,
+   "n_splats": 3404,
+   "color": "#92ff26",
+   "archetype": "tweezers_real",
+   "model": "tweezers__tweezer_v1_ref",
+   "pose": "flat",
+   "band": "fine",
+   "centroid": [
+    -0.16233,
+    0.01416,
+    0.19073
+   ],
+   "aabb": [
+    [
+     -0.2573,
+     0.00303,
+     0.18226
+    ],
+    [
+     -0.08024,
+     0.02608,
+     0.19619
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.16867,
+     0.00861,
+     0.18979
+    ],
+    "axes": [
+     [
+      0.99631,
+      0.0825,
+      0.02354
+     ],
+     [
+      -0.03059,
+      0.0853,
+      0.99589
+     ],
+     [
+      0.08016,
+      -0.99293,
+      0.08751
+     ]
+    ],
+    "half_extents": [
+     0.09033,
+     0.00667,
+     0.01157
+    ]
+   },
+   "iou_check": 0.8374
+  },
+  {
+   "id": 12,
+   "name": "MockTool_000_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2444,
+   "color": "#ff26d1",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.12284,
+    0.05364,
+    -0.19543
+   ],
+   "aabb": [
+    [
+     0.00288,
+     0.00447,
+     -0.21144
+    ],
+    [
+     0.19281,
+     0.10382,
+     -0.1872
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.09292,
+     0.03973,
+     -0.20095
+    ],
+    "axes": [
+     [
+      0.92841,
+      0.36277,
+      0.08035
+     ],
+     [
+      0.36879,
+      -0.92604,
+      -0.08029
+     ],
+     [
+      0.04528,
+      0.10418,
+      -0.99353
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.8888
+  },
+  {
+   "id": 13,
+   "name": "MockTool_002_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2535,
+   "color": "#26ffed",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.12923,
+    0.05713,
+    -0.18307
+   ],
+   "aabb": [
+    [
+     0.0032,
+     0.00424,
+     -0.19271
+    ],
+    [
+     0.19311,
+     0.10509,
+     -0.17645
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.09317,
+     0.04015,
+     -0.18687
+    ],
+    "axes": [
+     [
+      -0.9297,
+      -0.36671,
+      -0.0343
+     ],
+     [
+      -0.36089,
+      0.92562,
+      -0.11394
+     ],
+     [
+      0.07353,
+      -0.09355,
+      -0.9929
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.885
+  },
+  {
+   "id": 14,
+   "name": "MockTool_005_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1932,
+   "color": "#ffae26",
+   "archetype": "hemostat_real",
+   "model": "Peritoneum_clamp_Baby_Mikulicz",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.14529,
+    0.05267,
+    -0.20416
+   ],
+   "aabb": [
+    [
+     0.06387,
+     0.00387,
+     -0.22167
+    ],
+    [
+     0.19148,
+     0.0929,
+     -0.19238
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.12114,
+     0.03718,
+     -0.21087
+    ],
+    "axes": [
+     [
+      0.85515,
+      0.50426,
+      0.12019
+     ],
+     [
+      0.51836,
+      -0.82945,
+      -0.20811
+     ],
+     [
+      -0.00525,
+      0.24027,
+      -0.97069
+     ]
+    ],
+    "half_extents": [
+     0.06999,
+     0.03217,
+     0.00533
+    ]
+   },
+   "iou_check": 0.8701
+  },
+  {
+   "id": 15,
+   "name": "MockTool_004_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2074,
+   "color": "#6f26ff",
+   "archetype": "hemostat_real",
+   "model": "Peritoneum_clamp_Baby_Mikulicz",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.14753,
+    0.05164,
+    -0.21417
+   ],
+   "aabb": [
+    [
+     0.06809,
+     0.00354,
+     -0.23809
+    ],
+    [
+     0.19474,
+     0.09078,
+     -0.1973
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.12464,
+     0.03681,
+     -0.22279
+    ],
+    "axes": [
+     [
+      0.83964,
+      0.51094,
+      0.18424
+     ],
+     [
+      0.54227,
+      -0.7694,
+      -0.33759
+     ],
+     [
+      -0.03073,
+      0.38336,
+      -0.92309
+     ]
+    ],
+    "half_extents": [
+     0.06999,
+     0.03217,
+     0.00533
+    ]
+   },
+   "iou_check": 0.8721
+  },
+  {
+   "id": 16,
+   "name": "MockTool_006_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2547,
+   "color": "#26ff30",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.14801,
+    0.05833,
+    -0.17129
+   ],
+   "aabb": [
+    [
+     0.0164,
+     0.00586,
+     -0.18169
+    ],
+    [
+     0.20658,
+     0.10276,
+     -0.16133
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.10644,
+     0.04005,
+     -0.17256
+    ],
+    "axes": [
+     [
+      0.93718,
+      0.34834,
+      -0.01892
+     ],
+     [
+      0.33945,
+      -0.89806,
+      0.27974
+     ],
+     [
+      0.08046,
+      -0.26858,
+      -0.95989
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.8761
+  },
+  {
+   "id": 17,
+   "name": "MockTool_001_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1354,
+   "color": "#ff265c",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.14108,
+    0.04608,
+    -0.16302
+   ],
+   "aabb": [
+    [
+     0.02195,
+     0.00385,
+     -0.17208
+    ],
+    [
+     0.19462,
+     0.08033,
+     -0.15644
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.10492,
+     0.03266,
+     -0.16147
+    ],
+    "axes": [
+     [
+      -0.94496,
+      -0.32513,
+      0.03669
+     ],
+     [
+      -0.3194,
+      0.89233,
+      -0.31896
+     ],
+     [
+      0.07097,
+      -0.31312,
+      -0.94706
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7718
+  },
+  {
+   "id": 18,
+   "name": "MockTool_003_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2293,
+   "color": "#269bff",
+   "archetype": "hemostat_real",
+   "model": "Peritoneum_clamp_Baby_Mikulicz",
+   "pose": "fan_leaning",
+   "band": "fan",
+   "centroid": [
+    0.15716,
+    0.05046,
+    -0.22385
+   ],
+   "aabb": [
+    [
+     0.07712,
+     0.00327,
+     -0.25146
+    ],
+    [
+     0.20117,
+     0.08764,
+     -0.20194
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.13136,
+     0.03611,
+     -0.23383
+    ],
+    "axes": [
+     [
+      -0.82437,
+      -0.51273,
+      -0.23986
+     ],
+     [
+      -0.56231,
+      0.69306,
+      0.45109
+     ],
+     [
+      -0.06505,
+      0.50674,
+      -0.85964
+     ]
+    ],
+    "half_extents": [
+     0.06999,
+     0.03217,
+     0.00533
+    ]
+   },
+   "iou_check": 0.8951
+  },
+  {
+   "id": 19,
+   "name": "MockTool_007_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1575,
+   "color": "#dbff26",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    0.13815,
+    0.04598,
+    -0.15839
+   ],
+   "aabb": [
+    [
+     0.02052,
+     0.00601,
+     -0.16925
+    ],
+    [
+     0.19142,
+     0.08029,
+     -0.15039
+    ]
+   ],
+   "obb": {
+    "center": [
+     0.10164,
+     0.03344,
+     -0.15608
+    ],
+    "axes": [
+     [
+      0.94585,
+      0.31873,
+      -0.06149
+     ],
+     [
+      0.31962,
+      -0.8814,
+      0.34783
+     ],
+     [
+      0.05667,
+      -0.34865,
+      -0.93554
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.8378
+  },
+  {
+   "id": 20,
+   "name": "MockTool_011_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2551,
+   "color": "#e426ff",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.14551,
+    0.06067,
+    -0.22933
+   ],
+   "aabb": [
+    [
+     -0.20977,
+     0.00477,
+     -0.23683
+    ],
+    [
+     -0.02177,
+     0.10867,
+     -0.21546
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.10989,
+     0.04247,
+     -0.22389
+    ],
+    "axes": [
+     [
+      -0.91734,
+      0.39311,
+      -0.0629
+     ],
+     [
+      -0.39782,
+      -0.91119,
+      0.10714
+     ],
+     [
+      -0.0152,
+      0.12331,
+      0.99225
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.8991
+  },
+  {
+   "id": 21,
+   "name": "MockTool_014_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2529,
+   "color": "#26ffa5",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.16264,
+    0.06095,
+    -0.23941
+   ],
+   "aabb": [
+    [
+     -0.22394,
+     0.00492,
+     -0.24335
+    ],
+    [
+     -0.03442,
+     0.10685,
+     -0.22972
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.12404,
+     0.04104,
+     -0.23551
+    ],
+    "axes": [
+     [
+      -0.92588,
+      0.37648,
+      -0.03164
+     ],
+     [
+      -0.37528,
+      -0.92613,
+      -0.03809
+     ],
+     [
+      -0.04364,
+      -0.02339,
+      0.99877
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.8729
+  },
+  {
+   "id": 22,
+   "name": "MockTool_008_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1175,
+   "color": "#ff6626",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.15825,
+    0.0468,
+    -0.24543
+   ],
+   "aabb": [
+    [
+     -0.21491,
+     0.00464,
+     -0.24987
+    ],
+    [
+     -0.04549,
+     0.08455,
+     -0.24208
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.12578,
+     0.03425,
+     -0.24452
+    ],
+    "axes": [
+     [
+      -0.93745,
+      0.34748,
+      -0.021
+     ],
+     [
+      -0.34173,
+      -0.93008,
+      -0.13484
+     ],
+     [
+      -0.06639,
+      -0.11923,
+      0.99065
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7319
+  },
+  {
+   "id": 23,
+   "name": "MockTool_010_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2613,
+   "color": "#2626ff",
+   "archetype": "hemostat_real",
+   "model": "Clamp_Overholt_Geissend",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.15944,
+    0.05774,
+    -0.22039
+   ],
+   "aabb": [
+    [
+     -0.22257,
+     0.00508,
+     -0.23395
+    ],
+    [
+     -0.03392,
+     0.10592,
+     -0.20263
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.12276,
+     0.0417,
+     -0.21384
+    ],
+    "axes": [
+     [
+      -0.91796,
+      0.38589,
+      -0.09192
+     ],
+     [
+      -0.39638,
+      -0.88327,
+      0.25041
+     ],
+     [
+      0.01544,
+      0.2663,
+      0.96377
+     ]
+    ],
+    "half_extents": [
+     0.09977,
+     0.03641,
+     0.00485
+    ]
+   },
+   "iou_check": 0.8869
+  },
+  {
+   "id": 24,
+   "name": "MockTool_009_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1257,
+   "color": "#65ff26",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.15639,
+    0.04622,
+    -0.24869
+   ],
+   "aabb": [
+    [
+     -0.21596,
+     0.00426,
+     -0.25281
+    ],
+    [
+     -0.04598,
+     0.08396,
+     -0.24474
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.1268,
+     0.034,
+     -0.24851
+    ],
+    "axes": [
+     [
+      -0.93805,
+      0.34645,
+      -0.00621
+     ],
+     [
+      -0.34163,
+      -0.9277,
+      -0.15051
+     ],
+     [
+      -0.0579,
+      -0.13906,
+      0.98859
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7437
+  },
+  {
+   "id": 25,
+   "name": "MockTool_013_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1154,
+   "color": "#ff26a5",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.15949,
+    0.04577,
+    -0.25217
+   ],
+   "aabb": [
+    [
+     -0.21808,
+     0.00443,
+     -0.25682
+    ],
+    [
+     -0.04792,
+     0.08341,
+     -0.24658
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.12861,
+     0.0335,
+     -0.25238
+    ],
+    "axes": [
+     [
+      0.93918,
+      -0.34338,
+      -0.00573
+     ],
+     [
+      0.33907,
+      0.9245,
+      0.17414
+     ],
+     [
+      -0.0545,
+      -0.16549,
+      0.98471
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7343
+  },
+  {
+   "id": 26,
+   "name": "MockTool_015_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1336,
+   "color": "#26e4ff",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.16345,
+    0.04814,
+    -0.25552
+   ],
+   "aabb": [
+    [
+     -0.21606,
+     0.00358,
+     -0.26001
+    ],
+    [
+     -0.04633,
+     0.08364,
+     -0.24961
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.12663,
+     0.03365,
+     -0.25622
+    ],
+    "axes": [
+     [
+      0.9374,
+      -0.34776,
+      -0.01846
+     ],
+     [
+      0.34448,
+      0.91815,
+      0.19578
+     ],
+     [
+      -0.05114,
+      -0.18988,
+      0.98047
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7537
+  },
+  {
+   "id": 27,
+   "name": "MockTool_012_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2512,
+   "color": "#ffdb26",
+   "archetype": "hemostat_real",
+   "model": "Peritoneum_clamp_Baby_Mikulicz",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.15595,
+    0.05842,
+    -0.21078
+   ],
+   "aabb": [
+    [
+     -0.20074,
+     0.00621,
+     -0.22515
+    ],
+    [
+     -0.07517,
+     0.0973,
+     -0.19289
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.13103,
+     0.04157,
+     -0.20351
+    ],
+    "axes": [
+     [
+      -0.82996,
+      0.54332,
+      -0.12635
+     ],
+     [
+      -0.55181,
+      -0.76652,
+      0.32857
+     ],
+     [
+      0.08167,
+      0.34242,
+      0.93599
+     ]
+    ],
+    "half_extents": [
+     0.06999,
+     0.03217,
+     0.00533
+    ]
+   },
+   "iou_check": 0.8976
+  },
+  {
+   "id": 28,
+   "name": "MockTool_016_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1692,
+   "color": "#9c26ff",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "fan_edge",
+   "band": "fan",
+   "centroid": [
+    -0.1446,
+    0.04886,
+    -0.25939
+   ],
+   "aabb": [
+    [
+     -0.20031,
+     0.00334,
+     -0.26416
+    ],
+    [
+     -0.03063,
+     0.08658,
+     -0.25233
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.11124,
+     0.03499,
+     -0.26054
+    ],
+    "axes": [
+     [
+      -0.92978,
+      0.36673,
+      0.03186
+     ],
+     [
+      -0.36386,
+      -0.90248,
+      -0.2305
+     ],
+     [
+      -0.05577,
+      -0.22591,
+      0.97255
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.8511
+  },
+  {
+   "id": 29,
+   "name": "MockTool_017_scissors_real",
+   "kind": "tool",
+   "class_name": "Scissor",
+   "class_id": 1,
+   "n_splats": 1640,
+   "color": "#26ff5c",
+   "archetype": "scissors_real",
+   "model": "scissors__Dissection_Scissors_Metzenbaum",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.15269,
+    0.04716,
+    0.03939
+   ],
+   "aabb": [
+    [
+     -0.22216,
+     0.00777,
+     0.03475
+    ],
+    [
+     -0.05467,
+     0.0839,
+     0.04642
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.13573,
+     0.03874,
+     0.03933
+    ],
+    "axes": [
+     [
+      -0.93566,
+      0.35233,
+      0.01993
+     ],
+     [
+      0.33454,
+      0.90356,
+      -0.26769
+     ],
+     [
+      -0.11233,
+      -0.2438,
+      -0.9633
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.01918,
+     0.00167
+    ]
+   },
+   "iou_check": 0.8032
+  },
+  {
+   "id": 30,
+   "name": "MockTool_018_scissors_real",
+   "kind": "tool",
+   "class_name": "Scissor",
+   "class_id": 1,
+   "n_splats": 1673,
+   "color": "#ff262f",
+   "archetype": "scissors_real",
+   "model": "scissors__Dissection_Scissors_Metzenbaum",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.17198,
+    0.0563,
+    0.03518
+   ],
+   "aabb": [
+    [
+     -0.23008,
+     0.00834,
+     0.03108
+    ],
+    [
+     -0.06402,
+     0.08965,
+     0.04152
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.14414,
+     0.04189,
+     0.03475
+    ],
+    "axes": [
+     [
+      -0.92121,
+      0.38818,
+      0.02603
+     ],
+     [
+      0.37293,
+      0.90011,
+      -0.22522
+     ],
+     [
+      -0.11086,
+      -0.19776,
+      -0.97396
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.01918,
+     0.00167
+    ]
+   },
+   "iou_check": 0.8374
+  },
+  {
+   "id": 31,
+   "name": "MockTool_021_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1389,
+   "color": "#266fff",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.19126,
+    0.06104,
+    0.04335
+   ],
+   "aabb": [
+    [
+     -0.23777,
+     0.00941,
+     0.03651
+    ],
+    [
+     -0.07099,
+     0.09401,
+     0.05162
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.14936,
+     0.04157,
+     0.0434
+    ],
+    "axes": [
+     [
+      -0.92323,
+      0.38417,
+      0.00832
+     ],
+     [
+      0.36245,
+      0.87781,
+      -0.31318
+     ],
+     [
+      -0.12761,
+      -0.28613,
+      -0.94966
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.682
+  },
+  {
+   "id": 32,
+   "name": "MockTool_020_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1597,
+   "color": "#aeff26",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.18295,
+    0.06435,
+    0.04667
+   ],
+   "aabb": [
+    [
+     -0.23327,
+     0.00979,
+     0.039
+    ],
+    [
+     -0.0692,
+     0.10121,
+     0.05586
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.14592,
+     0.04573,
+     0.04628
+    ],
+    "axes": [
+     [
+      0.9024,
+      -0.43075,
+      -0.01176
+     ],
+     [
+      -0.39892,
+      -0.84541,
+      0.35517
+     ],
+     [
+      -0.16293,
+      -0.31581,
+      -0.93473
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.7527
+  },
+  {
+   "id": 33,
+   "name": "MockTool_019_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 1764,
+   "color": "#ff26ed",
+   "archetype": "hemostat_real",
+   "model": "Needle_holder_DeBakey",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.16342,
+    0.05641,
+    0.04985
+   ],
+   "aabb": [
+    [
+     -0.22166,
+     0.00821,
+     0.04067
+    ],
+    [
+     -0.05366,
+     0.09539,
+     0.05985
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.1336,
+     0.04274,
+     0.05002
+    ],
+    "axes": [
+     [
+      -0.9177,
+      0.39728,
+      -1e-05
+     ],
+     [
+      0.36401,
+      0.84083,
+      -0.40062
+     ],
+     [
+      -0.15915,
+      -0.36765,
+      -0.91624
+     ]
+    ],
+    "half_extents": [
+     0.09,
+     0.02394,
+     0.00118
+    ]
+   },
+   "iou_check": 0.8021
+  },
+  {
+   "id": 34,
+   "name": "MockTool_022_hemostat_real",
+   "kind": "tool",
+   "class_name": "Forcep",
+   "class_id": 0,
+   "n_splats": 2685,
+   "color": "#26ffd2",
+   "archetype": "hemostat_real",
+   "model": "Peritoneum_clamp_Baby_Mikulicz",
+   "pose": "edge",
+   "band": "heavy",
+   "centroid": [
+    -0.1831,
+    0.06712,
+    0.02798
+   ],
+   "aabb": [
+    [
+     -0.22681,
+     0.00778,
+     0.01946
+    ],
+    [
+     -0.1028,
+     0.10676,
+     0.03173
+    ]
+   ],
+   "obb": {
+    "center": [
+     -0.15755,
+     0.04672,
+     0.02402
+    ],
+    "axes": [
+     [
+      -0.81491,
+      0.57918,
+      0.0218
+     ],
+     [
+      0.57957,
+      0.81408,
+      0.03697
+     ],
+     [
+      0.00367,
+      0.04276,
+      -0.99908
+     ]
+    ],
+    "half_extents": [
+     0.06999,
+     0.03217,
+     0.00533
+    ]
+   },
+   "iou_check": 0.8847
+  },
+  {
+   "id": 101,
+   "name": "Surgical_Table_Single_Empty",
+   "kind": "stuff",
+   "class_name": "drape",
+   "class_id": null,
+   "n_splats": 68549,
+   "color": "#5f7f9f",
+   "centroid": [
+    -0.00635,
+    -0.00838,
+    -0.01186
+   ],
+   "aabb": [
+    [
+     -0.34207,
+     -0.18158,
+     -0.49494
+    ],
+    [
+     0.34329,
+     0.02509,
+     0.44421
+    ]
+   ],
+   "iou_check": 0.8458
+  },
+  {
+   "id": 102,
+   "name": "OR_TowelMesh",
+   "kind": "stuff",
+   "class_name": "towel",
+   "class_id": null,
+   "n_splats": 114121,
+   "color": "#46597a",
+   "centroid": [
+    0.00732,
+    0.00041,
+    -0.00165
+   ],
+   "aabb": [
+    [
+     -0.23317,
+     -0.05676,
+     -0.3538
+    ],
+    [
+     0.21834,
+     0.03156,
+     0.33223
+    ]
+   ],
+   "iou_check": 0.9808
+  },
+  {
+   "id": 103,
+   "name": "OR_Roll_0",
+   "kind": "stuff",
+   "class_name": "roll",
+   "class_id": null,
+   "n_splats": 4192,
+   "color": "#9aa7d6",
+   "centroid": [
+    0.17677,
+    0.02613,
+    -0.19767
+   ],
+   "aabb": [
+    [
+     0.1518,
+     0.00024,
+     -0.26194
+    ],
+    [
+     0.19981,
+     0.05502,
+     -0.1324
+    ]
+   ],
+   "iou_check": 0.9384
+  },
+  {
+   "id": 104,
+   "name": "OR_Roll_1",
+   "kind": "stuff",
+   "class_name": "roll",
+   "class_id": null,
+   "n_splats": 4564,
+   "color": "#9aa7d6",
+   "centroid": [
+    -0.19342,
+    0.03047,
+    -0.22645
+   ],
+   "aabb": [
+    [
+     -0.21893,
+     0.00479,
+     -0.2836
+    ],
+    [
+     -0.16837,
+     0.05356,
+     -0.17765
+    ]
+   ],
+   "iou_check": 0.9398
+  },
+  {
+   "id": 105,
+   "name": "OR_Riser_0",
+   "kind": "stuff",
+   "class_name": "roll",
+   "class_id": null,
+   "n_splats": 4321,
+   "color": "#9aa7d6",
+   "centroid": [
+    -0.21232,
+    0.03522,
+    0.03821
+   ],
+   "aabb": [
+    [
+     -0.24321,
+     0.00796,
+     0.00296
+    ],
+    [
+     -0.17729,
+     0.06155,
+     0.07894
+    ]
+   ],
+   "iou_check": 0.9453
+  }
+ ],
+ "label_check": {
+  "method": "vote+surface",
+  "views": 20,
+  "pixel_acc_fg": 0.9203,
+  "miou_tools": 0.806,
+  "iou_tools_min": 0.564,
+  "miou_stuff": 0.93,
+  "alternatives": {
+   "geometric": {
+    "pixel_acc_fg": 0.6076,
+    "miou_tools": 0.7763,
+    "iou_tools_min": 0.459,
+    "miou_stuff": 0.7737
+   },
+   "vote": {
+    "pixel_acc_fg": 0.9196,
+    "miou_tools": 0.7918,
+    "iou_tools_min": 0.5193,
+    "miou_stuff": 0.9284
+   },
+   "vote+surface": {
+    "pixel_acc_fg": 0.9203,
+    "miou_tools": 0.806,
+    "iou_tools_min": 0.564,
+    "miou_stuff": 0.93
+   }
+  }
+ },
+ "prune": {
+  "n_trained": 300000,
+  "outside_crop": 18865,
+  "low_opacity": 14483,
+  "oversize": 160,
+  "kept": 266492
+ },
+ "spz": {
+  "ok": true,
+  "n_ply": 266492,
+  "n_spz": 266492,
+  "clipped": 0,
+  "bytes": 5338369,
+  "max_center_err_m": 0.00048828125,
+  "max_opacity_err": 0.003921583294868469,
+  "max_color_err": 0.003921598196029663,
+  "max_sh": 1,
+  "fractional_bits": 14,
+  "version": 3,
+  "encoder": "spark 2.3.1 transcodeSpz",
+  "seconds": 2.96
+ }
+}

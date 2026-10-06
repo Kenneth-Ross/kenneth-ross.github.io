@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=port45">
+  <link rel="stylesheet" href="styles.css?v=timeline-clear1">
 </head>
 <body>
   <header class="topbar">
@@ -46,6 +46,7 @@
       <nav>
         <a href="#top" data-section-link="top"><i></i>KENNETH_ROSS</a>
         <div class="rail-children">
+          <a href="#medtech" data-section-link="medtech"><i></i>MEDTECH_CV</a>
           <a href="#fsae" data-section-link="fsae"><i></i>HIGHLANDER_RACING</a>
           <a href="#scopecreep" data-section-link="scopecreep"><i></i>SCOPECREEP</a>
           <a href="#eighti" data-section-link="eighti"><i></i>8I_XR_SYSTEMS</a>
@@ -86,9 +87,9 @@
         <div id="timeline" class="hero-timeline">
           <div class="timeline-ruler" aria-hidden="true">
             <i></i><i></i><i></i><i></i><i></i><i></i><i class="is-year" data-year="2026"></i>
-            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
-          <ol class="hero-bus" aria-label="Projects positioned by end or current month from July 2025 through August 2026">
+          <ol class="hero-bus" aria-label="Projects positioned by end or current month from July 2025 through October 2026">
             <li data-timeline-kind="range">
               <a href="#eighti">
                 <span class="timeline-date">JUL–SEP 2025</span>
@@ -113,8 +114,66 @@
                 <small>FORMULA SAE · ACTIVE</small>
               </a>
             </li>
+            <li class="is-current timeline-medtech" data-timeline-kind="range">
+              <a href="#medtech">
+                <span class="timeline-date">SEP 2026–CURRENT</span>
+                <i class="timeline-node" aria-hidden="true"></i>
+                <strong>MEDTECH CV</strong>
+                <small>SYNTHETIC DATA · ACTIVE</small>
+              </a>
+            </li>
           </ol>
         </div>
+      </section>
+
+      <section id="medtech" class="project-section" data-observe-section aria-labelledby="medtech-title">
+        <header class="project-header">
+          <div>
+            <p>COMPUTER VISION / IN DEVELOPMENT</p>
+            <h2 id="medtech-title">MedTech Computer Vision</h2>
+            <p class="project-lede">A synthetic-data pipeline with surface-normal estimation on both synthetic and real imagery, investigating tool separation when the image-space gap is below five pixels.</p>
+          </div>
+        </header>
+        <dl class="boundary-ledger" aria-label="MedTech research boundary">
+          <div><dt>BOUNDARY</dt><dd>Synthetic + real RGB → estimated surface normals → tool-separation features</dd></div>
+          <div><dt>EVIDENCE</dt><dd>Procedural instrument tray · 34 labelled instruments · interactive 3DGS scene</dd></div>
+        </dl>
+        <div class="signal-chain medtech-flow" data-signal-flow tabindex="0" aria-label="Synthetic and real RGB imagery through Marigold v2 to surface normals, feature extraction, and tool separation">
+          <span>SYNTHETIC + REAL RGB</span><b>→</b><span>MARIGOLD V2</span><b>→</b><span>SURFACE NORMALS</span><b>→</b><span>FEATURE EXTRACTION</span><b>→</b><span>TOOL SEPARATION</span>
+        </div>
+        <div class="medtech-study">
+          <figure class="medtech-scene" data-scene-url="public/medtech/holomed_tray_3dgs_s2030/index.html">
+            <img src="public/medtech/holomed_tray_3dgs_s2030/preview/photo.webp" alt="Reconstructed synthetic instrument tray with tightly packed surgical instruments" width="1440" height="880" loading="lazy" decoding="async">
+            <figcaption>Explore labelled instrument tray in 3D · loads on click</figcaption>
+          </figure>
+          <div class="medtech-question">
+            <h3>What do normals add?</h3>
+            <p>RGB provides appearance cues. Estimated surface normals describe surface orientation, offering a complementary signal for distinguishing closely spaced tools.</p>
+            <p>The question is whether those orientation cues remain useful at gaps below five pixels.</p>
+            <span class="medtech-target">&lt;5 px · separation target, not a measured result</span>
+          </div>
+        </div>
+        <figure class="marigold-comparison" aria-labelledby="marigold-caption">
+          <div class="comparison-labels"><span>RGB INPUT</span><span>MARIGOLD · SURFACE NORMALS</span></div>
+          <div class="comparison-images" style="--split: 50%">
+            <img src="public/medtech/marigold-rgb.webp" alt="RGB view of surgical instruments on a blue drape" width="640" height="360" loading="lazy" decoding="async">
+            <img class="comparison-output" src="public/medtech/marigold-normals.webp" alt="Marigold camera-space surface-normal estimates for the same instrument tray" width="640" height="360" loading="lazy" decoding="async">
+            <span class="comparison-divider" aria-hidden="true"></span>
+          </div>
+          <label class="comparison-control">COMPARE<input type="range" min="0" max="100" value="50" aria-label="Reveal Marigold surface normals" aria-valuetext="50 percent surface normals" data-comparison-slider></label>
+          <figcaption id="marigold-caption">Marigold surface-normal estimation on the same RGB frame. Move the slider to inspect tool edges and surface orientation.</figcaption>
+        </figure>
+        <details class="technical-details">
+          <summary>TECHNICAL NOTES</summary>
+          <div class="technical-details-content">
+            <div class="evidence-grid evidence-grid-three">
+              <section><h4>APPROACH</h4><p>Apply Marigold v2 to both synthetic and real RGB imagery to estimate surface normals, then investigate those features for tool separation. The 3DGS scene shows a procedural instrument tray from the synthetic-data branch; it is not a Marigold normal-map output.</p></section>
+              <section><h4>PLANNED COMPARISON</h4><p>Compare RGB-only and normal-assisted features on synthetic and real imagery, using matched input resolutions and consistent evaluation splits. Inspect false merges and boundary localization as the tool gap narrows below five pixels.</p></section>
+              <section><h4>LIMITATION</h4><p>Predicted normals are not geometric ground truth. Fine gaps may be smoothed or inferred incorrectly. Improved separation remains a hypothesis until evaluated; pixel gaps refer to the model input, not physical distance.</p></section>
+            </div>
+          </div>
+        </details>
+        <nav class="project-links" aria-label="MedTech references"><a href="https://github.com/huawei-bayerlab/marigold-v2" target="_blank" rel="noopener noreferrer">MARIGOLD V2 ↗</a></nav>
       </section>
 
       <section id="fsae" class="project-section" data-observe-section aria-labelledby="fsae-title">
@@ -230,8 +289,8 @@
           <div class="signal-chain signal-chain-previous" data-signal-flow tabindex="0" aria-label="Previous cone perception training flow"><span>WAN 2.2-14B</span><b>→</b><span>SAM3</span><b>→</b><span>YOLO RKNN</span></div>
           <p class="evidence-label">PREVIOUS MODEL / PRETRAINING SCALE COMPARISON</p>
           <div class="media-grid">
-            <figure><img src="../../public/output_rkopt_15.jpg" alt="Cone-detector result after pretraining with 15 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>15-video pretraining result</figcaption></figure>
-            <figure><img src="../../public/output_rkopt_100.jpg" alt="Cone-detector result after pretraining with 100 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>100-video pretraining result</figcaption></figure>
+            <figure><img src="public/output_rkopt_15.webp" alt="Cone-detector result after pretraining with 15 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>15-video pretraining result</figcaption></figure>
+            <figure><img src="public/output_rkopt_100.webp" alt="Cone-detector result after pretraining with 100 synthetic videos" width="1200" height="900" loading="lazy"><figcaption>100-video pretraining result</figcaption></figure>
             <figure class="media-wide"><img src="../../public/linkedin_post_two.webp" alt="Cone detections and SAM3 annotations on Wan 2.2-14B synthetic driving data" width="720" height="720" loading="lazy" decoding="async" fetchpriority="low"><figcaption>Wan 2.2-14B Synthetic Data + SAM3 Annotation</figcaption></figure>
           </div>
           <p class="evidence-label architecture-label">NEW ARCHITECTURE / PROCEDURAL2DIFFUSION PRETRAINING</p>
@@ -254,9 +313,9 @@
         <article id="control-unit" class="subsystem">
           <header><span>CONTROLS / BOARD WIP</span><h3>Autonomous Control Unit</h3></header>
           <div class="media-grid media-grid-control">
-            <figure><img src="../../public/project_brakingassembly.jpg" alt="Linear brake actuator and mechanical mount prototype on a workbench" width="5712" height="4284" loading="lazy"><figcaption>Brake actuator and mechanical mount</figcaption></figure>
+            <figure><img src="public/project_brakingassembly.webp" alt="Linear brake actuator and mechanical mount prototype on a workbench" width="2400" height="1800" loading="lazy"><figcaption>Brake actuator and mechanical mount</figcaption></figure>
             <figure><img src="../../public/project_autonomouscontrols.webp" alt="Bench testing radio-control input with a linear actuator" width="360" height="640" loading="lazy"><figcaption>Control-path bench test</figcaption></figure>
-            <figure class="media-wide media-board"><img src="../../public/autonomous_control_unit_kicad.png" alt="Early KiCad 3D render of the Autonomous Control Unit circuit board" width="1243" height="853" loading="lazy"><figcaption>Early Autonomous Control Unit revision in KiCad · work in progress</figcaption></figure>
+            <figure class="media-wide media-board"><img src="public/autonomous_control_unit_kicad.webp" alt="Early KiCad 3D render of the Autonomous Control Unit circuit board" width="1243" height="853" loading="lazy"><figcaption>Early Autonomous Control Unit revision in KiCad · work in progress</figcaption></figure>
           </div>
           <div class="signal-chain" data-signal-flow tabindex="0" aria-label="Autonomous Control Unit command flow"><span>RC ESP32 / ESP-NOW</span><b class="signal-merge">+</b><span>ORANGE PI / SERIAL</span><b>→</b><span>MASTER ESP32</span><b>→</b><span>STEERING · BRAKE · THROTTLE</span></div>
           <details class="technical-details">
@@ -302,8 +361,8 @@
           <div><dt>EVIDENCE</dt><dd>Generated IDE test plan and a live programmable-instrument bench</dd></div>
         </dl>
         <div class="media-grid media-grid-scopecreep">
-          <figure class="media-ide"><img src="../../public/hackathon_schematic_parsing.png" alt="Scopecreep JetBrains plugin displaying a generated hardware test plan" width="1554" height="1730" loading="lazy"><figcaption>Generated test plan inside the IDE</figcaption></figure>
-          <figure><img src="../../public/hackathon_instrument.jpeg" alt="Programmable power supply connected to the Scopecreep development laptop" width="5712" height="4284" loading="lazy"><figcaption>Live programmable-instrument bench</figcaption></figure>
+          <figure class="media-ide"><img src="public/hackathon_schematic_parsing.webp" alt="Scopecreep JetBrains plugin displaying a generated hardware test plan" width="1554" height="1730" loading="lazy"><figcaption>Generated test plan inside the IDE</figcaption></figure>
+          <figure><img src="public/hackathon_instrument.webp" alt="Programmable power supply connected to the Scopecreep development laptop" width="2400" height="1800" loading="lazy"><figcaption>Live programmable-instrument bench</figcaption></figure>
           <figure class="media-video">
             <iframe src="https://www.youtube-nocookie.com/embed/x56vTEeutgk" title="Scopecreep JetBrains × Codex Hackathon demonstration" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             <figcaption>JetBrains × Codex Hackathon demonstration</figcaption>
@@ -369,6 +428,6 @@
       <p class="media-lightbox-caption" data-media-lightbox-caption></p>
     </div>
   </dialog>
-  <script src="app.js?v=port45"></script>
+  <script src="app.js?v=medtech-scene1"></script>
 </body>
 </html>

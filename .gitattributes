@@ -1,0 +1,5 @@
+*.bin binary
+*.spz binary
+*.webp binary
+# Preserve the supplied renderer libraries without formatting their bundled code.
+public/medtech/holomed_tray_3dgs_s2030/lib/** -whitespace

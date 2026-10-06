@@ -113,34 +113,38 @@ a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .hero dl div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; padding: 12px 0; border-top: 1px solid var(--color-rule); }
 .hero dt { color: var(--color-accent); font-size: 10px; letter-spacing: .1em; }
 .hero dd { margin: 0; color: var(--color-muted); font-size: 14px; line-height: 1.55; }
-.hero-timeline { --timeline-gutter: clamp(48px, 6%, 64px); position: relative; min-height: 174px; scroll-margin-top: calc(var(--topbar-height) + 20px); }
+.hero-timeline { --timeline-gutter: clamp(48px, 6%, 64px); position: relative; min-height: 274px; scroll-margin-top: calc(var(--topbar-height) + 20px); }
 .timeline-ruler { position: absolute; top: 43px; right: var(--timeline-gutter); left: var(--timeline-gutter); height: 29px; display: flex; align-items: end; justify-content: space-between; border-bottom: 1px solid var(--color-rule-strong); }
 .timeline-ruler::after { content: ""; position: absolute; right: 0; bottom: -1px; left: 0; height: 1px; background: var(--color-accent); opacity: 0; transform: scaleX(0); transform-origin: left center; pointer-events: none; }
 .timeline-ruler i { position: relative; width: 1px; height: 7px; display: block; background: var(--color-rule-strong); }
 .timeline-ruler .is-year { width: 2px; height: 28px; background: var(--color-accent); }
 .timeline-ruler .is-year::after { content: attr(data-year); position: absolute; top: 0; left: 6px; color: var(--color-accent); font-size: 8px; font-style: normal; line-height: 1; letter-spacing: .08em; }
 .hero-bus { position: absolute; inset: 0 var(--timeline-gutter); margin: 0; padding: 0; list-style: none; pointer-events: none; }
-.hero-bus li { position: absolute; top: 72px; left: 0; right: 84.6154%; min-width: 0; pointer-events: none; }
-.hero-bus li:nth-child(2) { left: 69.2308%; right: 30.7692%; }
+.hero-bus li { position: absolute; top: 72px; left: 0; right: 86.6667%; min-width: 0; pointer-events: none; }
+.hero-bus li:nth-child(2) { left: 60%; right: 40%; }
 .hero-bus li:nth-child(3) { left: 0; right: 0; }
+.hero-bus li.timeline-medtech { top: 172px; left: 93.3333%; right: 0; }
+.hero-bus li.timeline-medtech::before { top: -100px; height: 66px; }
+.hero-bus li.timeline-medtech strong, .hero-bus li.timeline-medtech small { position: relative; top: -32px; }
+.hero-bus li.timeline-medtech::before, .hero-bus li.timeline-medtech::after { z-index: 3; pointer-events: none; }
 .hero-bus li::before { content: ""; position: absolute; z-index: 1; top: -34px; left: 100%; width: 1px; height: 34px; background: var(--color-accent); }
 .hero-bus li::after { content: ""; position: absolute; top: -34px; right: 0; left: 0; height: 1px; background: var(--color-accent); opacity: 0; transform: scaleX(0); transform-origin: right center; transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-reveal) var(--ease-out); pointer-events: none; }
 .hero-bus li[data-timeline-kind="point"]::after { content: none; }
 .hero-bus li.is-duration-active::after { opacity: 1; transform: scaleX(1); }
 .hero-bus a { position: absolute; z-index: 2; top: -58px; left: 100%; width: 220px; min-height: 104px; display: block; padding: 0 10px 12px; color: var(--color-muted); text-align: center; text-decoration: none; transform: translateX(-50%); pointer-events: auto; }
-.hero-bus li:last-child a { text-align: right; transform: translateX(-100%); }
+.hero-bus li.is-current a { text-align: right; transform: translateX(-100%); }
 .timeline-date { color: var(--color-dim); font-size: 10px; line-height: 1; letter-spacing: .08em; white-space: nowrap; }
 .timeline-date, .hero-bus small { display: block; opacity: 0; transform: translateY(4px); transition: opacity var(--dur-reveal) var(--ease-linear), transform var(--dur-reveal) var(--ease-linear); pointer-events: none; }
 .hero-bus a:hover .timeline-date, .hero-bus a:hover small, .hero-bus a:focus-visible .timeline-date, .hero-bus a:focus-visible small, .hero-bus a:active .timeline-date, .hero-bus a:active small { opacity: 1; transform: translateY(0); }
 .timeline-node { position: absolute; z-index: 1; top: 24px; left: 50%; width: 10px; height: 10px; border: 1px solid var(--color-accent); border-radius: 50%; background: var(--color-accent); transform: translate(-50%, -50%); transition: transform var(--dur-micro) var(--ease-out); }
-.hero-bus li:last-child .timeline-node { left: 100%; }
+.hero-bus li.is-current .timeline-node { left: 100%; }
 .hero-bus strong { min-width: 0; display: block; margin-top: 61px; overflow-wrap: anywhere; color: var(--color-muted); font-size: 11px; font-weight: 500; letter-spacing: .04em; }
 .hero-bus small { margin-top: 6px; color: var(--color-dim); font-size: 10px; letter-spacing: .06em; }
 .hero-bus .is-current .timeline-date, .hero-bus .is-current strong { color: var(--color-accent); }
 .hero-bus .is-current .timeline-node { background: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-accent); }
 .hero-bus a:hover .timeline-node, .hero-bus a:focus-visible .timeline-node { transform: translate(-50%, -50%) scale(1.35); }
 .hero-bus a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-.hero-bus a:active { background: var(--color-accent-muted); }
+.hero-bus a:active { color: var(--color-accent); }
 .hero-bus a[aria-disabled="true"] { cursor: not-allowed; opacity: .55; pointer-events: none; }
 .hero-timeline.is-pending:not(.is-commissioned) .timeline-ruler i,
 .hero-timeline.is-pending:not(.is-commissioned) .timeline-node { opacity: 0; }
@@ -316,6 +320,31 @@ a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .media-lightbox-viewport iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; background: var(--color-paper-3); }
 .media-lightbox-caption { min-height: 20px; margin: 0; color: var(--color-muted); font-size: 12px; line-height: 1.55; }
 .signal-chain { margin-top: 18px; }
+/* MedTech section: reuse the schematic tokens; no simulated scene or result. */
+.medtech-flow { margin-bottom: 28px; }
+.marigold-comparison { margin: 0 0 28px; min-width: 0; }
+.comparison-labels { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: var(--color-muted); font-size: 10px; line-height: 1.5; }
+.comparison-labels span:last-child { text-align: right; }
+.comparison-images { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--color-rule-strong); overflow: clip; cursor: ew-resize; touch-action: pan-y; user-select: none; }
+.comparison-images img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.comparison-output { clip-path: inset(0 0 0 var(--split)); }
+.comparison-divider { position: absolute; top: 0; bottom: 0; left: var(--split); width: 2px; background: var(--color-accent); transform: translateX(-50%); pointer-events: none; }
+.comparison-divider::after { content: "↔"; position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 32px; height: 32px; background: var(--color-paper); border: 1px solid var(--color-accent); color: var(--color-accent); transform: translate(-50%, -50%); }
+.comparison-control { display: flex; align-items: center; gap: 16px; min-height: 44px; color: var(--color-muted); font-size: 10px; }
+.comparison-control input { flex: 1; min-width: 0; min-height: 44px; margin: 0; accent-color: var(--color-accent); cursor: ew-resize; }
+.comparison-control input:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.marigold-comparison figcaption { max-width: 68ch; color: var(--color-muted); font-size: 12px; line-height: 1.6; }
+.medtech-scene { min-width: 0; margin: 0; border: 1px solid var(--color-rule-strong); background: var(--color-paper-2); }
+.medtech-scene img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.medtech-scene figcaption { padding: 12px; color: var(--color-muted); font-size: 11px; line-height: 1.6; }
+.medtech-study { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-bottom: 28px; }
+.medtech-scene-slot { min-height: 240px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 28px; border: 1px dashed var(--color-rule-strong); background: var(--color-paper-2); }
+.medtech-scene-type { color: var(--color-dim); font-size: 10px; letter-spacing: .08em; }
+.medtech-study h3 { margin: 12px 0; font-family: var(--font-display); font-size: 22px; font-weight: 500; overflow-wrap: anywhere; }
+.medtech-study p { margin: 0 0 16px; color: var(--color-muted); font-size: 14px; line-height: 1.65; }
+.medtech-scene-slot p { margin-bottom: 0; }
+.medtech-target { display: block; padding-top: 16px; border-top: 1px solid var(--color-rule); color: var(--color-accent); font-size: 11px; line-height: 1.6; }
+@media (max-width: 1080px) { .medtech-study { grid-template-columns: minmax(0, 1fr); } }
 .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; margin-top: 0; }
 .evidence-grid.evidence-grid-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .evidence-grid section { min-width: 0; padding-top: 14px; border-top: 1px solid var(--color-rule-strong); }
@@ -367,23 +396,27 @@ a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
   .hero-grid { grid-template-columns: 1fr; gap: 38px; padding-block: 54px 64px; }
   .hero h1 { font-size: clamp(58px, 20vw, 86px); }
   .hero dl div { grid-template-columns: 105px minmax(0, 1fr); }
-  .hero-timeline { --timeline-gutter: 0px; min-height: 414px; padding-top: 44px; }
+  .hero-timeline { --timeline-gutter: 0px; min-height: 520px; padding-top: 44px; }
   .hero-bus { inset: 0; }
-  .timeline-ruler { top: 13%; right: auto; bottom: 13%; left: 6px; width: 21px; height: auto; flex-direction: column; align-items: start; border-bottom: 0; border-left: 1px solid var(--color-rule-strong); }
+  .timeline-ruler { top: 13%; right: auto; bottom: 26%; left: 6px; width: 21px; height: auto; flex-direction: column; align-items: start; border-bottom: 0; border-left: 1px solid var(--color-rule-strong); }
   .timeline-ruler::after { top: 0; right: auto; bottom: 0; left: -1px; width: 1px; height: auto; transform: scaleY(0); transform-origin: top center; }
   .hero-timeline.is-commissioned .timeline-ruler::after { animation-name: timeline-ruler-commission-mobile; }
   .timeline-ruler i { width: 7px; height: 1px; }
   .timeline-ruler .is-year { width: 28px; height: 2px; }
   .timeline-ruler .is-year::after { top: 50%; left: 34px; transform: translateY(-50%); }
-  .hero-bus li { top: 24.3846%; right: auto; left: 6px; width: 0; }
-  .hero-bus li:nth-child(2) { top: 64.2307%; right: auto; left: 6px; }
-  .hero-bus li:nth-child(3) { top: 87%; right: auto; left: 6px; }
+  .hero-bus li { top: 21.1333%; right: auto; left: 6px; width: 0; }
+  .hero-bus li:nth-child(2) { top: 49.6%; right: auto; left: 6px; }
+  .hero-bus li:nth-child(3), .hero-bus li.timeline-medtech { top: 74%; right: auto; left: 6px; }
+  .hero-bus li.timeline-medtech::before { top: 0; left: 0; width: 1px; height: 72px; }
+  .hero-bus li.timeline-medtech::after { content: ""; top: 72px; left: 0; width: 36px; height: 1px; opacity: 1; transform: none; }
+  .hero-bus li.timeline-medtech a { top: 72px; }
+  .hero-bus li.timeline-medtech strong, .hero-bus li.timeline-medtech small { top: -20px; }
   .hero-bus li::before { top: 0; left: 0; width: 36px; height: 1px; }
   .hero-bus li::after { content: none; }
   .hero-bus a { top: 0; left: 0; width: min(300px, calc(100vw - 82px)); min-height: 0; display: block; padding: 0 10px 0 52px; text-align: left; transform: translateY(-50%); }
-  .hero-bus li:last-child a { justify-items: initial; text-align: left; transform: translateY(-50%); }
+  .hero-bus li.is-current a { justify-items: initial; text-align: left; transform: translateY(-50%); }
   .timeline-date, .hero-bus strong, .hero-bus small { display: block; }
-  .timeline-node, .hero-bus li:last-child .timeline-node { top: 50%; left: 36px; transform: translate(-50%, -50%); }
+  .timeline-node, .hero-bus li.is-current .timeline-node { top: 50%; left: 36px; transform: translate(-50%, -50%); }
   .hero-bus a:hover .timeline-node, .hero-bus a:focus-visible .timeline-node { transform: translate(-50%, -50%) scale(1.35); }
   .hero-bus strong { margin-top: 5px; }
   .project-section { margin-top: 44px; padding: 24px 20px; }
